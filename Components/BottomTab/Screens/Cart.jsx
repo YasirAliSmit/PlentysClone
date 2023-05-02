@@ -6,7 +6,7 @@ const Cart = () => {
     <View style={styles.container}>
       <Text style={styles.txt}>Cart</Text>
     </View>
-  )
+  ) 
 }
 
 export default Cart

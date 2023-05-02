@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,StatusBar } from 'react-native'
 import React from 'react'
 
 const Example = () => {
   return (
     <View>
+      <StatusBar backgroundColor={'#0B223F'}/>
       <Text  style={styles.cart} >Example</Text>
     </View>
   )

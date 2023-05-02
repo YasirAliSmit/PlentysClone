@@ -1,4 +1,4 @@
-import { StyleSheet,  View ,Image} from 'react-native'
+import { StyleSheet, StatusBar, View ,Image} from 'react-native'
 import React, { useEffect } from 'react'
 import {  useNavigation } from '@react-navigation/native';
 const Splash = () => {
@@ -10,6 +10,7 @@ const Splash = () => {
   },[])
   return (
     <View style={{flex:1,justifyContent:'center',alignItems:'center',backgroundColor:'#0B223F'}}>
+     <StatusBar backgroundColor={'#0B223F'}/>
     <Image style={{width:140,height:300,objectFit:'contain'}} source={require('../assets/Logo.webp')}/>
     </View>
   )

@@ -1,15 +1,23 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View ,StatusBar } from 'react-native'
 import React from 'react'
-import Head from '../../Header/Head'
 
+import Header from '../../Header/Header'
 const Home = () => {
   return (
-    <View style={styles.container} >
-<Head/>
+    
+
+    <View style={styles.container}>
+      <StatusBar backgroundColor={'#0B223F'}/>
+      <Header/>
     <View style={styles.container}>
       <Text style={styles.txt}>Home</Text>
-    </View>
-    </View>
+      
+      
+    </View >
+    </View >
+    
+    
+    
   )
 }
 

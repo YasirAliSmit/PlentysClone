@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import React from 'react'
 
 const UserMenu = () => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={'#0B223F'}/>
       <Text style={styles.txt}>UserMenu</Text>
     </View>
   )
