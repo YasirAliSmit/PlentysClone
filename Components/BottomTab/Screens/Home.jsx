@@ -3,24 +3,13 @@ import React from 'react'
 import Header from '../../Header/Header'
 import { useQuery } from '@tanstack/react-query'
 const Home = () => {
-  return (
-
-    <View style={styles.containerParent}>
-
-
-      <StatusBar backgroundColor={'#0B223F'} />
-
-
-
-      <Header />
-      <View style={styles.container}>
-        <Text style={styles.txt}>Home</Text>
-      </View >
+  return (<View style={styles.containerParent}>
+    <StatusBar backgroundColor={'#0B223F'} />
+    <Header />
+    <View style={styles.container}>
+      <Text style={styles.txt}>Home</Text>
     </View >
-
-
-
-  )
+  </View>)
 }
 
 export default Home
