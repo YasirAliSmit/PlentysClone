@@ -31,8 +31,7 @@ const App = () => {
           `https://api.plentys.pk/api/v1/public/banner?mobile=1&cityId=1`,
         );
         const result = await data.json();
-      setUiData(result.data);
-       
+        setUiData(result.data);
       } catch (error) {
         console.log(`error in side banner catch => ${error}`);
       }
