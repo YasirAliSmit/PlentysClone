@@ -27,9 +27,9 @@ const Header = () => {
             <View style={styles.head}>
                 <Image style={styles.logo} source={require('../assets/LogoV2.png')} />
                 <View style={styles.icon}>
-                    <TouchableOpacity><FontAwesome name='whatsapp' style={styles.whatappIcon} color={'#A0C43C'} size={30} /></TouchableOpacity>
-                    <TouchableOpacity onPress={goToSearchScreen} ><AntDesign name='search1' style={styles.search} color={'#fff'} size={30} /></TouchableOpacity>
-                    <TouchableOpacity onPress={()=>setShowModal(true)}  ><View style={{ flexDirection: 'row' }}><SimpleLineIcons name='location-pin' style={styles.location} color={'#fff'} size={30} />{city?(<Text style={styles.karachi}>KHI</Text>):(<Text style={styles.karachi}>LHR</Text>)}</View></TouchableOpacity>
+                    <TouchableOpacity><FontAwesome name='whatsapp' style={styles.whatappIcon} color={'#A0C43C'} size={responsiveFontSize(2.5)} /></TouchableOpacity>
+                    <TouchableOpacity onPress={goToSearchScreen} ><AntDesign name='search1' style={styles.search} color={'#fff'} size={responsiveFontSize(2.5)} /></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setShowModal(true)}  ><View style={{ flexDirection: 'row' }}><SimpleLineIcons name='location-pin' style={styles.location} color={'#fff'} size={responsiveFontSize(2.5)} />{city?(<Text style={styles.karachi}>KHI</Text>):(<Text style={styles.karachi}>LHR</Text>)}</View></TouchableOpacity>
                 </View>
             </View>
             <Modal visible={showModal} transparent={true} style={styles.modal}><View style={styles.centerView}><View style={styles.modalView}><TouchableOpacity onPress={() => setShowModal(false)}><Entypo name='circle-with-cross' style={styles.cross} color='black' size={20} /></TouchableOpacity>
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     logo: {
         marginTop: responsiveHeight(1.5),
         marginLeft: responsiveWidth(3),
-        marginRight: responsiveWidth(29)
+        marginRight: responsiveWidth(21)
     },
     icon: {
         flexDirection: 'row'
@@ -76,24 +76,28 @@ const styles = StyleSheet.create({
         marginLeft: responsiveWidth(2)
     },
     whatappIcon: {
-        marginTop: responsiveHeight(1.5)
+        marginTop: responsiveHeight(2.5),
+        marginHorizontal:responsiveWidth(1.5)
     },
     search: {
-        marginTop: responsiveHeight(1.5),
-        marginLeft: responsiveWidth(2)
+        
+        marginTop: responsiveHeight(2.5),
+        marginHorizontal:responsiveWidth(1.5)
     },
     location: {
-        marginTop: responsiveHeight(1.5),
-        marginLeft: responsiveWidth(2)
+        
+        marginTop: responsiveHeight(2.5),
+        marginHorizontal:responsiveWidth(1.5)
     },
 
     karachi: {
-
-        marginTop: responsiveHeight(2),
+        fontSize:responsiveFontSize(1.5),
+        marginTop: responsiveHeight(2.5),
         marginLeft: responsiveWidth(3),
         color: 'white',
         fontFamily: 'Poppins-Bold',
-        letterSpacing: 1.5
+        letterSpacing: 2,
+        
 
     },
     headParent: {
