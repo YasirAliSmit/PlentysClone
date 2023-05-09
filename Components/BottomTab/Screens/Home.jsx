@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    top: responsiveHeight(-1.6),
+    top: responsiveHeight(-3.7),
   },
   bannerProduct: {
     flex: 1,
