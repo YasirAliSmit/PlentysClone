@@ -12,7 +12,6 @@ import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
-import {addToCart} from '../../../redux/Action';
 import {
   responsiveFontSize,
   responsiveHeight,
@@ -22,16 +21,16 @@ import {
 } from 'react-native-responsive-dimensions';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
-
+import {fetchProductOne} from '../../../redux/Action';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products.products);
+  const products = useSelector(state => state.productOne.products);
   const loading = useSelector(state => state.products.loading);
   const error = useSelector(state => state.products.error);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProductOne());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,9 +49,6 @@ const Product = () => {
     getData();
   }, []);
   const renderProduct = ({item}) => {
-    function addItem(data) {
-      dispatch(addToCart(data));
-    }
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -82,7 +78,7 @@ const Product = () => {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => addItem(item)}>
+            <TouchableOpacity>
               <View style={styles.box1}>
                 <MaterialIcons
                   style={styles.cart}
@@ -114,11 +110,14 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),
     marginHorizontal: responsiveScreenWidth(2.5),
+    maxWidth: 200,
+    resizeMode: 'contain',
   },
   images: {
     width: responsiveWidth(40),
     height: responsiveHeight(30),
     resizeMode: 'contain',
+    maxWidth: 200,
   },
   brandRating: {
     flexDirection: 'row',

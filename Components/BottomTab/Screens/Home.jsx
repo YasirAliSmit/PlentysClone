@@ -3,7 +3,11 @@ import React from 'react';
 import Header from '../../Header/Header';
 import {useQuery} from '@tanstack/react-query';
 import Banner from './Banner';
-import {responsiveHeight} from 'react-native-responsive-dimensions';
+import ProductOne from './ProductOne';
+import {
+  responsiveHeight,
+  responsiveScreenHeight,
+} from 'react-native-responsive-dimensions';
 import ProductBanners from './ProductBanners';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Product from './Product';
@@ -24,6 +28,9 @@ const Home = () => {
         <View style={styles.product}>
           <Product />
         </View>
+        <View style={styles.product}>
+          <ProductOne />
+        </View>
       </View>
     </ScrollView>
   );
@@ -40,19 +47,24 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    top: responsiveHeight(-1.6),
+    top: responsiveScreenHeight(-3.4),
   },
   bannerProduct: {
     flex: 1,
     position: 'relative',
-    top: responsiveHeight(-3),
+    top: responsiveScreenHeight(-7),
     width: '100%',
   },
   product: {
     flex: 1,
-    top: responsiveHeight(1),
+    top: responsiveScreenHeight(-4),
   },
   header: {
     width: '100%',
+
+    top: 0,
+
+    left: 0,
+    zIndex: 2,
   },
 });

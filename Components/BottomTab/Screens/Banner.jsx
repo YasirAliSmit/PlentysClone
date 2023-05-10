@@ -3,6 +3,8 @@ import {Text, View, Dimensions, Image} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import {useState, useEffect} from 'react';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
+import { fetchBanners } from '../../../redux/cartSlice';
+import { useDispatch , useSelector } from 'react-redux';
 export const SLIDER_WIDTH = Dimensions.get('window').width + 90;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.9);
 
@@ -22,27 +24,19 @@ const renderItem = ({item}) => {
 };
 
 const App = () => {
-  const [uiData, setUiData] = useState([]);
+  const dispatch = useDispatch();
+  const banners = useSelector((state) => state.counter.value);
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetch(
-          `https://api.plentys.pk/api/v1/public/banner?mobile=1&cityId=1`,
-        );
-        const result = await data.json();
-        setUiData(result.data);
-      } catch (error) {
-        console.log(`error in side banner catch => ${error}`);
-      }
-    };
+    dispatch(fetchBanners());
+  }, [dispatch]);
+  // const [uiData, setUiData] = useState([]);
 
-    getData();
-  }, []);
+  
   return (
     <View style={{marginVertical: 10}}>
       <Carousel
-        data={uiData}
+        data={banners}
         renderItem={renderItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
