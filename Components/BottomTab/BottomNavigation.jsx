@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -15,19 +15,14 @@ import {useState} from 'react';
 import {
   responsiveFontSize,
   responsiveHeight,
+  responsiveScreenFontSize,
+  responsiveScreenHeight,
+  responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
 const Tab = createBottomTabNavigator();
 
-const UserIcon = () => {
-  return (
-    <Image
-      source={require('../assets/user.png')}
-      style={{width: 24, height: 24}}
-    />
-  );
-};
 const BottomNavigation = () => {
   const navigation = useNavigation();
   const [customColor, setCustomColor] = useState(false);
@@ -51,92 +46,102 @@ const BottomNavigation = () => {
     });
   };
 
-  return (<Tab.Navigator
-    screenOptions={({route}) => ({
-      tabBarActiveTintColor: '#F9C21A',
-      tabBarInactiveTintColor: '#fff',
-      tabBarStyle: {
-        backgroundColor: '#0B223F',
-        borderTopWidth: 1,
-        borderTopColor: 'gray',
-      },
-      tabBarLabelStyle: {
-        fontSize: 14,
-        fontWeight: 'bold',
-      },
-    })}>
-    <Tab.Screen
-      name="Home"
-      options={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarIcon: ({color, size}) => (
-          <AntDesign name="home" color={color} size={responsiveFontSize(3)} />
-          )
-      }}
-      component={Home}
-    />
-    <Tab.Screen
-      onPress={() => setCustomColor(prevColor => !prevColor)}
-      name="Categories"
-      options={{
-        headerShown: false,
+  return (
+    <Tab.Navigator
+      screenOptions={({route}) => ({
+        tabBarActiveTintColor: '#F9C21A',
+        tabBarInactiveTintColor: '#fff',
+        tabBarStyle: {
+          backgroundColor: '#0B223F',
+          borderTopWidth: 1,
+          borderTopColor: 'gray',
+        },
+        tabBarLabelStyle: {
+          fontSize: 14,
+          fontWeight: 'bold',
+        },
+      })}>
+      <Tab.Screen
+        name="Home"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({color, size}) => (
+            <AntDesign
+              name="home"
+              color={color}
+              size={responsiveScreenFontSize(3)}
+            />
+          ),
+        }}
+        component={Home}
+      />
+      <Tab.Screen
+        onPress={() => setCustomColor(prevColor => !prevColor)}
+        name="Categories"
+        options={{
+          headerShown: false,
 
-        tabBarIcon: Categorie,
-        tabBarShowLabel: false,
-      }}
-      component={Categories}
-    />
+          tabBarIcon: Categorie,
+          tabBarShowLabel: false,
+        }}
+        component={Categories}
+      />
 
-    <Tab.Screen
-      name="Cart"
-      options={{
-        tabBarVisible: false,
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarIcon: ({color, size}) => (
-          <View style={styles.cart}>
-            <MaterialCommunityIcons
-              name="cart"
-              color={'#0B223F'}
+      <Tab.Screen
+        name="empty"
+        options={{
+          tabBarVisible: false,
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarButton: props => (
+            <TouchableOpacity
+              style={{width: 100, height: 100}}
+              onPress={() => navigation.navigate('Cart')}>
+              <View style={styles.cart}>
+                <MaterialCommunityIcons
+                  name="cart"
+                  color={'#0B223F'}
+                  size={responsiveScreenFontSize(3)}
+                />
+              </View>
+            </TouchableOpacity>
+          ),
+        }}
+        component={Cart}
+      />
+      <Tab.Screen
+        name="Fav"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({color, size}) => (
+            <AntDesign
+              name="hearto"
+              color={color}
+              size={responsiveScreenFontSize(3)}
+            />
+          ),
+        }}
+        component={Fav}
+      />
+      <Tab.Screen
+        name="UserMenu"
+        options={{
+          headerShown: false,
+          tabBarShowLabel: false,
+          tabBarIcon: ({color, size}) => (
+            <FontAwesome
+              name="user-circle"
+              color={color}
               size={responsiveFontSize(3)}
             />
-          </View>
-        ),
-      }}
-      component={Cart}
-    />
-    <Tab.Screen
-      name="Fav"
-      options={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarIcon: ({color, size}) => (
-          <AntDesign
-            name="hearto"
-            color={color}
-            size={responsiveFontSize(3)}
-          />
-        ),
-      }}
-      component={Fav}
-    />
-    <Tab.Screen
-      name="UserMenu"
-      options={{
-        headerShown: false,
-        tabBarShowLabel: false,
-        tabBarIcon: ({color, size}) => (
-          <FontAwesome
-            name="user-circle"
-            color={color}
-            size={responsiveFontSize(3)}
-          />
-        ),
-      }}
-      component={UserMenu}
-    />
-  </Tab.Navigator>);
+          ),
+        }}
+        component={UserMenu}
+      />
+    </Tab.Navigator>
+  );
 };
 
 export default BottomNavigation;
@@ -144,13 +149,13 @@ export default BottomNavigation;
 const styles = StyleSheet.create({
   cart: {
     position: 'absolute',
-
-    top: responsiveHeight(-4),
-    padding: responsiveWidth(4),
+    left: responsiveScreenWidth(6),
+    top: responsiveScreenHeight(-4),
+    padding: responsiveScreenWidth(4),
 
     backgroundColor: '#F9C21A',
 
-    borderRadius: responsiveWidth(10),
+    borderRadius: responsiveScreenWidth(10),
     elevation: 5,
   },
 });

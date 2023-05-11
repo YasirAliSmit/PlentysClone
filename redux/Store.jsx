@@ -1,18 +1,16 @@
-// import { configureStore } from '@reduxjs/toolkit';
-// import counterReducer from './cartSlice';
+import {persistStore, persistReducer} from 'redux-persist';
+//import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 
-// const store = configureStore({
-//   reducer: {
-//     counter: counterReducer,
-    
-//   },
-// });
-
-// export default store;
-import { createStore, applyMiddleware } from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './Rootreducer';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const store = createStore(rootReducer, applyMiddleware(thunk));
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
+};
 
-export default store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = createStore(persistedReducer, applyMiddleware(thunk));
+export const persistor = persistStore(store);

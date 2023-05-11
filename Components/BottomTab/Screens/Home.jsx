@@ -13,12 +13,12 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Product from './Product';
 const Home = () => {
   return (
-    <ScrollView>
-      <View style={styles.containerParent}>
-        <View style={styles.header}>
-          <StatusBar backgroundColor={'#0B223F'} />
-          <Header />
-        </View>
+    <View style={styles.containerParent}>
+      <View style={styles.header}>
+        <StatusBar backgroundColor={'#0B223F'} />
+        <Header />
+      </View>
+      <ScrollView>
         <View style={styles.container}>
           <Banner />
         </View>
@@ -31,8 +31,8 @@ const Home = () => {
         <View style={styles.product}>
           <ProductOne />
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 };
 
@@ -47,21 +47,21 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     position: 'relative',
-    top: responsiveScreenHeight(-3.4),
+    top: responsiveScreenHeight(4.5),
   },
   bannerProduct: {
     flex: 1,
     position: 'relative',
-    top: responsiveScreenHeight(-7),
+    top: responsiveScreenHeight(2),
     width: '100%',
   },
   product: {
     flex: 1,
-    top: responsiveScreenHeight(-4),
+    top: responsiveScreenHeight(4),
   },
   header: {
     width: '100%',
-
+    position: 'absolute',
     top: 0,
 
     left: 0,

@@ -15,6 +15,7 @@ import {useEffect, useState} from 'react';
 import {
   responsiveFontSize,
   responsiveHeight,
+  responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveWidth,
@@ -59,7 +60,7 @@ const Product = () => {
           />
           <View style={styles.brandRating}>
             <Text style={styles.brandTxt}>{item.brand}</Text>
-            <Text style={styles.brandRat}>{item.avgRating}</Text>
+            {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
           </View>
           <View style={styles.brandDetails}>
             <Text style={styles.brandDetails}>{item.title}</Text>
@@ -114,8 +115,8 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   images: {
-    width: responsiveWidth(40),
-    height: responsiveHeight(30),
+    width: responsiveScreenWidth(40),
+    height: responsiveScreenHeight(30),
     resizeMode: 'contain',
     maxWidth: 200,
   },
@@ -125,18 +126,18 @@ const styles = StyleSheet.create({
   },
   brandTxt: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveScreenFontSize(3),
     fontFamily: 'Poppins-Bold',
-    top: responsiveHeight(1),
+    top: responsiveScreenHeight(1),
   },
   brandRat: {
     color: '#F9C21A',
-    marginLeft: responsiveWidth(17),
-    top: responsiveHeight(1),
+    marginLeft: responsiveScreenWidth(17),
+    top: responsiveScreenHeight(1),
   },
   brandDetails: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(1),
+    fontSize: responsiveScreenFontSize(1),
     fontFamily: 'Poppins-Light',
     top: responsiveScreenHeight(0.5),
 
@@ -144,7 +145,7 @@ const styles = StyleSheet.create({
   },
   brandPrice: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     top: responsiveScreenHeight(0.5),
     marginBottom: responsiveScreenHeight(1),
@@ -155,28 +156,28 @@ const styles = StyleSheet.create({
     marginTop: responsiveScreenHeight(0),
   },
   box: {
-    width: responsiveWidth(15),
-    borderRadius: responsiveWidth(2),
+    width: responsiveScreenWidth(15),
+    borderRadius: responsiveScreenWidth(2),
     height: responsiveScreenHeight(4),
     backgroundColor: '#E2E8F0',
   },
 
   box1: {
-    width: responsiveWidth(15),
-    borderRadius: responsiveWidth(2),
+    width: responsiveScreenWidth(15),
+    borderRadius: responsiveScreenWidth(2),
     height: responsiveScreenHeight(4),
     backgroundColor: '#F9C21A',
   },
   ProdContainer: {
-    height: responsiveHeight(50),
+    height: responsiveScreenHeight(50),
   },
   ProdContainer: {
     backgroundColor: '#fff',
     padding: 10,
-    borderRadius: responsiveWidth(5),
+    borderRadius: responsiveScreenWidth(5),
   },
   cart: {
     alignSelf: 'center',
-    marginTop: responsiveHeight(0.5),
+    marginTop: responsiveScreenHeight(0.5),
   },
 });
