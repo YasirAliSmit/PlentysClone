@@ -7,6 +7,9 @@ import Search from '../BottomTab/Screens/Search';
 import Home from '../BottomTab/Screens/Home';
 import BottomNavigation from '../BottomTab/BottomNavigation';
 import Cart from '../BottomTab/Screens/Cart';
+import RamdanDeals from '../BottomTab/Screens/RamdanDeals';
+import TopBrands from '../BottomTab/Screens/TopBrands';
+import TopBrandProducts from '../BottomTab/Screens/TopBrandProducts';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -22,6 +25,7 @@ const Main = () => {
           name="Parent"
           component={Parent}
         />
+
         <Stack.Screen
           options={{headerShown: false}}
           name="Search"
@@ -41,6 +45,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="Cart"
           component={Cart}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="TopBrandProducts"
+          component={TopBrandProducts}
         />
       </Stack.Navigator>
     </NavigationContainer>

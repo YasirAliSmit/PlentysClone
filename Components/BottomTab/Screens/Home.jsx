@@ -1,16 +1,25 @@
-import {StyleSheet, Text, View, StatusBar, ScrollView} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  StatusBar,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
 import React from 'react';
 import Header from '../../Header/Header';
-import {useQuery} from '@tanstack/react-query';
 import Banner from './Banner';
 import ProductOne from './ProductOne';
 import {
-  responsiveHeight,
+  responsiveScreenFontSize,
   responsiveScreenHeight,
+  responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
 import ProductBanners from './ProductBanners';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Product from './Product';
+import TopTrending from './TopTrending';
+import TopBrands from './TopBrands';
 const Home = () => {
   return (
     <View style={styles.containerParent}>
@@ -26,10 +35,39 @@ const Home = () => {
           <ProductBanners />
         </View>
         <View style={styles.product}>
+          <View style={styles.headTxt}>
+            <TouchableOpacity>
+              <Text style={styles.categories}>Ramadan Deals </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.viewAll}>
+                View all <AntDesign name="arrowright" size={20} />{' '}
+              </Text>
+            </TouchableOpacity>
+          </View>
           <Product />
         </View>
         <View style={styles.product}>
+          <View style={styles.headTxt}>
+            <TouchableOpacity>
+              <Text style={styles.categories}>New Arrivals </Text>
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <Text style={styles.viewAll}>
+                View all <AntDesign name="arrowright" size={20} />{' '}
+              </Text>
+            </TouchableOpacity>
+          </View>
           <ProductOne />
+        </View>
+        <View style={{flex: 1}}>
+          <TopBrands />
+        </View>
+        <View style={styles.topPro}>
+          <TouchableOpacity>
+            <Text style={styles.topPro}>Top Tranding </Text>
+          </TouchableOpacity>
+          <TopTrending />
         </View>
       </ScrollView>
     </View>
@@ -66,5 +104,34 @@ const styles = StyleSheet.create({
 
     left: 0,
     zIndex: 2,
+  },
+
+  headTxt: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: responsiveScreenHeight(0),
+    marginBottom: responsiveScreenHeight(2),
+  },
+  categories: {
+    fontSize: responsiveScreenFontSize(3),
+    fontFamily: 'Poppins-Bold',
+    color: '#305586',
+    marginLeft: responsiveScreenWidth(2),
+  },
+  viewAll: {
+    fontSize: responsiveScreenFontSize(2),
+    fontFamily: 'Poppins-Bold',
+    color: '#DB3D3D',
+    marginRight: responsiveScreenWidth(30),
+    marginTop: responsiveScreenHeight(0.5),
+  },
+  topProd: {},
+  topPro: {
+    marginTop: responsiveScreenHeight(2),
+    marginBottom: responsiveScreenHeight(5),
+    fontSize: responsiveScreenFontSize(3),
+    fontFamily: 'Poppins-Bold',
+    color: '#305586',
+    marginLeft: responsiveScreenWidth(2),
   },
 });

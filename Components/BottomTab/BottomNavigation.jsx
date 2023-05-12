@@ -149,7 +149,7 @@ export default BottomNavigation;
 const styles = StyleSheet.create({
   cart: {
     position: 'absolute',
-    left: responsiveScreenWidth(6),
+    left: responsiveScreenWidth(7),
     top: responsiveScreenHeight(-4),
     padding: responsiveScreenWidth(4),
 
@@ -157,5 +157,6 @@ const styles = StyleSheet.create({
 
     borderRadius: responsiveScreenWidth(10),
     elevation: 5,
+    //shadowColor: 'black',
   },
 });

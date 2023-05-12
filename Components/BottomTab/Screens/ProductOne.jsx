@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   },
   brandTxt: {
     color: '#0B223F',
-    fontSize: responsiveScreenFontSize(3),
+    fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     top: responsiveScreenHeight(1),
   },
@@ -170,6 +170,8 @@ const styles = StyleSheet.create({
   },
   ProdContainer: {
     height: responsiveScreenHeight(50),
+    elevation: 10,
+    backgroundColor: '#F8FAFC',
   },
   ProdContainer: {
     backgroundColor: '#fff',

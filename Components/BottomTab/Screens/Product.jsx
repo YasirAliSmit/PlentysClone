@@ -14,7 +14,7 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
 import {addToCart} from '../../../redux/Action';
 import {
-  responsiveFontSize,
+  responsiveScreenFontSize,
   responsiveHeight,
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -54,44 +54,46 @@ const Product = () => {
       dispatch(addToCart(data));
     }
     return (
-      <View style={styles.Product}>
-        <View style={styles.ProdContainer}>
-          <Image
-            // source={require('../../assets/PlentysMartMob(1).png')}
-            source={{uri: item.imageUrl}}
-            style={styles.images}
-          />
-          <View style={styles.brandRating}>
-            <Text style={styles.brandTxt}>{item.brand}</Text>
-            <Text style={styles.brandRat}>{item.avgRating}</Text>
-          </View>
-          <View style={styles.brandDetails}>
-            <Text style={styles.brandDetails}>{item.title}</Text>
-          </View>
-          <View style={styles.brandPrice}>
-            <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-          </View>
-          <View style={styles.ParentBox}>
-            <TouchableOpacity>
-              <View style={styles.box}>
-                <AntDesign
-                  style={styles.cart}
-                  color={'#fff'}
-                  name="hearto"
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => addItem(item)}>
-              <View style={styles.box1}>
-                <MaterialIcons
-                  style={styles.cart}
-                  color={'#0B223F'}
-                  name="shopping-cart"
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
+      <View>
+        <View style={styles.Product}>
+          <View style={styles.ProdContainer}>
+            <Image
+              // source={require('../../assets/PlentysMartMob(1).png')}
+              source={{uri: item.imageUrl}}
+              style={styles.images}
+            />
+            <View style={styles.brandRating}>
+              <Text style={styles.brandTxt}>{item.brand}</Text>
+              <Text style={styles.brandRat}>{item.avgRating}</Text>
+            </View>
+            <View style={styles.brandDetails}>
+              <Text style={styles.brandDetails}>{item.title}</Text>
+            </View>
+            <View style={styles.brandPrice}>
+              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+            </View>
+            <View style={styles.ParentBox}>
+              <TouchableOpacity>
+                <View style={styles.box}>
+                  <AntDesign
+                    style={styles.cart}
+                    color={'#fff'}
+                    name="hearto"
+                    size={20}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => addItem(item)}>
+                <View style={styles.box1}>
+                  <MaterialIcons
+                    style={styles.cart}
+                    color={'#0B223F'}
+                    name="shopping-cart"
+                    size={20}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
@@ -126,7 +128,7 @@ const styles = StyleSheet.create({
   },
   brandTxt: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     top: responsiveHeight(1),
   },
@@ -137,7 +139,7 @@ const styles = StyleSheet.create({
   },
   brandDetails: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(1),
+    fontSize: responsiveScreenFontSize(1),
     fontFamily: 'Poppins-Light',
     top: responsiveScreenHeight(0.5),
 
@@ -145,7 +147,7 @@ const styles = StyleSheet.create({
   },
   brandPrice: {
     color: '#0B223F',
-    fontSize: responsiveFontSize(2),
+    fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     top: responsiveScreenHeight(0.5),
     marginBottom: responsiveScreenHeight(1),
@@ -170,6 +172,8 @@ const styles = StyleSheet.create({
   },
   ProdContainer: {
     height: responsiveHeight(50),
+    elevation: 10,
+    backgroundColor: '#F8FAFC',
   },
   ProdContainer: {
     backgroundColor: '#fff',

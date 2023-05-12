@@ -10,7 +10,10 @@ import React from 'react';
 import {
   responsiveFontSize,
   responsiveHeight,
+  responsiveScreenHeight,
+  responsiveScreenWidth,
   responsiveWidth,
+  useResponsiveScreenHeight,
 } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import image from '../../assets/PlentysMartMob(1).png';
@@ -59,33 +62,34 @@ const styles = StyleSheet.create({
   headTxt: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: responsiveHeight(2),
+    marginTop: responsiveScreenHeight(2),
   },
   categories: {
     fontSize: responsiveFontSize(3),
     fontFamily: 'Poppins-Bold',
     color: '#305586',
-    marginLeft: responsiveWidth(2),
+    marginLeft: responsiveScreenWidth(2),
   },
   viewAll: {
     fontSize: responsiveFontSize(2),
     fontFamily: 'Poppins-Bold',
     color: '#DB3D3D',
-    marginRight: responsiveWidth(2),
+    marginRight: responsiveScreenWidth(30),
+    marginTop: responsiveScreenHeight(1),
   },
   mob: {
-    width: responsiveWidth(48),
-    height: responsiveHeight(37),
+    width: responsiveScreenWidth(48),
+    height: responsiveScreenHeight(37),
     resizeMode: 'contain',
-    borderRadius: responsiveWidth(2),
-    marginHorizontal: responsiveWidth(2),
-    marginVertical: responsiveHeight(0.5),
+    borderRadius: responsiveScreenWidth(2),
+    marginHorizontal: responsiveScreenWidth(2),
+    marginVertical: responsiveScreenHeight(0.5),
   },
   mobBea: {
-    marginVertical: responsiveHeight(0.5),
-    width: responsiveWidth(45),
-    height: responsiveHeight(18),
+    marginVertical: responsiveScreenHeight(0.5),
+    width: responsiveScreenWidth(45),
+    height: responsiveScreenHeight(18),
     resizeMode: 'contain',
-    borderRadius: responsiveWidth(2),
+    borderRadius: responsiveScreenWidth(2),
   },
 });

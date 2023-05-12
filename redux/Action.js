@@ -5,7 +5,46 @@ export const FETCH_ONE_PRODUCT_REQUEST = 'FETCH_ONE_PRODUCT_REQUEST';
 export const FETCH_ONE_PRODUCT_SUCCESS = 'FETCH_ONE_PRODUCT_SUCCESS';
 export const FETCH_ONE_PRODUCT_FAILURE = 'FETCH_ONE_PRODUCT_FAILURE';
 export const ADD_TO_CART = 'ADD_TO_CART';
+
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const TOP_TRANDING_FETCH_PRODUCTS_REQUEST =
+  'TOP_TRANDING_FETCH_PRODUCTS_REQUEST';
+export const TOP_TRANDING_FETCH_PRODUCTS_SUCCESS =
+  'TOP_TRANDING_FETCH_PRODUCTS_SUCCESS';
+export const TOP_TRANDING_FETCH_PRODUCTS_FAIL =
+  'TOP_TRANDING_FETCH_PRODUCTS_FAIL';
+// export const TOP_BRAND_FETCH_PRODUCTS_REQUEST =
+//   'TOP_BRAND_FETCH_PRODUCTS_REQUEST';
+// export const TOP_BRAND_FETCH_PRODUCTS_SUCCESS =
+//   'TOP_BRAND_FETCH_PRODUCTS_SUCCESS';
+// export const TOP_BRAND_FETCH_PRODUCTS_FAILED =
+//   'TOP_BRAND_FETCH_PRODUCTS_FAILED';
+
+// export const fetchTopBrandProductRequest = () => {
+//   return {
+//     type: TOP_TRANDING_FETCH_PRODUCTS_REQUEST,
+//   };
+// };
+
+export const fetchTopTrandProductRequest = () => {
+  return {
+    type: TOP_TRANDING_FETCH_PRODUCTS_REQUEST,
+  };
+};
+export const fetchTopTrandProductSuccess = data => {
+  return {
+    type: TOP_TRANDING_FETCH_PRODUCTS_SUCCESS,
+    payload: data,
+  };
+};
+
+export const fetchTopTrandProductFail = error => {
+  return {
+    type: TOP_TRANDING_FETCH_PRODUCTS_FAIL,
+    payload: error,
+  };
+};
+
 export function addToCart(data) {
   return {
     type: ADD_TO_CART,
@@ -60,7 +99,6 @@ export const fetchProducts = () => async dispatch => {
     dispatch(fetchProductsFailure(error.message));
   }
 };
-
 export const fetchProductOne = () => async dispatch => {
   dispatch(fetchOneProductReq());
 
@@ -75,5 +113,22 @@ export const fetchProductOne = () => async dispatch => {
     dispatch(fetchOneProductSucc(data.data));
   } catch (error) {
     console.log(fetchOneProductFail(error.message));
+  }
+};
+export const fetchTopTrandProductReq = () => async dispatch => {
+  dispatch(fetchTopTrandProductReq());
+  try {
+    const response = await fetch(
+      'https://api.plentys.pk/api/v1/public/bestseller/product',
+    );
+    if (!response.ok) {
+      throw new Error(
+        `Fail to Fetch Top Tranding Product Line number is 112 of File Name => Acion.js`,
+      );
+    }
+    const data = await response.json();
+    dispatch(fetchTopTrandProductSuccess(data.data));
+  } catch (error) {
+    console.log(fetchTopTrandProductFail(error.message));
   }
 };
