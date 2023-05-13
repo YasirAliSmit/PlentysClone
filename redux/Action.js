@@ -13,18 +13,6 @@ export const TOP_TRANDING_FETCH_PRODUCTS_SUCCESS =
   'TOP_TRANDING_FETCH_PRODUCTS_SUCCESS';
 export const TOP_TRANDING_FETCH_PRODUCTS_FAIL =
   'TOP_TRANDING_FETCH_PRODUCTS_FAIL';
-// export const TOP_BRAND_FETCH_PRODUCTS_REQUEST =
-//   'TOP_BRAND_FETCH_PRODUCTS_REQUEST';
-// export const TOP_BRAND_FETCH_PRODUCTS_SUCCESS =
-//   'TOP_BRAND_FETCH_PRODUCTS_SUCCESS';
-// export const TOP_BRAND_FETCH_PRODUCTS_FAILED =
-//   'TOP_BRAND_FETCH_PRODUCTS_FAILED';
-
-// export const fetchTopBrandProductRequest = () => {
-//   return {
-//     type: TOP_TRANDING_FETCH_PRODUCTS_REQUEST,
-//   };
-// };
 
 export const fetchTopTrandProductRequest = () => {
   return {
@@ -82,9 +70,7 @@ export const fetchProductsFailure = error => ({
   payload: error,
 });
 
-export const fetchProducts = () => async dispatch => {
-  dispatch(fetchProductsRequest());
-
+export const fetchRamdanDeals = () => async dispatch => {
   try {
     const response = await fetch(
       `https://api.plentys.pk/api/v1/public/product/search?title=&categoryId=1955&cityId=1&limit=15`,
@@ -96,12 +82,12 @@ export const fetchProducts = () => async dispatch => {
     const data = await response.json();
     dispatch(fetchProductsSuccess(data.data));
   } catch (error) {
-    dispatch(fetchProductsFailure(error.message));
+    console.log(
+      `Kindly Fix this Bug Line Num is 99 File name is Action.js ${error.message} `,
+    );
   }
 };
-export const fetchProductOne = () => async dispatch => {
-  dispatch(fetchOneProductReq());
-
+export const fetchNewArrivals = () => async dispatch => {
   try {
     const response = await fetch(
       'https://api.plentys.pk/api/v1/public/bestseller/newproduct?cityId=1',
@@ -112,11 +98,12 @@ export const fetchProductOne = () => async dispatch => {
     const data = await response.json();
     dispatch(fetchOneProductSucc(data.data));
   } catch (error) {
-    console.log(fetchOneProductFail(error.message));
+    console.log(
+      `error of Line Number of 101 file name is Action.js fetchNewArrivals`,
+    );
   }
 };
 export const fetchTopTrandProductReq = () => async dispatch => {
-  dispatch(fetchTopTrandProductReq());
   try {
     const response = await fetch(
       'https://api.plentys.pk/api/v1/public/bestseller/product',
@@ -129,6 +116,6 @@ export const fetchTopTrandProductReq = () => async dispatch => {
     const data = await response.json();
     dispatch(fetchTopTrandProductSuccess(data.data));
   } catch (error) {
-    console.log(fetchTopTrandProductFail(error.message));
+    console.log(`erorr in Line Number of 119 of Action.js`);
   }
 };

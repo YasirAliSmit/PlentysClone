@@ -25,12 +25,7 @@ const renderItem = ({item}) => {
 
 const App = () => {
   const dispatch = useDispatch();
-  const banners = useSelector(state => state.counter.value);
-
-  useEffect(() => {
-    dispatch(fetchBanners());
-  }, [dispatch]);
-  // const [uiData, setUiData] = useState([]);
+  const banners = useSelector(state => state.main.banner);
 
   return (
     <View style={{marginVertical: 10}}>

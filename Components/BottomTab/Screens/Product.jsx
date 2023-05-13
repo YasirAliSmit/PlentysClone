@@ -21,18 +21,18 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchProducts} from '../../../redux/Action';
+import {fetchRamdanDeals} from '../../../redux/Action';
+//import {fetchRamdanDeals} from '../../../redux/Action';
 
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
-  const products = useSelector(state => state.products.products);
-  const loading = useSelector(state => state.products.loading);
-  const error = useSelector(state => state.products.error);
+  const products = useSelector(state => state.main.ramdanDeals);
+  
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchRamdanDeals());
+  // }, [dispatch]);
 
   useEffect(() => {
     const getData = async () => {

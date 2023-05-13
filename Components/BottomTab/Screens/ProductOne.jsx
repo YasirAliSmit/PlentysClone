@@ -13,8 +13,6 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
 import {
-  responsiveFontSize,
-  responsiveHeight,
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -22,33 +20,12 @@ import {
 } from 'react-native-responsive-dimensions';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
-import {fetchProductOne} from '../../../redux/Action';
+import {fetchNewArrivals} from '../../../redux/Action';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
-  const products = useSelector(state => state.productOne.products);
-  const loading = useSelector(state => state.products.loading);
-  const error = useSelector(state => state.products.error);
+  const {newArrivals} = useSelector(({main}) => main);
 
-  useEffect(() => {
-    dispatch(fetchProductOne());
-  }, [dispatch]);
-
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetch(
-          `https://api.plentys.pk/api/v1/public/product/search?title=&categoryId=1955&cityId=1&limit=15`,
-        );
-        const result = await data.json();
-        setUiData(result.data);
-      } catch (error) {
-        console.log(`error in side banner catch => ${error}`);
-      }
-    };
-
-    getData();
-  }, []);
   const renderProduct = ({item}) => {
     return (
       <View style={styles.Product}>
@@ -96,7 +73,7 @@ const Product = () => {
   };
   return (
     <FlatList
-      data={products}
+      data={newArrivals}
       renderItem={renderProduct}
       horizontal
       //keyExtractor={item => item.id.toString()}
