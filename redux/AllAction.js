@@ -42,7 +42,7 @@ export const fetchNewArrivalsNEW = () => async dispatch => {
       throw new Error('Failed to fetch products One Line Number 56');
     }
     const data = await response.json();
-    console.log(data.data);
+
     dispatch({
       type: FETCH_NEW_ARRIVALS_DEALS,
       payload: data.data,

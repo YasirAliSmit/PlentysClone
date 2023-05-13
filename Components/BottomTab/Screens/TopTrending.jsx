@@ -71,13 +71,7 @@ const TopTrending = () => {
       </View>
     );
   };
-  return (
-    <FlatList
-      data={topProduct}
-      renderItem={renderItem}
-      numColumns={numColumns}
-    />
-  );
+  return <FlatList data={topProduct} renderItem={renderItem} numColumns={2} />;
 };
 
 export default TopTrending;
