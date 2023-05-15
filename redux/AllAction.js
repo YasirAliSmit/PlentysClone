@@ -3,13 +3,38 @@ export const FETCH_NEW_ARRIVALS_DEALS = 'FETCH_NEW_ARRIVALS_DEALS';
 export const TOP_NEW_TRANDING_PRODUCTS_ACTION =
   'TOP_NEW_TRANDING_PRODUCTS_ACTION';
 export const FETCH_NEW_BANNERS = 'FETCH_NEW_BANNERS';
+export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
+import _ from 'lodash';
 export const RamdanDealsNewAction = RamdanDeals => {
   return {
     type: FETCH_NEW_RAMDAN_DEALS,
     payload: RamdanDeals,
   };
 };
-
+export const getAllCategory = data => {
+  return {
+    type: GET_ALL_CATEGORY,
+    payload: data,
+  };
+};
+export const fetchAllCategories = () => async dispatch => {
+  try {
+    const response = await fetch(
+      'https://api.plentys.pk/api/v1/public/allCategories?cityId=1',
+    );
+    if (!response.ok) {
+      throw new Error('Falid to fetch all Category');
+    }
+    const data = await response.json();
+    const finalData = _.groupBy(data.data, 'parentId')
+    dispatch(getAllCategory(finalData));
+    // _.groupBy(products, 'parentId');
+  } catch (error) {
+    console.log(
+      `Kindly Fix this Bug Line Num is 99 File name is Action.js ${error.message} `,
+    );
+  }
+};
 export const fetchRamdanDealsNEW = () => async dispatch => {
   try {
     const response = await fetch(
