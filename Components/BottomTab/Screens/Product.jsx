@@ -28,7 +28,6 @@ const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.ramdanDeals);
-  
 
   // useEffect(() => {
   //   dispatch(fetchRamdanDeals());
@@ -104,6 +103,7 @@ const Product = () => {
       data={products}
       renderItem={renderProduct}
       horizontal
+      showsHorizontalScrollIndicator={false}
       //keyExtractor={item => item.id.toString()}
     />
   );

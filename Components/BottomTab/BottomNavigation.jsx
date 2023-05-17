@@ -149,7 +149,7 @@ export default BottomNavigation;
 const styles = StyleSheet.create({
   cart: {
     position: 'absolute',
-    left: responsiveScreenWidth(7),
+    left: responsiveScreenWidth(5),
     top: responsiveScreenHeight(-4),
     padding: responsiveScreenWidth(4),
 

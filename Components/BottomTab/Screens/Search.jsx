@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   input: {
     backgroundColor: '#fff',
     width: responsiveWidth(65),
-    height: responsiveHeight(5),
+    height: responsiveHeight(4.5),
     borderRadius: 5,
     fontSize: responsiveScreenFontSize(2),
     paddingLeft: responsiveWidth(15),

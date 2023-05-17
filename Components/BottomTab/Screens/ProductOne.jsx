@@ -76,6 +76,7 @@ const Product = () => {
       data={newArrivals}
       renderItem={renderProduct}
       horizontal
+      showsHorizontalScrollIndicator={false}
       //keyExtractor={item => item.id.toString()}
     />
   );

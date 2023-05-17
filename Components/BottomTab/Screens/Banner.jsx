@@ -2,10 +2,13 @@ import React from 'react';
 import {Text, View, Dimensions, Image} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import {useState, useEffect} from 'react';
-import {responsiveWidth} from 'react-native-responsive-dimensions';
+import {
+  responsiveScreenWidth,
+  responsiveWidth,
+} from 'react-native-responsive-dimensions';
 import {fetchBanners} from '../../../redux/cartSlice';
 import {useDispatch, useSelector} from 'react-redux';
-export const SLIDER_WIDTH = Dimensions.get('window').width + 90;
+export const SLIDER_WIDTH = Dimensions.get('window').width + 100;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1);
 
 const renderItem = ({item}) => {
@@ -14,8 +17,8 @@ const renderItem = ({item}) => {
       <Image
         source={{uri: item.imageUrl}}
         style={{
-          width: responsiveWidth(100),
-          height: 200,
+          width: responsiveScreenWidth(100),
+          height: 220,
           resizeMode: 'contain',
         }}
       />

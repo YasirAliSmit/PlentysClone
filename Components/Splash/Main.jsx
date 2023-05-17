@@ -10,6 +10,7 @@ import Cart from '../BottomTab/Screens/Cart';
 import RamdanDeals from '../BottomTab/Screens/RamdanDeals';
 import TopBrands from '../BottomTab/Screens/TopBrands';
 import TopBrandProducts from '../BottomTab/Screens/TopBrandProducts';
+import ProductOfCategories from '../BottomTab/Screens/ProductOfCategories';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -50,6 +51,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="TopBrandProducts"
           component={TopBrandProducts}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ProductOfCategories"
+          component={ProductOfCategories}
         />
       </Stack.Navigator>
     </NavigationContainer>

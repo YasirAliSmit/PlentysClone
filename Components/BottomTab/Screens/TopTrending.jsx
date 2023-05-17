@@ -80,8 +80,8 @@ const styles = StyleSheet.create({
   Product: {
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),
-    marginHorizontal: responsiveScreenWidth(1),
-    maxWidth: 180,
+    marginHorizontal: responsiveScreenWidth(1.5),
+    maxWidth: 190,
     resizeMode: 'contain',
   },
   images: {
