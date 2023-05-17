@@ -4,6 +4,7 @@ import {
   View,
   StatusBar,
   FlatList,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
@@ -18,14 +19,23 @@ import {
 import {useNavigation} from '@react-navigation/native';
 const Categories = () => {
   const navigation = useNavigation();
-  const [selectCateg, setSelectCateg] = useState(true);
+
   const [minNumSeq, setMinNumSeq] = useState([]);
+  const [showCateg, setShowCateg] = useState([]);
   const [selectedKey, setSelectedKey] = useState('1949');
   const products = useSelector(state => state.main.allCategorys);
   const [selectedName, setSelectedName] = useState('');
   const key1Value = products['1'];
-  const key3Value = products['52'];
+  const key3Value = products['111'];
   const key2Value = products[selectedKey];
+  const [nameStates, setNameStates] = useState({});
+
+  const handleToggle = name => {
+    setNameStates(prevStates => ({
+      ...prevStates,
+      [name]: !prevStates[name],
+    }));
+  };
 
   const minimum = key1Value.reduce((previousNumber, currentNumber) => {
     if (currentNumber.sequence < previousNumber.sequence) {
@@ -61,7 +71,7 @@ const Categories = () => {
           borderColor: '#CBD5E1',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#E2E8F0',
+          backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
         }}>
         <TouchableOpacity>
           <Text
@@ -70,11 +80,14 @@ const Categories = () => {
               fontSize: responsiveScreenFontSize(1.5),
               fontFamily: 'Poppins-Bold',
               color: '#0B223F',
-              backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
+              textAlign: 'center',
+              width: responsiveScreenWidth(22),
+              // backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
               // backgroundColor: '#E2E8F0',
               //backgroundColor: '#F9C21A',
               //backgroundColor: 'red',
-              padding: responsiveScreenWidth(7),
+              // zIndex: 2,
+              //padding: responsiveScreenWidth(7),
             }}>
             {item.name}
           </Text>
@@ -82,7 +95,81 @@ const Categories = () => {
       </View>
     );
   };
-  function HeadCategories() {
+  const renderItemOne = ({item}) => {
+    const categoriesOfProduct = products[item.childId];
+    return (
+      <>
+        <View
+          style={{
+            flexDirection: 'row',
+            width: '90%',
+            //backgroundColor: 'red',
+            //height: 30,
+            marginTop: responsiveScreenHeight(2),
+            //marginLeft: responsiveScreenWidth(-0.2),
+          }}>
+          <Text style={styles.name}>{item.name}</Text>
+
+          {!products[item.childId] ? (
+            <AntDesign
+              size={15}
+              style={styles.right}
+              name={'right'}
+              color={'#0B223F'}
+            />
+          ) : (
+            <TouchableOpacity style={styles.right}>
+              <AntDesign
+                size={15}
+                name={nameStates[item.name] ? 'up' : 'down'}
+                color={'#0B223F'}
+                onPress={() => handleToggle(item.name)}
+              />
+            </TouchableOpacity>
+          )}
+        </View>
+        {nameStates[item.name] && (
+          <View item={item.name} style={styles.boxContainer}>
+            <View style={[styles.boxHide]}>
+              {categoriesOfProduct.map(item => {
+                return (
+                  <View
+                    style={
+                      {
+                        //   //flex: 1,
+                        //   //flexDirection: 'row',
+                        //   //flexWrap: 'wrap',
+                        // backgroundColor: 'red',
+                        //width: responsiveScreenWidth(100),
+                      }
+                    }
+                    key={item.name}>
+                    <View
+                      style={
+                        {
+                          //flex: 1,
+                          // flexDirection: 'row',
+                          // flexWrap: 'wrap',
+                          // backgroundColor: 'red',
+                          // // width: responsiveScreenWidth(40),
+                        }
+                      }>
+                      <Image
+                        style={styles.images}
+                        source={{uri: item.mobileImageUrl}}
+                      />
+                      <Text style={styles.cateTxt}>{item.description}</Text>
+                    </View>
+                  </View>
+                );
+              })}
+            </View>
+          </View>
+        )}
+      </>
+    );
+  };
+  function Header() {
     return (
       <View
         style={{
@@ -113,57 +200,43 @@ const Categories = () => {
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'#0B223F'} />
-      <HeadCategories />
+      <Header />
       <View style={{flexDirection: 'row'}}>
-        <FlatList
-          data={key1Value}
-          style={{borderLeftWidth: 0}}
-          renderItem={renderItem}
-          showsVerticalScrollIndicator={false}
-        />
-        <Text style={styles.shopAll}>Shop All</Text>
-        <AntDesign
-          size={15}
-          style={styles.righttop}
-          name={'right'}
-          color={'#0B223F'}
-        />
-
-        {/* {childdata && return (
-
-        )} */}
-        <FlatList
-          data={key2Value}
-          renderItem={({item}) => {
-            console.log(item);
-            return (
-              <View>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    width: '90%',
-                    height: 30,
-                    marginTop: responsiveScreenHeight(2.5),
-                    marginLeft: responsiveScreenWidth(-0.2),
-                  }}>
-                  <TouchableOpacity>
-                    <Text style={styles.name}>{item.name}</Text>
-                  </TouchableOpacity>
-                  <AntDesign
-                    size={15}
-                    style={styles.right}
-                    name={'right'}
-                    color={'#0B223F'}
-                  />
-                </View>
-              </View>
-            );
-          }}
-        />
+        <View>
+          <FlatList
+            data={key1Value}
+            style={{borderLeftWidth: 0}}
+            renderItem={renderItem}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+        <View>
+          <View
+            style={{
+              flexDirection: 'row',
+              // backgroundColor: 'red',
+              flex: 1,
+              width: responsiveScreenWidth(65),
+              marginTop: responsiveScreenHeight(0.5),
+            }}>
+            <Text style={styles.shopAll}>Shop all</Text>
+            <AntDesign
+              size={15}
+              style={styles.righttop}
+              name={'right'}
+              color={'#0B223F'}
+            />
+            <FlatList data={key2Value} renderItem={renderItemOne} />
+          </View>
+        </View>
       </View>
     </View>
   );
 };
+
+// main view
+// 2 views
+// left and right
 
 export default Categories;
 
@@ -185,7 +258,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveScreenFontSize(1.5),
     fontFamily: 'Poppins-Bold',
     color: '#0B223F',
-    backgroundColor: 'red',
+    //backgroundColor: 'red',
     padding: responsiveScreenWidth(5),
     //fontWeight: 'bold',
     //color: 'black',
@@ -198,33 +271,81 @@ const styles = StyleSheet.create({
     fontSize: responsiveScreenFontSize(1.5),
     fontFamily: 'Poppins-Light',
     color: '#284975',
-    marginBottom: 5,
+    marginTop: responsiveScreenHeight(1),
+    //left: 0,
+    //backgroundColor: 'red',
+    //marginRight: responsiveScreenWidth(-5),
+    //marginBottom: 5,
+    //marginTop: responsiveScreenHeight(1),
   },
   right: {
     position: 'absolute',
     right: 0,
     top: 0,
     //right: 0,
-    //zIndex: 2,
+    zIndex: 2,
     marginLeft: responsiveScreenWidth(10),
-    marginTop: responsiveScreenHeight(0.5),
+    marginTop: responsiveScreenHeight(1),
   },
   righttop: {
-    position: 'absolute',
-    right: responsiveScreenWidth(5),
-    top: 0,
+    //position: 'absolute',
+    //right: responsiveScreenWidth(5),
+    //top: 0,
     //right: 0,
     //zIndex: 2,
-    marginLeft: responsiveScreenWidth(8),
-    marginTop: responsiveScreenHeight(0.5),
+    //marginLeft: responsiveScreenWidth(8),
+    //marginTop: responsiveScreenHeight(0.5),
+    left: responsiveScreenWidth(44),
+    //marginTop: responsiveScreenHeight(2),
   },
   shopAll: {
     fontSize: responsiveScreenFontSize(1.5),
     fontFamily: 'Poppins-Bold',
+    color: '#0B223F',
+    //marginLeft: responsiveScreenWidth(4),
+    left: responsiveScreenWidth(17),
+    //marginTop: 5,
+    //position: 'absolute',
+    //left: responsiveScreenWidth(47),
+    // marginTop: responsiveScreenHeight(1),
+  },
+  boxHide: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    //top: responsiveScreenHeight(2),
+    //right: 60,
+    //maxWidth: responsiveScreenWidth(50),
+    //backgroundColor: 'red',
+    //width: responsiveScreenWidth(80),
+    //backgroundColor: 'red',
+    // position: 'absolute',
+  },
+
+  boxContainer: {
+    // marginRight: 190,
+    //marginTop: 10,
+    //position: 'absolute',
+    //top: 20,
+    flex: 1,
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  categoriesOfView: {},
+  images: {
+    width: responsiveScreenWidth(20),
+    height: 50,
+    resizeMode: 'contain',
+    backgroundColor: '#fff',
+    marginHorizontal: responsiveScreenWidth(1),
+  },
+  cateTxt: {
+    fontSize: responsiveScreenFontSize(1),
+    //zIndex: 1,
+    fontFamily: 'Poppins-Bold',
+    textAlign: 'center',
+    width: responsiveScreenWidth(20),
     color: '#284975',
-    marginBottom: 5,
-    position: 'absolute',
-    left: responsiveScreenWidth(47),
-    //marginTop:responsiveScreenHeight(2)
   },
 });
