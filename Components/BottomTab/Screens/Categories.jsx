@@ -102,11 +102,23 @@ const Categories = () => {
         <View
           style={{
             flexDirection: 'row',
-            width: '90%',
+            width: responsiveScreenWidth(70),
             //backgroundColor: 'red',
             //height: 30,
             marginTop: responsiveScreenHeight(2),
+            //position: 'relative',
+            // top: 12,
+            // zIndex: 1,
             //marginLeft: responsiveScreenWidth(-0.2),
+            //position: 'relative',
+            //top: 10,
+            //left: -10,
+            // right: 0,
+            //zIndex: 999,
+            // position: 'relative',
+            // // top: 10,
+            // left: 5,
+            //backgroundColor: 'red',
           }}>
           <Text style={styles.name}>{item.name}</Text>
 
@@ -201,8 +213,13 @@ const Categories = () => {
     <View style={styles.container}>
       <StatusBar backgroundColor={'#0B223F'} />
       <Header />
-      <View style={{flexDirection: 'row'}}>
-        <View>
+      <View
+        style={{
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <View style={{width: 120}}>
           <FlatList
             data={key1Value}
             style={{borderLeftWidth: 0}}
@@ -210,15 +227,8 @@ const Categories = () => {
             showsVerticalScrollIndicator={false}
           />
         </View>
-        <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              // backgroundColor: 'red',
-              flex: 1,
-              width: responsiveScreenWidth(65),
-              marginTop: responsiveScreenHeight(0.5),
-            }}>
+        <View style={{flex: 1, alignItems: 'flex-start', paddingLeft: 10}}>
+          <View style={{}}>
             <Text style={styles.shopAll}>Shop all</Text>
             <AntDesign
               size={15}
@@ -270,8 +280,22 @@ const styles = StyleSheet.create({
   name: {
     fontSize: responsiveScreenFontSize(1.5),
     fontFamily: 'Poppins-Light',
+    //color: '#fff',
     color: '#284975',
     marginTop: responsiveScreenHeight(1),
+    marginLeft: responsiveScreenWidth(2),
+    // position: 'absolute',
+    // left: 0,
+    // top: 10,
+    // zIndex: 999,
+    // left: -10,
+    // right: 0,
+    // zIndex: 999,
+
+    // position: 'absolute',
+    // top: 0,
+    // left: 5,
+    // zIndex: 1,
     //left: 0,
     //backgroundColor: 'red',
     //marginRight: responsiveScreenWidth(-5),
@@ -280,12 +304,12 @@ const styles = StyleSheet.create({
   },
   right: {
     position: 'absolute',
-    right: 0,
-    top: 0,
-    //right: 0,
-    zIndex: 2,
-    marginLeft: responsiveScreenWidth(10),
-    marginTop: responsiveScreenHeight(1),
+    //right: 10,
+    top: responsiveScreenHeight(1),
+    left: responsiveScreenWidth(55),
+    //zIndex: 2,
+    // marginLeft: responsiveScreenWidth(20),
+    // marginTop: responsiveScreenHeight(1.5),
   },
   righttop: {
     //position: 'absolute',
@@ -295,15 +319,16 @@ const styles = StyleSheet.create({
     //zIndex: 2,
     //marginLeft: responsiveScreenWidth(8),
     //marginTop: responsiveScreenHeight(0.5),
-    left: responsiveScreenWidth(44),
+    left: responsiveScreenWidth(55),
     //marginTop: responsiveScreenHeight(2),
   },
   shopAll: {
-    fontSize: responsiveScreenFontSize(1.5),
+    fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     color: '#0B223F',
     //marginLeft: responsiveScreenWidth(4),
-    left: responsiveScreenWidth(17),
+    left: responsiveScreenWidth(3),
+    top: responsiveScreenHeight(3),
     //marginTop: 5,
     //position: 'absolute',
     //left: responsiveScreenWidth(47),
@@ -339,6 +364,7 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     backgroundColor: '#fff',
     marginHorizontal: responsiveScreenWidth(1),
+    borderRadius: responsiveScreenWidth(2),
   },
   cateTxt: {
     fontSize: responsiveScreenFontSize(1),
