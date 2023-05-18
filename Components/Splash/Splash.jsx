@@ -9,7 +9,7 @@ import {fetchRamdanDealsNEW} from '../../redux/AllAction';
 import {fetchTopTrandProductReqNEW} from '../../redux/AllAction';
 import {fetchNewArrivalsNEW} from '../../redux/AllAction';
 ///import {fetchTopTrandProductReqNEW} from '../../redux/AllAction';
-import { fetchAllCategories } from '../../redux/AllAction';
+import {fetchAllCategories} from '../../redux/AllAction';
 const Splash = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();

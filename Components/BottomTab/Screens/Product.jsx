@@ -12,7 +12,6 @@ import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
-import {addToCart} from '../../../redux/Action';
 import {
   responsiveScreenFontSize,
   responsiveHeight,
@@ -23,7 +22,8 @@ import {
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
 //import {fetchRamdanDeals} from '../../../redux/Action';
-
+//import {useDispatch} from 'react-redux';
+import {addToCart} from '../../../redux/AllAction';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -46,21 +46,17 @@ const Product = () => {
       }
     };
 
-    getData();
+    // getData();
   }, []);
+  const handleAddToCart = product => {
+    dispatch(addToCart(product));
+  };
   const renderProduct = ({item}) => {
-    function addItem(data) {
-      dispatch(addToCart(data));
-    }
     return (
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image
-              // source={require('../../assets/PlentysMartMob(1).png')}
-              source={{uri: item.imageUrl}}
-              style={styles.images}
-            />
+            <Image source={{uri: item.imageUrl}} style={styles.images} />
             <View style={styles.brandRating}>
               <Text style={styles.brandTxt}>{item.brand}</Text>
               <Text style={styles.brandRat}>{item.avgRating}</Text>
@@ -82,7 +78,7 @@ const Product = () => {
                   />
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => addItem(item)}>
+              <TouchableOpacity onPress={() => handleAddToCart(item)}>
                 <View style={styles.box1}>
                   <MaterialIcons
                     style={styles.cart}

@@ -18,6 +18,7 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {addToCart} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
 import {fetchNewArrivals} from '../../../redux/Action';
@@ -25,7 +26,9 @@ const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const {newArrivals} = useSelector(({main}) => main);
-
+  const handleAddToCart = product => {
+    dispatch(addToCart(product));
+  };
   const renderProduct = ({item}) => {
     return (
       <View style={styles.Product}>
@@ -56,7 +59,7 @@ const Product = () => {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleAddToCart(item)}>
               <View style={styles.box1}>
                 <MaterialIcons
                   style={styles.cart}

@@ -4,17 +4,30 @@ export const TOP_NEW_TRANDING_PRODUCTS_ACTION =
   'TOP_NEW_TRANDING_PRODUCTS_ACTION';
 export const FETCH_NEW_BANNERS = 'FETCH_NEW_BANNERS';
 export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
+export const ADD_TO_CART = 'ADD_TO_CART';
 import _ from 'lodash';
 export const RamdanDealsNewAction = RamdanDeals => {
-  return {
-    type: FETCH_NEW_RAMDAN_DEALS,
-    payload: RamdanDeals,
+  return dispatch => {
+    dispatch({
+      type: FETCH_NEW_RAMDAN_DEALS,
+      payload: RamdanDeals,
+    });
   };
 };
 export const getAllCategory = data => {
-  return {
-    type: GET_ALL_CATEGORY,
-    payload: data,
+  return dispatch => {
+    dispatch({
+      type: GET_ALL_CATEGORY,
+      payload: data,
+    });
+  };
+};
+export const addToCart = products => {
+  return dispatch => {
+    dispatch({
+      type: ADD_TO_CART,
+      payload: products,
+    });
   };
 };
 export const fetchAllCategories = () => async dispatch => {
@@ -26,7 +39,7 @@ export const fetchAllCategories = () => async dispatch => {
       throw new Error('Falid to fetch all Category');
     }
     const data = await response.json();
-    const finalData = _.groupBy(data.data, 'parentId')
+    const finalData = _.groupBy(data.data, 'parentId');
     dispatch(getAllCategory(finalData));
     // _.groupBy(products, 'parentId');
   } catch (error) {
@@ -45,7 +58,10 @@ export const fetchRamdanDealsNEW = () => async dispatch => {
     }
 
     const data = await response.json();
-    dispatch(RamdanDealsNewAction(data.data));
+
+    console.log('data.datadata.datadata.data ', typeof data.data);
+
+    dispatch(RamdanDealsNewAction(JSON.parse(JSON.stringify(data.data))));
   } catch (error) {
     console.log(
       `Kindly Fix this Bug Line Num is 99 File name is Action.js ${error.message} `,

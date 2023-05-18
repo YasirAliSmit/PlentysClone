@@ -13,6 +13,7 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
+// import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -20,15 +21,12 @@ import image from '../../assets/PlentysMartMob(1).png';
 import {removeFromCart} from '../../../redux/Action';
 const Cart = () => {
   const navigation = useNavigation();
-  const product = useSelector(state => state.cart);
+  const product = useSelector(state => state.main.cartItems);
   const dispatch = useDispatch();
   console.log(
     'console in side useselector of product cart of line number of 6',
     product,
   );
-  function removeFromProduct(data) {
-    dispatch(removeFromCart(data));
-  }
   return (
     <View style={styles.container}>
       <View style={styles.headerOfShoppingCart}>
@@ -61,8 +59,8 @@ const Cart = () => {
           </Text>
         )}
       </ScrollView> */}
-      <ScrollView>
-        <View style={styles.parent}>
+
+      {/* <View style={styles.parent}>
           <View style={styles.ProductImageView}>
             <Image
               style={styles.ProductImage}
@@ -84,8 +82,8 @@ const Cart = () => {
             <AntDesign name={'hearto'} color={'black'} size={20} />
             <View></View>
           </View>
-        </View>
-      </ScrollView>
+        </View> */}
+      <Text style={{color: 'red'}}>{product.length}</Text>
     </View>
   );
 };

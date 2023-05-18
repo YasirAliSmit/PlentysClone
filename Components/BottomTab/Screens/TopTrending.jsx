@@ -18,9 +18,13 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {addToCart} from '../../../redux/Action';
 const TopTrending = () => {
   //const product = useSelector(state => state.TopBrands.data);
   const dispatch = useDispatch();
+  const handleAddToCart = product => {
+    dispatch(addToCart(product));
+  };
   const topProduct = useSelector(state => state.main.topTranding);
   useEffect(() => {
     dispatch(fetchTopTrandProductReq());
@@ -56,7 +60,7 @@ const TopTrending = () => {
                 />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleAddToCart(item)}>
               <View style={styles.box1}>
                 <MaterialIcons
                   style={styles.cart}

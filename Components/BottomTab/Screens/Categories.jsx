@@ -25,10 +25,12 @@ const Categories = () => {
   const [selectedKey, setSelectedKey] = useState('1949');
   const products = useSelector(state => state.main.allCategorys);
   const [selectedName, setSelectedName] = useState('');
+  const [selectColor, setSelectColor] = useState(false);
   const key1Value = products['1'];
   const key3Value = products['111'];
   const key2Value = products[selectedKey];
   const [nameStates, setNameStates] = useState({});
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const handleToggle = name => {
     setNameStates(prevStates => ({
@@ -61,6 +63,11 @@ const Categories = () => {
       } else {
         setSelectedKey(item.childId);
       }
+      // if (item == 'Plentys Mart') {
+      //   setSelectColor(false);
+      // } else {
+      //   setSelectColor(true);
+      // }
     }
     return (
       <View
@@ -82,7 +89,7 @@ const Categories = () => {
               color: '#0B223F',
               textAlign: 'center',
               width: responsiveScreenWidth(22),
-              // backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
+              //    backgroundColor: selectColor ? '#F9C21A' : '#E2E8F0',
               // backgroundColor: '#E2E8F0',
               //backgroundColor: '#F9C21A',
               //backgroundColor: 'red',

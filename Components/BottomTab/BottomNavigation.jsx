@@ -7,7 +7,7 @@ import Categories from './Screens/Categories';
 import Fav from './Screens/Fav';
 import Home from './Screens/Home';
 import UserMenu from './Screens/UserMenu';
-
+import {useSelector} from 'react-redux';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
@@ -26,6 +26,7 @@ const Tab = createBottomTabNavigator();
 const BottomNavigation = () => {
   const navigation = useNavigation();
   const [customColor, setCustomColor] = useState(false);
+
   const Categorie = () => {
     return (
       <Image
@@ -45,7 +46,7 @@ const BottomNavigation = () => {
       tabBarVisible: false,
     });
   };
-
+  const product = useSelector(state => state.main.cartItems);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -98,6 +99,30 @@ const BottomNavigation = () => {
             <TouchableOpacity
               style={{width: 100, height: 100}}
               onPress={() => navigation.navigate('Cart')}>
+              {product.length >= 1 ? (
+                <View
+                  style={{
+                    backgroundColor: '#DB3D3D',
+                    zIndex: 1,
+                    height: responsiveScreenHeight(2),
+                    width: responsiveScreenWidth(5),
+                    position: 'relative',
+                    left: responsiveScreenWidth(12),
+                    top: responsiveScreenHeight(-3),
+                    borderRadius: responsiveScreenWidth(5),
+                  }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      position: 'absolute',
+                      left: responsiveScreenWidth(1),
+                      zIndex: 1,
+                      fontSize: responsiveFontSize(1.5),
+                    }}>
+                    {product.length}
+                  </Text>
+                </View>
+              ) : null}
               <View style={styles.cart}>
                 <MaterialCommunityIcons
                   name="cart"
