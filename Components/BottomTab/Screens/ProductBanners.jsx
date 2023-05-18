@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   mob: {
     width: responsiveScreenWidth(48),
     height: responsiveScreenHeight(37),
-    resizeMode: 'contain',
+    resizeMode: 'cover',
     borderRadius: responsiveScreenWidth(2),
     marginHorizontal: responsiveScreenWidth(2),
     marginVertical: responsiveScreenHeight(0.5),

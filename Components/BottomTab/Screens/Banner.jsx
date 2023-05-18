@@ -3,6 +3,7 @@ import {Text, View, Dimensions, Image} from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 import {useState, useEffect} from 'react';
 import {
+  responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
@@ -13,12 +14,12 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1);
 
 const renderItem = ({item}) => {
   return (
-    <View style={{}}>
+    <View style={{marginTop: responsiveScreenHeight(-2)}}>
       <Image
         source={{uri: item.imageUrl}}
         style={{
           width: responsiveScreenWidth(100),
-          height: 220,
+          height: responsiveScreenHeight(30),
           resizeMode: 'contain',
         }}
       />
@@ -31,7 +32,7 @@ const App = () => {
   const banners = useSelector(state => state.main.banner);
 
   return (
-    <View style={{marginVertical: 10}}>
+    <View>
       <Carousel
         data={banners}
         renderItem={renderItem}

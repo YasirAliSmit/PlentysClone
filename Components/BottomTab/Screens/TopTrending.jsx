@@ -80,15 +80,16 @@ const styles = StyleSheet.create({
   Product: {
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),
-    marginHorizontal: responsiveScreenWidth(1.5),
-    maxWidth: 190,
+    marginHorizontal: responsiveScreenWidth(1),
+    // maxWidth: 160,
+    maxWidth: responsiveScreenWidth(46),
     resizeMode: 'contain',
   },
   images: {
     width: responsiveScreenWidth(40),
     height: responsiveScreenHeight(30),
     resizeMode: 'contain',
-    maxWidth: 200,
+    //maxWidth: 200,
   },
   brandRating: {
     flexDirection: 'row',
@@ -145,7 +146,8 @@ const styles = StyleSheet.create({
   },
   ProdContainer: {
     backgroundColor: '#fff',
-    padding: 10,
+    //padding: 10,
+    padding: responsiveScreenWidth(2),
     borderRadius: responsiveScreenWidth(5),
   },
   cart: {
