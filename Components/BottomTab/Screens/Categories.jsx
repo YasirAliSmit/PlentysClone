@@ -25,7 +25,7 @@ const Categories = () => {
   const [selectedKey, setSelectedKey] = useState('1949');
   const products = useSelector(state => state.main.allCategorys);
   const [selectedName, setSelectedName] = useState('');
-  const [selectColor, setSelectColor] = useState(false);
+  const [selectColor, setSelectColor] = useState(true);
   const key1Value = products['1'];
   const key3Value = products['111'];
   const key2Value = products[selectedKey];
@@ -58,6 +58,7 @@ const Categories = () => {
     };
     function navigateToOther(item) {
       handleNamePress(item);
+      setSelectColor(false);
       if (!products[item.childId]) {
         navigation.navigate('ProductOfCategories');
       } else {
@@ -80,7 +81,17 @@ const Categories = () => {
           justifyContent: 'center',
           backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
         }}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => setSelectColor(false)}
+          style={
+            selectColor && item.name === 'Plentys Mart'
+              ? {
+                  backgroundColor: '#F9C21A',
+                  padding: responsiveScreenWidth(5),
+                  paddingVertical: responsiveScreenHeight(4),
+                }
+              : null
+          }>
           <Text
             onPress={() => navigateToOther(item)}
             style={{
@@ -89,12 +100,6 @@ const Categories = () => {
               color: '#0B223F',
               textAlign: 'center',
               width: responsiveScreenWidth(22),
-              //    backgroundColor: selectColor ? '#F9C21A' : '#E2E8F0',
-              // backgroundColor: '#E2E8F0',
-              //backgroundColor: '#F9C21A',
-              //backgroundColor: 'red',
-              // zIndex: 2,
-              //padding: responsiveScreenWidth(7),
             }}>
             {item.name}
           </Text>
@@ -110,22 +115,7 @@ const Categories = () => {
           style={{
             flexDirection: 'row',
             width: responsiveScreenWidth(70),
-            //backgroundColor: 'red',
-            //height: 30,
             marginTop: responsiveScreenHeight(2),
-            //position: 'relative',
-            // top: 12,
-            // zIndex: 1,
-            //marginLeft: responsiveScreenWidth(-0.2),
-            //position: 'relative',
-            //top: 10,
-            //left: -10,
-            // right: 0,
-            //zIndex: 999,
-            // position: 'relative',
-            // // top: 10,
-            // left: 5,
-            //backgroundColor: 'red',
           }}>
           <Text style={styles.name}>{item.name}</Text>
 
@@ -162,7 +152,7 @@ const Categories = () => {
                         //width: responsiveScreenWidth(100),
                       }
                     }
-                    key={item.name}>
+                    key={item.id}>
                     <View
                       style={
                         {

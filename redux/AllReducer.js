@@ -4,6 +4,7 @@ import {TOP_NEW_TRANDING_PRODUCTS_ACTION} from './AllAction';
 import {FETCH_NEW_BANNERS} from './AllAction';
 import {GET_ALL_CATEGORY} from './AllAction';
 import {ADD_TO_CART} from './AllAction';
+import {CLEAR_CART_DATA} from './AllAction';
 import {addToCart} from './AllAction';
 const initialState = {
   banner: [],
@@ -16,6 +17,7 @@ const initialState = {
 };
 
 export const homeReducer = (state = initialState, action) => {
+  console.log(action.type);
   switch (action.type) {
     case FETCH_NEW_BANNERS:
       return {
@@ -47,6 +49,12 @@ export const homeReducer = (state = initialState, action) => {
         ...state,
         cartItems: [...state.cartItems, action.payload],
       };
+    case CLEAR_CART_DATA:
+      return {
+        ...state,
+        cartItems: [],
+      };
+
     default:
       return state;
   }

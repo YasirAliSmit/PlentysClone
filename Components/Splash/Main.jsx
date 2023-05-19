@@ -11,6 +11,7 @@ import RamdanDeals from '../BottomTab/Screens/RamdanDeals';
 import TopBrands from '../BottomTab/Screens/TopBrands';
 import TopBrandProducts from '../BottomTab/Screens/TopBrandProducts';
 import ProductOfCategories from '../BottomTab/Screens/ProductOfCategories';
+import ViewRamdan from '../BottomTab/Screens/ViewRamdan';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -56,6 +57,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="ProductOfCategories"
           component={ProductOfCategories}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ViewRamdan"
+          component={ViewRamdan}
         />
       </Stack.Navigator>
     </NavigationContainer>

@@ -20,7 +20,9 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Product from './Product';
 import TopTrending from './TopTrending';
 import TopBrands from './TopBrands';
+import {useNavigation} from '@react-navigation/native';
 const Home = () => {
+  const navigation = useNavigation();
   return (
     <View style={styles.containerParent}>
       <View style={styles.header}>
@@ -39,7 +41,7 @@ const Home = () => {
             <TouchableOpacity>
               <Text style={styles.categories}>Ramadan Deals </Text>
             </TouchableOpacity>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ViewRamdan')}>
               <Text style={styles.viewAll}>
                 View all <AntDesign name="arrowright" size={20} />{' '}
               </Text>

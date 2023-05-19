@@ -5,6 +5,8 @@ export const TOP_NEW_TRANDING_PRODUCTS_ACTION =
 export const FETCH_NEW_BANNERS = 'FETCH_NEW_BANNERS';
 export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
 export const ADD_TO_CART = 'ADD_TO_CART';
+export const CLEAR_CART_DATA = 'CLEAR_CART_DATA';
+
 import _ from 'lodash';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
@@ -14,6 +16,14 @@ export const RamdanDealsNewAction = RamdanDeals => {
     });
   };
 };
+export const clearCartData = () => {
+  return dispatch => {
+    dispatch({
+      type: CLEAR_CART_DATA,
+    });
+  };
+};
+
 export const getAllCategory = data => {
   return dispatch => {
     dispatch({
@@ -23,11 +33,9 @@ export const getAllCategory = data => {
   };
 };
 export const addToCart = products => {
-  return dispatch => {
-    dispatch({
-      type: ADD_TO_CART,
-      payload: products,
-    });
+  return {
+    type: ADD_TO_CART,
+    payload: products,
   };
 };
 export const fetchAllCategories = () => async dispatch => {
