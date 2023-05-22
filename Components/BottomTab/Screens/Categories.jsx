@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   responsiveScreenFontSize,
   responsiveScreenHeight,
@@ -17,6 +17,8 @@ import {
   useResponsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
+import {clearConfigCache} from 'prettier';
+import {fetchPerticularProduct} from '../../../redux/AllAction';
 const Categories = () => {
   const navigation = useNavigation();
 
@@ -27,18 +29,28 @@ const Categories = () => {
   const [selectedName, setSelectedName] = useState('');
   const [selectColor, setSelectColor] = useState(true);
   const key1Value = products['1'];
-  const key3Value = products['111'];
+  const key3Value = products['778'];
   const key2Value = products[selectedKey];
   const [nameStates, setNameStates] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  //console.log(key3Value);
   const handleToggle = name => {
     setNameStates(prevStates => ({
       ...prevStates,
       [name]: !prevStates[name],
     }));
   };
+  const dispatch = useDispatch();
+  const particaularCategories = (name, childId) => {
+    navigation.navigate('ParticularCategories', {name});
+    console.log(childId, 'child id chali');
+    dispatch(fetchPerticularProduct(childId));
 
+    // useEffect(() => {
+    //   dispatch(fetchPerticularProduct(childId));
+    // }, [dispatch]);
+  };
   const minimum = key1Value.reduce((previousNumber, currentNumber) => {
     if (currentNumber.sequence < previousNumber.sequence) {
       return currentNumber;
@@ -49,7 +61,6 @@ const Categories = () => {
 
   useEffect(() => {
     setMinNumSeq(minimum.sequence);
-    //console.log('this console =>', key3Value);
   }, []);
 
   const renderItem = ({item}) => {
@@ -64,11 +75,6 @@ const Categories = () => {
       } else {
         setSelectedKey(item.childId);
       }
-      // if (item == 'Plentys Mart') {
-      //   setSelectColor(false);
-      // } else {
-      //   setSelectColor(true);
-      // }
     }
     return (
       <View
@@ -109,6 +115,7 @@ const Categories = () => {
   };
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
+    //console.log(item);
     return (
       <>
         <View
@@ -117,7 +124,12 @@ const Categories = () => {
             width: responsiveScreenWidth(70),
             marginTop: responsiveScreenHeight(2),
           }}>
-          <Text style={styles.name}>{item.name}</Text>
+          <Text
+            //onPress={() => dispatch(fetchPerticularProduct(1894))}
+            onPress={() => particaularCategories(item.name, item.childId)}
+            style={styles.name}>
+            {item.name}
+          </Text>
 
           {!products[item.childId] ? (
             <AntDesign
@@ -140,38 +152,23 @@ const Categories = () => {
         {nameStates[item.name] && (
           <View item={item.name} style={styles.boxContainer}>
             <View style={[styles.boxHide]}>
-              {categoriesOfProduct.map(item => {
-                return (
-                  <View
-                    style={
-                      {
-                        //   //flex: 1,
-                        //   //flexDirection: 'row',
-                        //   //flexWrap: 'wrap',
-                        // backgroundColor: 'red',
-                        //width: responsiveScreenWidth(100),
-                      }
-                    }
-                    key={item.id}>
-                    <View
-                      style={
-                        {
-                          //flex: 1,
-                          // flexDirection: 'row',
-                          // flexWrap: 'wrap',
-                          // backgroundColor: 'red',
-                          // // width: responsiveScreenWidth(40),
-                        }
-                      }>
-                      <Image
-                        style={styles.images}
-                        source={{uri: item.mobileImageUrl}}
-                      />
-                      <Text style={styles.cateTxt}>{item.description}</Text>
+              <FlatList
+                data={categoriesOfProduct}
+                numColumns={3}
+                renderItem={({item}) => {
+                  return (
+                    <View key={item.id}>
+                      <View>
+                        <Image
+                          style={styles.images}
+                          source={{uri: item.mobileImageUrl}}
+                        />
+                        <Text style={styles.cateTxt}>{item.description}</Text>
+                      </View>
                     </View>
-                  </View>
-                );
-              })}
+                  );
+                }}
+              />
             </View>
           </View>
         )}
@@ -301,54 +298,28 @@ const styles = StyleSheet.create({
   },
   right: {
     position: 'absolute',
-    //right: 10,
+
     top: responsiveScreenHeight(1),
     left: responsiveScreenWidth(55),
-    //zIndex: 2,
-    // marginLeft: responsiveScreenWidth(20),
-    // marginTop: responsiveScreenHeight(1.5),
   },
   righttop: {
-    //position: 'absolute',
-    //right: responsiveScreenWidth(5),
-    //top: 0,
-    //right: 0,
-    //zIndex: 2,
-    //marginLeft: responsiveScreenWidth(8),
-    //marginTop: responsiveScreenHeight(0.5),
     left: responsiveScreenWidth(55),
-    //marginTop: responsiveScreenHeight(2),
   },
   shopAll: {
     fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     color: '#0B223F',
-    //marginLeft: responsiveScreenWidth(4),
+
     left: responsiveScreenWidth(3),
     top: responsiveScreenHeight(3),
-    //marginTop: 5,
-    //position: 'absolute',
-    //left: responsiveScreenWidth(47),
-    // marginTop: responsiveScreenHeight(1),
   },
   boxHide: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    //top: responsiveScreenHeight(2),
-    //right: 60,
-    //maxWidth: responsiveScreenWidth(50),
-    //backgroundColor: 'red',
-    //width: responsiveScreenWidth(80),
-    //backgroundColor: 'red',
-    // position: 'absolute',
   },
 
   boxContainer: {
-    // marginRight: 190,
-    //marginTop: 10,
-    //position: 'absolute',
-    //top: 20,
     flex: 1,
     width: '100%',
     flexDirection: 'row',
@@ -356,8 +327,8 @@ const styles = StyleSheet.create({
   },
   categoriesOfView: {},
   images: {
-    width: responsiveScreenWidth(20),
-    height: 50,
+    width: responsiveScreenWidth(18),
+    height: responsiveScreenHeight(7),
     resizeMode: 'contain',
     backgroundColor: '#fff',
     marginHorizontal: responsiveScreenWidth(1),
@@ -365,7 +336,6 @@ const styles = StyleSheet.create({
   },
   cateTxt: {
     fontSize: responsiveScreenFontSize(1),
-    //zIndex: 1,
     fontFamily: 'Poppins-Bold',
     textAlign: 'center',
     width: responsiveScreenWidth(20),

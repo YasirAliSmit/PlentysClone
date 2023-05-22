@@ -5,7 +5,8 @@ import {FETCH_NEW_BANNERS} from './AllAction';
 import {GET_ALL_CATEGORY} from './AllAction';
 import {ADD_TO_CART} from './AllAction';
 import {CLEAR_CART_DATA} from './AllAction';
-import {addToCart} from './AllAction';
+import {DELETE_FROM_CART} from './AllAction';
+import {GET_PERTICULAR_PRODUCTS} from './AllAction';
 const initialState = {
   banner: [],
   ramdanDeals: [],
@@ -14,10 +15,14 @@ const initialState = {
   topTranding: [],
   allCategorys: [],
   cartItems: [],
+  categories: [],
+  //console.log(categories)
 };
 
 export const homeReducer = (state = initialState, action) => {
   console.log(action.type);
+
+
   switch (action.type) {
     case FETCH_NEW_BANNERS:
       return {
@@ -48,6 +53,18 @@ export const homeReducer = (state = initialState, action) => {
       return {
         ...state,
         cartItems: [...state.cartItems, action.payload],
+      };
+    case DELETE_FROM_CART:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          item => item.productId !== action.payload,
+        ),
+      };
+    case GET_PERTICULAR_PRODUCTS:
+      return {
+        ...state,
+        categories: action.payload,
       };
     case CLEAR_CART_DATA:
       return {

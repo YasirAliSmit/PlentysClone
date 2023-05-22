@@ -12,6 +12,7 @@ import TopBrands from '../BottomTab/Screens/TopBrands';
 import TopBrandProducts from '../BottomTab/Screens/TopBrandProducts';
 import ProductOfCategories from '../BottomTab/Screens/ProductOfCategories';
 import ViewRamdan from '../BottomTab/Screens/ViewRamdan';
+import ParticularCategories from '../BottomTab/Screens/ParticularCategories';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -62,6 +63,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="ViewRamdan"
           component={ViewRamdan}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="ParticularCategories"
+          component={ParticularCategories}
         />
       </Stack.Navigator>
     </NavigationContainer>

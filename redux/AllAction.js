@@ -6,7 +6,8 @@ export const FETCH_NEW_BANNERS = 'FETCH_NEW_BANNERS';
 export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const CLEAR_CART_DATA = 'CLEAR_CART_DATA';
-
+export const DELETE_FROM_CART = 'DELETE_FROM_CART';
+export const GET_PERTICULAR_PRODUCTS = 'GET_PERTICULAR_PRODUCTS';
 import _ from 'lodash';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
@@ -38,6 +39,19 @@ export const addToCart = products => {
     payload: products,
   };
 };
+export const getPerticularProduct = data => {
+  return {
+    type: GET_PERTICULAR_PRODUCTS,
+    payload: data,
+  };
+};
+export const removeFromCart = productId => {
+  return {
+    type: DELETE_FROM_CART,
+    payload: productId,
+  };
+};
+
 export const fetchAllCategories = () => async dispatch => {
   try {
     const response = await fetch(
@@ -88,7 +102,7 @@ export const fetchNewArrivalsNEW = () => async dispatch => {
       'https://api.plentys.pk/api/v1/public/bestseller/newproduct?cityId=1',
     );
     if (!response.ok) {
-      throw new Error('Failed to fetch products One Line Number 56');
+      throw new Error('Failed to fetch fetchNewArrivalsNEW ');
     }
     const data = await response.json();
 
@@ -99,6 +113,25 @@ export const fetchNewArrivalsNEW = () => async dispatch => {
   } catch (error) {
     console.log(
       `error of Line Number of 101 file name is Action.js fetchNewArrivals  ${error.message}`,
+    );
+  }
+};
+export const fetchPerticularProduct = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    if (!response.ok) {
+      throw new Error('fetch particular product failed ');
+    }
+    const data = await response.json();
+    //console.log(data.data);
+    dispatch(getPerticularProduct(data.data));
+    // console.log('this console from fetchPerticularProduct', data.data);
+  } catch (error) {
+    console.log(
+      `error while getting data fetchPerticularProduct `,
+      error.messege,
     );
   }
 };

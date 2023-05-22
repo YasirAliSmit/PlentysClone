@@ -10,46 +10,40 @@ import {
 import React, {useEffect, useState, useCallback} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
+  responsiveFontSize,
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
-// import {useSelector} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
-import image from '../../assets/PlentysMartMob(1).png';
-import {removeFromCart} from '../../../redux/Action';
 import {clearCartData} from '../../../redux/AllAction';
 import _ from 'lodash';
-
+import {removeFromCart} from '../../../redux/AllAction';
+import noImgae from '../../assets/EmptyCard.png';
 const Cart = () => {
+  //console.log(price);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [price, setPrice] = useState(0);
-
   const product = useSelector(state => state.main.cartItems);
 
-  //console.log(useSelector(state => state.main.cartItems));
   const clearCart = () => {
     dispatch(clearCartData());
     setPrice(0);
   };
-  // const clearCart = useCallback(() => {
-  //   dispatch(clearCartData());
-  // }, [dispatch]);
-  // console.log(
-  //   'console in side useselector of product cart of line number of 6',
-  //   product,
-  // );
 
   const renderItem = ({item}) => {
+    const handleDelete = id => {
+      dispatch(removeFromCart(id));
+    };
     return (
       <View
         style={{
           position: 'relative',
 
-          height: 150,
+          height: responsiveScreenHeight(20),
         }}>
         <View style={styles.parent} key={item.brandId}>
           <View style={styles.ProductImageView}>
@@ -61,11 +55,12 @@ const Cart = () => {
             <Text style={styles.brandRs}>Rs. {item.minPrice}</Text>
           </View>
           <View style={styles.binheart}>
-            <Ionicons
+            <AntDesign
               style={styles.bin}
-              name={'trash-bin-outline'}
+              name={'delete'}
               color="black"
               size={20}
+              onPress={() => handleDelete(item.productId)}
             />
             <AntDesign
               style={styles.heart}
@@ -100,14 +95,12 @@ const Cart = () => {
     );
   };
   useEffect(() => {
-    const totalCostOfCart = _.sumBy(
-      product.map(item => {
-        return item.minPrice;
-      }),
-    );
+    const totalCostOfCart = product.reduce((total, product) => {
+      return total + product.minPrice;
+    }, 0);
     console.log(totalCostOfCart, 'totalCostOfCart');
     setPrice(totalCostOfCart);
-  }, []);
+  });
 
   return (
     <View style={styles.container}>
@@ -125,33 +118,53 @@ const Cart = () => {
           <Text style={styles.shoppingCart}>Shopping Cart</Text>
         </View>
       </View>
-
-      <ScrollView>
-        <View style={styles.lenghtoftxt}>
-          <Text style={styles.lengthTxt}>
-            A total of {product.length} items
+      {product.length == 0 ? (
+        <View style={styles.noProductsContainer}>
+          <Image
+            style={styles.noItemImage}
+            source={require('../../assets/EmptyCard.png')}
+          />
+          <Text style={styles.cartEmtyTxt}>Your cart is empty!</Text>
+          <Text style={styles.noProductText}>
+            Looks like you haven’t made your choice yet...
           </Text>
-          <TouchableOpacity onPress={() => clearCart()}>
-            <Text style={styles.clearTxt}>Clear All</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('BottomNavigation')}
+            style={styles.noProductTextBtn}>
+            <Text style={styles.noProductTextBtnTxt}>Back to Home</Text>
           </TouchableOpacity>
         </View>
-        {product.length === 0 ? (
-          <Text>Your Cart is Empty</Text>
-        ) : (
-          <FlatList data={product} renderItem={renderItem} />
-        )}
-      </ScrollView>
-      <View style={styles.footer}>
-        <View>
-          <Text style={styles.total}>Total</Text>
-          <Text style={styles.totalPrice}>PKR:{price}</Text>
-        </View>
-        <View>
-          <TouchableOpacity style={styles.nextBtn}>
-            <Text style={styles.nextBtnTxt}>Next</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      ) : (
+        <>
+          <View style={styles.lenghtoftxt}>
+            <Text style={styles.lengthTxt}>
+              A total of {product.length} items
+            </Text>
+            <TouchableOpacity>
+              <Text onPress={() => clearCart()} style={styles.clearTxt}>
+                Clear All
+              </Text>
+            </TouchableOpacity>
+          </View>
+          {product.length === 0 ? (
+            <Text>Your Cart is Empty</Text>
+          ) : (
+            <FlatList data={product} renderItem={renderItem} />
+          )}
+
+          <View style={styles.footer}>
+            <View>
+              <Text style={styles.total}>Total</Text>
+              <Text style={styles.totalPrice}>PKR:{price}</Text>
+            </View>
+            <View>
+              <TouchableOpacity style={styles.nextBtn}>
+                <Text style={styles.nextBtnTxt}>Next</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </>
+      )}
     </View>
   );
 };
@@ -164,23 +177,26 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
     // alignItems: 'center',
   },
+
   headerOfShoppingCart: {
     height: responsiveScreenHeight(9),
     width: responsiveScreenWidth(100),
     backgroundColor: '#0B223F',
-    //position: 'absolute',
+   
     top: 0,
     zIndex: 5,
-    //marginBottom: responsiveScreenHeight(10),
+   
   },
   footer: {
     flexDirection: 'row',
-    height: responsiveScreenHeight(15),
+    // height: responsiveScreenHeight(15),
+    height: responsiveScreenHeight(10),
     width: responsiveScreenWidth(100),
     backgroundColor: '#0B223F',
-    top: responsiveScreenHeight(5),
-    borderTopLeftRadius: responsiveScreenHeight(2),
-    borderTopRightRadius: responsiveScreenHeight(2),
+    // top: responsiveScreenHeight(5),
+    top: responsiveScreenHeight(1),
+    borderTopLeftRadius: responsiveScreenHeight(1),
+    borderTopRightRadius: responsiveScreenHeight(1),
   },
   arrow: {
     top: responsiveScreenHeight(2),
@@ -197,11 +213,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: responsiveScreenWidth(100),
     marginTop: responsiveScreenHeight(-2),
-    // position: 'absolute',
-    // top: 0,
-    // left: 0,
-    //zIndex: 3,
-    // backgroundColor: 'pink',
   },
   ProductImage: {
     margin: responsiveScreenWidth(0),
@@ -233,22 +244,25 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Light',
     color: '#0B223F',
     // fontWeight: '600',
-    maxWidth: responsiveScreenWidth(35),
+    maxWidth: responsiveScreenWidth(38),
   },
   brandRs: {
     fontSize: responsiveScreenFontSize(2),
     fontFamily: 'Poppins-Bold',
     color: '#0B223F',
     fontWeight: '600',
-    marginTop: responsiveScreenHeight(3),
+    marginTop: responsiveScreenHeight(1),
   },
   bin: {
     marginTop: responsiveScreenHeight(10),
     marginLeft: responsiveScreenWidth(2),
   },
   binheart: {
-    marginTop: responsiveScreenHeight(-7),
-    marginLeft: responsiveScreenWidth(5),
+    // marginTop: responsiveScreenHeight(-7),
+    // marginLeft: responsiveScreenWidth(5),
+    position: 'absolute',
+    top: responsiveScreenHeight(-7),
+    right: 0,
   },
   heart: {
     marginTop: responsiveScreenHeight(3),
@@ -271,7 +285,7 @@ const styles = StyleSheet.create({
   totalPrice: {
     color: '#fff',
     fontSize: responsiveScreenFontSize(2),
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-Light',
     marginTop: responsiveScreenHeight(0),
     marginLeft: responsiveScreenWidth(3),
   },
@@ -280,7 +294,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveScreenWidth(2),
   },
   nextBtn: {
-    width: responsiveScreenWidth(60),
+    width: responsiveScreenWidth(70),
     height: responsiveScreenHeight(5),
     backgroundColor: '#F9C21A',
     borderRadius: responsiveScreenWidth(2),
@@ -290,10 +304,11 @@ const styles = StyleSheet.create({
   nextBtnTxt: {
     textAlign: 'center',
     verticalAlign: 'auto',
-    fontFamily: 'Poppins-Bold',
+    fontFamily: 'Poppins-Light',
     fontSize: responsiveScreenFontSize(2.5),
     color: '#fff',
     marginTop: responsiveScreenHeight(1),
+    fontWeight: 'bold',
   },
   lenghtoftxt: {
     flexDirection: 'row',
@@ -314,17 +329,40 @@ const styles = StyleSheet.create({
     marginLeft: responsiveScreenWidth(35),
     letterSpacing: 1,
   },
+  noItemImage: {
+    width: responsiveScreenWidth(60),
+    height: responsiveScreenHeight(40),
+    resizeMode: 'contain',
+    marginTop: responsiveScreenHeight(5),
+  },
+  noProductsContainer: {flex: 1, alignItems: 'center'},
+  noProductText: {
+    fontFamily: 'Poppins-Light',
+    maxWidth: responsiveScreenWidth(60),
+    textAlign: 'center',
+    color: '#94A3B8',
+  },
+  cartEmtyTxt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#284975',
+    fontSize: responsiveFontSize(3),
+  },
+  noProductTextBtn: {
+    width: responsiveScreenWidth(90),
+    height: responsiveScreenHeight(5),
+    borderRadius: responsiveScreenWidth(3),
+    backgroundColor: '#0B223F',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: responsiveScreenHeight(15),
+  },
+  noProductTextBtnTxt: {
+    fontFamily: 'Poppins-Bold',
+    color: '#fff',
+    //textAlign: 'center',
+    alignItems: 'center',
+  },
+  // noItemImage: {
+  //   // marginTop: responsiveScreenHeight(5),
+  // },
 });
-
-// <ScrollView>
-//         <Text style={{color: 'red', marginTop: 100}}>Product Text</Text>
-//         {product.length === 0 ? (
-//           <Text style={{color: 'red', marginTop: 100}}>Your Cart Is empty</Text>
-//         ) : (
-//           <Text style={{color: 'red', marginTop: 100}}>
-//             {product.map(item => {
-//               return <View></View>;
-//             })}
-//           </Text>
-//         )}
-//       </ScrollView>
