@@ -123,6 +123,7 @@ const ParticularCategories = ({route}) => {
           data={particularCategories}
           renderItem={renderItem}
           numColumns={2}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     </View>

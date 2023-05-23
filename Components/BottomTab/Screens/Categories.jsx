@@ -44,7 +44,7 @@ const Categories = () => {
   const dispatch = useDispatch();
   const particaularCategories = (name, childId) => {
     navigation.navigate('ParticularCategories', {name});
-    console.log(childId, 'child id chali');
+    // console.log(childId, 'child id chali');
     dispatch(fetchPerticularProduct(childId));
 
     // useEffect(() => {
@@ -67,11 +67,15 @@ const Categories = () => {
     const handleNamePress = name => {
       setSelectedName(name);
     };
-    function navigateToOther(item) {
+    function navigateToOther(item, name, childId) {
+      // console.log(item.name);
+      // console.log(item.childId);
       handleNamePress(item);
       setSelectColor(false);
       if (!products[item.childId]) {
-        navigation.navigate('ProductOfCategories');
+        //navigation.navigate('ProductOfCategories');
+        navigation.navigate('ProductOfCategories', {name, childId});
+        dispatch(fetchPerticularProduct(childId));
       } else {
         setSelectedKey(item.childId);
       }
@@ -99,7 +103,7 @@ const Categories = () => {
               : null
           }>
           <Text
-            onPress={() => navigateToOther(item)}
+            onPress={() => navigateToOther(item, item.name, item.childId)}
             style={{
               fontSize: responsiveScreenFontSize(1.5),
               fontFamily: 'Poppins-Bold',
@@ -116,6 +120,11 @@ const Categories = () => {
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
     //console.log(item);
+    const childCategories = (name, childId) => {
+      //console.log(name, childId);
+      dispatch(fetchPerticularProduct(childId));
+      navigation.navigate('ChildCategories', {name, childId});
+    };
     return (
       <>
         <View
@@ -158,13 +167,19 @@ const Categories = () => {
                 renderItem={({item}) => {
                   return (
                     <View key={item.id}>
-                      <View>
-                        <Image
-                          style={styles.images}
-                          source={{uri: item.mobileImageUrl}}
-                        />
-                        <Text style={styles.cateTxt}>{item.description}</Text>
-                      </View>
+                      <TouchableOpacity
+                        onPress={() =>
+                          childCategories(item.name, item.childId)
+                        }>
+                        {/* onPress={() => console.log(item.name, item.childId)}> */}
+                        <View>
+                          <Image
+                            style={styles.images}
+                            source={{uri: item.mobileImageUrl}}
+                          />
+                          <Text style={styles.cateTxt}>{item.description}</Text>
+                        </View>
+                      </TouchableOpacity>
                     </View>
                   );
                 }}

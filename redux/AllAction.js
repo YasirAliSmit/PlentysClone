@@ -125,7 +125,7 @@ export const fetchPerticularProduct = childId => async dispatch => {
       throw new Error('fetch particular product failed ');
     }
     const data = await response.json();
-    //console.log(data.data);
+    // console.log(data.data);
     dispatch(getPerticularProduct(data.data));
     // console.log('this console from fetchPerticularProduct', data.data);
   } catch (error) {

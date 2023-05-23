@@ -15,6 +15,7 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
+import {BottomSheet} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -182,10 +183,9 @@ const styles = StyleSheet.create({
     height: responsiveScreenHeight(9),
     width: responsiveScreenWidth(100),
     backgroundColor: '#0B223F',
-   
+
     top: 0,
     zIndex: 5,
-   
   },
   footer: {
     flexDirection: 'row',
@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     marginLeft: responsiveScreenWidth(2),
   },
   nextBtn: {
-    width: responsiveScreenWidth(70),
+    width: responsiveScreenWidth(65),
     height: responsiveScreenHeight(5),
     backgroundColor: '#F9C21A',
     borderRadius: responsiveScreenWidth(2),
@@ -348,7 +348,7 @@ const styles = StyleSheet.create({
     fontSize: responsiveFontSize(3),
   },
   noProductTextBtn: {
-    width: responsiveScreenWidth(90),
+    width: responsiveScreenWidth(80),
     height: responsiveScreenHeight(5),
     borderRadius: responsiveScreenWidth(3),
     backgroundColor: '#0B223F',
@@ -362,6 +362,14 @@ const styles = StyleSheet.create({
     //textAlign: 'center',
     alignItems: 'center',
   },
+  // BottomSheet: {
+  //   backgroundColor: 'blue', // Change the color as per your requirement
+  //   borderTopLeftRadius: 10,
+  //   borderTopRightRadius: 10,
+  //   padding: 16,
+  //   height: 300,
+  //   zIndex: 9,
+  // },
   // noItemImage: {
   //   // marginTop: responsiveScreenHeight(5),
   // },
