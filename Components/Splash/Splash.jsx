@@ -4,10 +4,11 @@ import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 
 import {fetchNewArrivals} from '../../redux/Action';
-import {fetchBanner} from '../../redux/AllAction';
+import {fetchBanner, fetchFlashDealsProducts} from '../../redux/AllAction';
 import {fetchRamdanDealsNEW} from '../../redux/AllAction';
 import {fetchTopTrandProductReqNEW} from '../../redux/AllAction';
 import {fetchNewArrivalsNEW} from '../../redux/AllAction';
+import {fetchJsonData} from '../../redux/AllAction';
 ///import {fetchTopTrandProductReqNEW} from '../../redux/AllAction';
 import {fetchAllCategories} from '../../redux/AllAction';
 const Splash = () => {
@@ -18,10 +19,12 @@ const Splash = () => {
       try {
         await Promise.all([
           dispatch(fetchBanner()),
+          dispatch(fetchJsonData()),
           dispatch(fetchRamdanDealsNEW()),
           dispatch(fetchNewArrivalsNEW()),
           dispatch(fetchTopTrandProductReqNEW()),
           dispatch(fetchAllCategories()),
+          dispatch(fetchFlashDealsProducts()),
           setTimeout(() => {
             navigation.navigate('Parent');
           }, 2000),

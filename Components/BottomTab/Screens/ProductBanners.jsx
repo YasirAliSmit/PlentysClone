@@ -17,36 +17,61 @@ import {
 } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import image from '../../assets/PlentysMartMob(1).png';
+import {fetchPerticularProduct} from '../../../redux/AllAction';
+import {useNavigation} from '@react-navigation/native';
 import Product from './Product';
-const ProductBanners = () => {
+import {useDispatch} from 'react-redux';
+const ProductBanners = ({resultOneImage, resultTwoImage, resultThreeImage}) => {
+  //console.log('this console from resultOneImage', resultOneImage);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const categoryId1 = resultOneImage.params['categoryId'];
+  const categoryId2 = resultTwoImage.params['categoryId'];
+  const categoryId3 = resultThreeImage.params['categoryId'];
+  const titleOne = resultOneImage.params['title'];
+  const titleTwo = resultTwoImage.params['title'];
+  const titleThree = resultThreeImage.params['title'];
+  const navigatetoOther = (id, title) => {
+    //console.log('called a function', id);
+    //dispatch(fetchPerticularProduct(id));
+    navigation.navigate('CategoriesOfMart', {title, id});
+    console.log(title);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headTxt}>
         <TouchableOpacity>
           <Text style={styles.categories}>Categories </Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
           <Text style={styles.viewAll}>
             View all <AntDesign name="arrowright" size={20} />{' '}
           </Text>
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row'}}>
-        <View>
-          <Image
-            style={styles.mob}
-            source={require('../../assets/PlentysMartMob(1).png')}
-          />
-        </View>
+        <TouchableOpacity
+          onPress={() => navigatetoOther(categoryId1, titleOne)}>
+          <View>
+            <Image style={styles.mob} source={{uri: resultOneImage.imageUrl}} />
+          </View>
+        </TouchableOpacity>
         <View style={{flexDirection: 'column'}}>
-          <Image
-            style={styles.mobBea}
-            source={require('../../assets/BeautyMob.png')}
-          />
-          <Image
-            style={styles.mobBea}
-            source={require('../../assets/MobileTabletsv1.png')}
-          />
+          <TouchableOpacity
+            onPress={() => navigatetoOther(categoryId2, titleTwo)}>
+            <Image
+              style={styles.mobBea}
+              source={{uri: resultTwoImage.imageUrl}}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigatetoOther(categoryId3, titleThree)}>
+            <Image
+              style={styles.mobBea}
+              source={{uri: resultThreeImage.imageUrl}}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
@@ -58,6 +83,7 @@ export default ProductBanners;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: responsiveScreenHeight(-4),
   },
   headTxt: {
     flexDirection: 'row',

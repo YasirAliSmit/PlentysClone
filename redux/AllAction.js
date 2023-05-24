@@ -8,6 +8,10 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const CLEAR_CART_DATA = 'CLEAR_CART_DATA';
 export const DELETE_FROM_CART = 'DELETE_FROM_CART';
 export const GET_PERTICULAR_PRODUCTS = 'GET_PERTICULAR_PRODUCTS';
+export const HOME_LAYOUT = 'HOME_LAYOUT';
+export const FLASH_DEALS_PRODUCTS = 'FLASH_DEALS_PRODUCTS';
+//export const carouselImages = 'carouselImages'
+export const CAROUSELIMAGES = 'CAROUSELIMAGES';
 import _ from 'lodash';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
@@ -15,6 +19,19 @@ export const RamdanDealsNewAction = RamdanDeals => {
       type: FETCH_NEW_RAMDAN_DEALS,
       payload: RamdanDeals,
     });
+  };
+};
+
+export const carouselImages = banner => {
+  return {
+    type: CAROUSELIMAGES,
+    payload: banner,
+  };
+};
+export const homeLayout = homeLayout => {
+  return {
+    type: HOME_LAYOUT,
+    payload: homeLayout,
   };
 };
 export const clearCartData = () => {
@@ -172,8 +189,40 @@ export const fetchBanner = () => async dispatch => {
       'https://api.plentys.pk/api/v1/public/banner?mobile=1&cityId=1',
     );
     const data = await response.json();
-    dispatch(bannersAcion(data.data));
+    // dispatch(bannersAcion(data.data));
+    dispatch(carouselImages(data.data));
   } catch (error) {
     console.error('Error fetching banners:', error);
+  }
+};
+export const fetchJsonData = () => async dispatch => {
+  try {
+    const response = await fetch(
+      'https://mobileappconfig.s3.ap-south-1.amazonaws.com/home-layout.json',
+    );
+    const data = await response.json();
+    //console.log('this console for data =>', data);
+    dispatch(homeLayout(data.homeLayout));
+  } catch (error) {
+    console.log('error of fetchJsonData fileName AllAction ', error.messege);
+  }
+};
+export const flashDealsProduct = products => {
+  return {
+    type: FLASH_DEALS_PRODUCTS,
+    payload: products,
+  };
+};
+export const fetchFlashDealsProducts = () => async dispatch => {
+  try {
+    //console.log(``)
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1948&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(flashDealsProduct(data.data));
+    //console.log(data);
+  } catch (error) {
+    console.log(`errror of fetchFlashDealsProducts`, error.messege);
   }
 };

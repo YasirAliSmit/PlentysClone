@@ -64,7 +64,7 @@ export default TopBrands;
 
 const styles = StyleSheet.create({
   topbrand: {
-    marginTop: responsiveScreenHeight(4),
+    marginTop: responsiveScreenHeight(1),
     marginLeft: responsiveScreenWidth(5),
     fontSize: responsiveScreenFontSize(3),
     fontFamily: 'Poppins-Bold',

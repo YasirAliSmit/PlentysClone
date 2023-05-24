@@ -1,4 +1,4 @@
-import {FETCH_NEW_RAMDAN_DEALS} from './AllAction';
+import {FETCH_NEW_RAMDAN_DEALS, HOME_LAYOUT, carouselImages} from './AllAction';
 import {FETCH_NEW_ARRIVALS_DEALS} from './AllAction';
 import {TOP_NEW_TRANDING_PRODUCTS_ACTION} from './AllAction';
 import {FETCH_NEW_BANNERS} from './AllAction';
@@ -7,6 +7,8 @@ import {ADD_TO_CART} from './AllAction';
 import {CLEAR_CART_DATA} from './AllAction';
 import {DELETE_FROM_CART} from './AllAction';
 import {GET_PERTICULAR_PRODUCTS} from './AllAction';
+import {CAROUSELIMAGES} from './AllAction';
+import {FLASH_DEALS_PRODUCTS} from './AllAction';
 const initialState = {
   banner: [],
   ramdanDeals: [],
@@ -16,12 +18,12 @@ const initialState = {
   allCategorys: [],
   cartItems: [],
   categories: [],
-  //console.log(categories)
+  homeLayout: [],
+  flashDeals: [],
 };
-
 export const homeReducer = (state = initialState, action) => {
   console.log(action.type);
-
+  // console.log('this console for a homeLayout', initialState.homeLayout);
 
   switch (action.type) {
     case FETCH_NEW_BANNERS:
@@ -29,6 +31,12 @@ export const homeReducer = (state = initialState, action) => {
         ...state,
         banner: action.payload,
       };
+    case HOME_LAYOUT:
+      return {
+        ...state,
+        homeLayout: action.payload,
+      };
+
     case FETCH_NEW_RAMDAN_DEALS:
       return {
         ...state,
@@ -71,7 +79,11 @@ export const homeReducer = (state = initialState, action) => {
         ...state,
         cartItems: [],
       };
-
+    case FLASH_DEALS_PRODUCTS:
+      return {
+        ...state,
+        flashDeals: action.payload,
+      };
     default:
       return state;
   }
