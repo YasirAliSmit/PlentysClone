@@ -11,6 +11,7 @@ import image from '../../assets/PlentysMartMob(1).png';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import {useEffect, useState} from 'react';
 import {
   responsiveScreenFontSize,
@@ -18,6 +19,7 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {useNavigation} from '@react-navigation/native';
 import {addToCart} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
@@ -27,6 +29,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const {newArrivals} = useSelector(({main}) => main);
   const [numColumns, setNumColumns] = useState(2);
+  const navigation = useNavigation();
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
@@ -76,20 +79,90 @@ const Product = () => {
     );
   };
   return (
-    <FlatList
-      data={newArrivals}
-      renderItem={renderProduct}
-      //horizontal
-      showsHorizontalScrollIndicator={false}
-      numColumns={numColumns}
-      //keyExtractor={item => item.id.toString()}
-    />
+    <View style={{flex: 1}}>
+      <View style={styles.headerOfShoppingCart}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('BottomNavigation')}>
+            <Ionicons
+              name="chevron-back"
+              style={styles.arrow}
+              size={20}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+          <Text style={styles.shoppingCart}>Categories</Text>
+
+          <TouchableOpacity
+            style={styles.arrowup}
+            //onPress={() => navigation.navigate('BottomNavigation')}
+          >
+            <AntDesign name="arrowup" size={20} color={'#fff'} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.upDown}>
+            <AntDesign name="arrowdown" size={20} color={'#fff'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+          //onPress={() => navigation.navigate('BottomNavigation')}
+          >
+            <AntDesign
+              name="filter"
+              style={styles.filter}
+              size={30}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <FlatList
+        data={newArrivals}
+        renderItem={renderProduct}
+        //horizontal
+        showsHorizontalScrollIndicator={false}
+        numColumns={numColumns}
+        //keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 };
 
 export default Product;
 
 const styles = StyleSheet.create({
+  headerOfShoppingCart: {
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(100),
+    backgroundColor: '#0B223F',
+    // backgroundColor: '#0B223F',
+
+    top: 0,
+    zIndex: 5,
+  },
+  arrow: {
+    top: responsiveScreenHeight(2.5),
+    left: responsiveScreenWidth(5),
+  },
+  shoppingCart: {
+    marginTop: responsiveScreenHeight(1),
+    fontSize: responsiveScreenFontSize(4),
+    color: '#fff',
+    left: responsiveScreenWidth(7),
+    fontFamily: 'Poppins-Bold',
+  },
+  arrowup: {
+    top: responsiveScreenHeight(2),
+    left: responsiveScreenWidth(22),
+  },
+  upDown: {
+    top: responsiveScreenHeight(2.5),
+    left: responsiveScreenWidth(20),
+  },
+
+  filter: {
+    top: responsiveScreenHeight(2),
+    left: responsiveScreenWidth(25),
+  },
+  //header style end
   Product: {
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),

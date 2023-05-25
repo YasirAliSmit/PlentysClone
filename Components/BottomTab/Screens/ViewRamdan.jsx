@@ -139,6 +139,7 @@ const ViewRamdan = ({route}) => {
 export default ViewRamdan;
 
 const styles = StyleSheet.create({
+  //header styles starts
   headerOfShoppingCart: {
     height: responsiveScreenHeight(9),
     width: responsiveScreenWidth(100),
@@ -159,18 +160,21 @@ const styles = StyleSheet.create({
     left: responsiveScreenWidth(7),
     fontFamily: 'Poppins-Bold',
   },
-  filter: {
+  arrowup: {
     top: responsiveScreenHeight(2),
-    left: responsiveScreenWidth(25),
+    left: responsiveScreenWidth(22),
   },
   upDown: {
     top: responsiveScreenHeight(2.5),
     left: responsiveScreenWidth(20),
   },
-  arrowup: {
+
+  filter: {
     top: responsiveScreenHeight(2),
-    left: responsiveScreenWidth(22),
+    left: responsiveScreenWidth(25),
   },
+  //header style end
+
   categoriesName: {
     fontFamily: 'Poppins-Bold',
     fontSize: responsiveScreenFontSize(2),

@@ -11,6 +11,7 @@ import image from '../../assets/PlentysMartMob(1).png';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import {useEffect, useState} from 'react';
 import {
   responsiveScreenFontSize,
@@ -18,9 +19,11 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveWidth,
+  useResponsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
+import {useNavigation} from '@react-navigation/native';
 //import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
@@ -29,7 +32,7 @@ const WholeSale = () => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.ramdanDeals);
   const [numColumns, setNumColumns] = useState(2);
-
+  const navigation = useNavigation();
   // useEffect(() => {
   //   dispatch(fetchRamdanDeals());
   // }, [dispatch]);
@@ -54,7 +57,7 @@ const WholeSale = () => {
   };
   const renderProduct = ({item}) => {
     return (
-      <View>
+      <View style={{flex: 1}}>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
             <Image source={{uri: item.imageUrl}} style={styles.images} />
@@ -96,22 +99,93 @@ const WholeSale = () => {
     );
   };
   return (
-    <FlatList
-      data={products}
-      renderItem={renderProduct}
-      //horizontal
-      //showsHorizontalScrollIndicator={false}
-      //numColumns={2}
-      numColumns={numColumns}
-      //numColumns={2}
-      //keyExtractor={item => item.id.toString()}
-    />
+    <View style={{flex: 1}}>
+      <View style={styles.headerOfShoppingCart}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('BottomNavigation')}>
+            <Ionicons
+              name="chevron-back"
+              style={styles.arrow}
+              size={20}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+          <Text style={styles.shoppingCart}>Categories</Text>
+
+          <TouchableOpacity
+            style={styles.arrowup}
+            //onPress={() => navigation.navigate('BottomNavigation')}
+          >
+            <AntDesign name="arrowup" size={20} color={'#fff'} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.upDown}>
+            <AntDesign name="arrowdown" size={20} color={'#fff'} />
+          </TouchableOpacity>
+          <TouchableOpacity
+          //onPress={() => navigation.navigate('BottomNavigation')}
+          >
+            <AntDesign
+              name="filter"
+              style={styles.filter}
+              size={30}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+      <FlatList
+        data={products}
+        renderItem={renderProduct}
+        //horizontal
+        //showsHorizontalScrollIndicator={false}
+        //numColumns={2}
+        numColumns={numColumns}
+        //numColumns={2}
+        //keyExtractor={item => item.id.toString()}
+      />
+    </View>
   );
 };
 
 export default WholeSale;
 
 const styles = StyleSheet.create({
+  //header styles starts
+  headerOfShoppingCart: {
+    height: responsiveScreenHeight(9),
+    width: responsiveScreenWidth(100),
+    backgroundColor: '#0B223F',
+    // backgroundColor: '#0B223F',
+
+    top: 0,
+    zIndex: 5,
+  },
+  arrow: {
+    top: responsiveScreenHeight(2.5),
+    left: responsiveScreenWidth(5),
+  },
+  shoppingCart: {
+    marginTop: responsiveScreenHeight(1),
+    fontSize: responsiveScreenFontSize(4),
+    color: '#fff',
+    left: responsiveScreenWidth(7),
+    fontFamily: 'Poppins-Bold',
+  },
+  arrowup: {
+    top: responsiveScreenHeight(2),
+    left: responsiveScreenWidth(22),
+  },
+  upDown: {
+    top: responsiveScreenHeight(2.5),
+    left: responsiveScreenWidth(20),
+  },
+
+  filter: {
+    top: responsiveScreenHeight(2),
+    left: responsiveScreenWidth(25),
+  },
+  //header style end
   Product: {
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),
@@ -170,18 +244,19 @@ const styles = StyleSheet.create({
     height: responsiveScreenHeight(4),
     backgroundColor: '#F9C21A',
   },
-  ProdContainer: {
-    height: responsiveHeight(50),
-    elevation: 10,
-    backgroundColor: '#F8FAFC',
-  },
+  //   ProdContainer: {
+  //     height: responsiveScreenHeight(50),
+  //     elevation: 10,
+  //     backgroundColor: '#F8FAFC',
+  //   },
   ProdContainer: {
     backgroundColor: '#fff',
     padding: 10,
     borderRadius: responsiveWidth(5),
+    maxWidth: responsiveScreenWidth(50),
   },
   cart: {
     alignSelf: 'center',
-    marginTop: responsiveHeight(0.5),
+    marginTop: responsiveScreenHeight(0.5),
   },
 });

@@ -34,21 +34,21 @@ const FlashDealsProduct = () => {
   //   dispatch(fetchRamdanDeals());
   // }, [dispatch]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const data = await fetch(
-          `https://api.plentys.pk/api/v1/public/product/search?title=&categoryId=1955&cityId=1&limit=15`,
-        );
-        const result = await data.json();
-        setUiData(result.data);
-      } catch (error) {
-        console.log(`error in side banner catch => ${error}`);
-      }
-    };
+  // useEffect(() => {
+  //   const getData = async () => {
+  //     try {
+  //       const data = await fetch(
+  //         `https://api.plentys.pk/api/v1/public/product/search?title=&categoryId=1955&cityId=1&limit=15`,
+  //       );
+  //       const result = await data.json();
+  //       setUiData(result.data);
+  //     } catch (error) {
+  //       console.log(`error in side banner catch => ${error}`);
+  //     }
+  //   };
 
-    // getData();
-  }, []);
+  //   // getData();
+  // }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
