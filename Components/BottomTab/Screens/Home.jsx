@@ -31,9 +31,9 @@ import {fetchPerticularProduct} from '../../../redux/AllAction';
 const Home = () => {
   const navigation = useNavigation();
   const [flashDealId, setflashDealId] = useState();
-  const ViewAllProducts = id => {
+  const ViewAllProducts = (title, id) => {
     console.log('View all Products');
-    navigation.navigate('ViewRamdan');
+    navigation.navigate('ViewRamdan', {title, id});
   };
   //homestate[findState.value]
   const homeState = useSelector(state => state.main);
@@ -92,14 +92,19 @@ const Home = () => {
         const wholeSale = find(item.properties, {key: 'title'})?.value;
         const wholeSales = find(item.properties, {key: 'params'})?.value;
         const title = wholeSales['title'];
-        console.log('this console for a wholsale offer =>', title);
+        const categoryIdWholeSales = wholeSales['categoryId'];
+        console.log(
+          'this console for a  categoryWholeSales',
+          categoryIdWholeSales,
+        );
         return (
           <View style={styles.product}>
             <View style={styles.headTxt}>
               <TouchableOpacity>
                 <Text style={styles.categories}>{title} </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => ViewAllProducts()}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('WholeSale')}>
                 <Text style={styles.viewAll}>
                   View all <AntDesign name="arrowright" size={20} />{' '}
                 </Text>
@@ -111,14 +116,15 @@ const Home = () => {
         );
       case 'newArrivals':
         const newArrivals = find(item.properties, {key: 'title'})?.value;
-        //console.log(newArrivals);
+        console.log(newArrivals);
         return (
           <View style={styles.product}>
             <View style={styles.headTxt}>
               <TouchableOpacity>
                 <Text style={styles.categories}>{newArrivals} </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => ViewAllProducts()}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate('NewArrivals')}>
                 <Text style={styles.viewAll}>
                   View all <AntDesign name="arrowright" size={20} />{' '}
                 </Text>
@@ -143,7 +149,7 @@ const Home = () => {
         );
       case 'homeBanner2':
         const flashDeals = find(item.properties, {key: 'bannerData'})?.value;
-
+        const categoryIdFlashDeals = flashDeals['params'].categoryId;
         return <FlashDealBanner flashDeals={flashDeals['bannerUrl']} />;
       case 'productsCarousel':
         //const flashDealsProduct = find(item.data[0], {key: 'title'})?.value;
@@ -151,7 +157,7 @@ const Home = () => {
         // console.log('this console for flashDealsProductss', item.data[0]);
 
         const childId = flashDealsProduct1['categoryId'];
-
+        //console.log(childId);
         return (
           <View style={styles.product}>
             <View style={styles.headTxt}>
@@ -160,7 +166,10 @@ const Home = () => {
                   {flashDealsProduct1['title']}{' '}
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => ViewAllProducts()}>
+              <TouchableOpacity
+                onPress={() =>
+                  ViewAllProducts(flashDealsProduct1['title'], childId)
+                }>
                 <Text style={styles.viewAll}>
                   View all <AntDesign name="arrowright" size={20} />{' '}
                 </Text>

@@ -14,8 +14,10 @@ import ProductOfCategories from '../BottomTab/Screens/ProductOfCategories';
 import ViewRamdan from '../BottomTab/Screens/ViewRamdan';
 import ParticularCategories from '../BottomTab/Screens/ParticularCategories';
 import ChildCategories from '../BottomTab/Screens/ChildCategories';
-import CategoriesOfMart from '../BottomTab/Screens/CategoriesOfMart'
+import CategoriesOfMart from '../BottomTab/Screens/CategoriesOfMart';
 import Categories from '../BottomTab/Screens/Categories';
+import WholeSale from '../BottomTab/Screens/WholeSale';
+import NewArrivals from '../BottomTab/Screens/NewArrivals';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -26,7 +28,7 @@ const Main = () => {
           name="Splash"
           component={Splash}
         />
-         <Stack.Screen
+        <Stack.Screen
           options={{headerShown: false}}
           name="Categories"
           component={Categories}
@@ -64,6 +66,16 @@ const Main = () => {
         />
         <Stack.Screen
           options={{headerShown: false}}
+          name="WholeSale"
+          component={WholeSale}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="NewArrivals"
+          component={NewArrivals}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
           name="ProductOfCategories"
           component={ProductOfCategories}
         />
@@ -82,7 +94,7 @@ const Main = () => {
           name="ChildCategories"
           component={ChildCategories}
         />
-         <Stack.Screen
+        <Stack.Screen
           options={{headerShown: false}}
           name="CategoriesOfMart"
           component={CategoriesOfMart}
