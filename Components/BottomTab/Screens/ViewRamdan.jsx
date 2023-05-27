@@ -35,7 +35,7 @@ const ViewRamdan = ({route}) => {
   useEffect(() => {
     dispatch(fetchPerticularProduct(id));
     //console.log(particularCategories);
-    console.log('this is child id from categoris of Mart =>', id);
+    console.log('this is child id from categoris of Mart Hello =>', id);
   }, [dispatch]);
   const navigation = useNavigation();
   const renderItem = ({item}) => {

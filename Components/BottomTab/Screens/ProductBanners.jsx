@@ -16,6 +16,7 @@ import {
   useResponsiveScreenHeight,
 } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import image from '../../assets/PlentysMartMob(1).png';
 import {fetchPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
@@ -42,7 +43,14 @@ const ProductBanners = ({resultOneImage, resultTwoImage, resultThreeImage}) => {
     <View style={styles.container}>
       <View style={styles.headTxt}>
         <TouchableOpacity>
-          <Text style={styles.categories}>Categories </Text>
+          <Text style={styles.categories}>
+            Categories
+            <MaterialCommunityIcons
+              name={'hand-pointing-down'}
+              color={'#F9C21A'}
+              size={20}
+            />
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('Categories')}>
           <Text style={styles.viewAll}>

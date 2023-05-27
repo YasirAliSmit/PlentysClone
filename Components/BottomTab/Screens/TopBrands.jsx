@@ -80,5 +80,8 @@ const styles = StyleSheet.create({
   brand1: {
     marginHorizontal: responsiveScreenWidth(2),
     marginVertical: responsiveScreenHeight(2),
+    height: responsiveScreenHeight(5),
+    width: responsiveScreenWidth(20),
+    resizeMode: 'cover',
   },
 });

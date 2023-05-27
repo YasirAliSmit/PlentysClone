@@ -15,7 +15,7 @@ export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 1);
 const renderItem = ({item}) => {
   //console.log('this console from banner =>', item);
   return (
-    <View style={{marginTop: responsiveScreenHeight(3)}}>
+    <View style={{marginTop: responsiveScreenHeight(2)}}>
       <Image
         source={{uri: item.imageUrl}}
         style={{
@@ -32,6 +32,7 @@ const App = ({item}) => {
   const dispatch = useDispatch();
   const banners = useSelector(state => state.main.banner);
   const homeState = useSelector(state => state.main.carouselImages);
+  //console.log(homeState);
   // const finalBanners = useSelector(state => state.main.homeLayout);
   // console.log(finalBanners);
   //console.log('this console from home', homeState);

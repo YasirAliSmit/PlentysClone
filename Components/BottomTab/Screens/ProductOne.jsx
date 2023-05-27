@@ -30,6 +30,10 @@ const Product = () => {
     dispatch(addToCart(product));
   };
   const renderProduct = ({item}) => {
+    //console.log(item);
+    // console.log(
+    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
+    // );
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>

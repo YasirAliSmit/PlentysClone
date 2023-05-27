@@ -22,48 +22,24 @@ import {
 } from 'react-native-responsive-dimensions';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
-//import {fetchRamdanDeals} from '../../../redux/Action';
-//import {useDispatch} from 'react-redux';
+
 import {addToCart} from '../../../redux/AllAction';
 const Product = () => {
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [uiData, setUiData] = useState([]);
-  const dispatch = useDispatch();
   const products = useSelector(state => state.main.ramdanDeals);
+  const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(fetchRamdanDeals());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   const getData = async () => {
-  //     try {
-  //       const data = await fetch(
-  //         `https://api.plentys.pk/api/v1/public/product/search?title=&categoryId=1955&cityId=1&limit=15`,
-  //       );
-  //       const result = await data.json();
-  //       setUiData(result.data);
-  //     } catch (error) {
-  //       console.log(`error in side banner catch => ${error}`);
-  //     }
-  //   };
-
-  //   // getData();
-  // }, []);
-  const handleAddToCart = product => {
-    dispatch(addToCart(product));
-  };
   const renderProduct = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
-    console.log(
-      `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
-    );
-    console
-      .log
-      //'this console for the Products',
-      //`this consoole for ${item.title} and ${item.promotionProductValue}`,
-      ();
+    const cartIconColor = isAddedToCart ? '#00FF00' : '#0B223F';
+    const handleAddToCart = product => {
+      dispatch(addToCart(product));
+      // console.log('Hello');
+      // setIsAddedToCart(true);
+    };
     return (
       <View>
         <View style={styles.Product}>
@@ -119,7 +95,8 @@ const Product = () => {
                 <View style={styles.box1}>
                   <MaterialIcons
                     style={styles.cart}
-                    color={'#0B223F'}
+                    color={cartIconColor}
+                    //color={'#0B223F'}
                     name="shopping-cart"
                     size={20}
                   />

@@ -10,9 +10,21 @@ export const DELETE_FROM_CART = 'DELETE_FROM_CART';
 export const GET_PERTICULAR_PRODUCTS = 'GET_PERTICULAR_PRODUCTS';
 export const HOME_LAYOUT = 'HOME_LAYOUT';
 export const FLASH_DEALS_PRODUCTS = 'FLASH_DEALS_PRODUCTS';
+export const AIRPORDS_PRODUCTS = 'AIRPORDS_PRODUCTS';
 //export const carouselImages = 'carouselImages'
 export const CAROUSELIMAGES = 'CAROUSELIMAGES';
 import _ from 'lodash';
+import Makeup from '../Components/BottomTab/Screens/Makeup';
+export const FESTIVE_EID = `FESTIVE_EID`;
+export const MAKE_UP = 'MAKE_UP';
+export const SHAN_PRODUCTS = 'SHAN_PRODUCTS';
+export const BEAVERAGES = `BEAVERAGES`;
+export const KITCHENCAROUSEL = 'KITCHENCAROUSEL';
+export const BEAUTY_BRAND = 'BEAUTY_BRAND';
+export const DAIRY_PRODUCTS = 'DAIRY_PRODUCTS';
+export const LIP_DONT_LIE = 'LIP_DONT_LIE';
+export const CLEAN = 'CLEAN';
+export const BAD_BREATH = 'BAD_BREATH';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
     dispatch({
@@ -203,6 +215,9 @@ export const fetchJsonData = () => async dispatch => {
     const data = await response.json();
     //console.log('this console for data =>', data);
     dispatch(homeLayout(data.homeLayout));
+
+    // find
+    //loop , andr sab ki categoryid search api
   } catch (error) {
     console.log('error of fetchJsonData fileName AllAction ', error.messege);
   }
@@ -224,5 +239,210 @@ export const fetchFlashDealsProducts = () => async dispatch => {
     //console.log(data);
   } catch (error) {
     console.log(`errror of fetchFlashDealsProducts`, error.messege);
+  }
+};
+export const festiveEid = data => {
+  return {
+    type: FESTIVE_EID,
+    payload: data,
+  };
+};
+
+export const festivalEidProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(festiveEid(data.data));
+  } catch (error) {
+    console.log(error`error for festival Eid Product`);
+  }
+};
+export const makeUp = data => {
+  return {
+    type: MAKE_UP,
+    payload: data,
+  };
+};
+
+export const fetchMakeUp = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(makeUp(data.data));
+  } catch (error) {
+    console.log(error`error for Makeup Product`);
+  }
+};
+
+export const shanProducts = data => {
+  return {
+    type: SHAN_PRODUCTS,
+    payload: data,
+  };
+};
+
+export const fetchShanProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(shanProducts(data.data));
+  } catch (error) {
+    console.log(error`error for Shan Product`);
+  }
+};
+
+export const beaverages = data => {
+  return {
+    type: BEAVERAGES,
+    payload: data,
+  };
+};
+
+export const fetchBeaverages = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(beaverages(data.data));
+  } catch (error) {
+    console.log(error`error for Beaverges`);
+  }
+};
+
+export const kitchenCarousel = data => {
+  return {
+    type: KITCHENCAROUSEL,
+    payload: data,
+  };
+};
+
+export const fetchkitchenCarousel = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(kitchenCarousel(data.data));
+  } catch (error) {
+    console.log(error`error for kitchenCarousel`);
+  }
+};
+
+export const airpordsProducts = data => {
+  return {
+    type: AIRPORDS_PRODUCTS,
+    payload: data,
+  };
+};
+
+export const fetchairpordsProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(airpordsProducts(data.data));
+  } catch (error) {
+    console.log(error`error for airpordsProducts`);
+  }
+};
+
+export const beautyBrandProducts = data => {
+  return {
+    type: BEAUTY_BRAND,
+    payload: data,
+  };
+};
+
+export const fetchbeautyBrandProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(beautyBrandProducts(data.data));
+  } catch (error) {
+    console.log(error`error for Beauty Brand Products`);
+  }
+};
+
+export const dairyProducts = data => {
+  return {
+    type: DAIRY_PRODUCTS,
+    payload: data,
+  };
+};
+
+export const fetchDairyProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(dairyProducts(data.data));
+  } catch (error) {
+    console.log(error`error for Dairy Products`);
+  }
+};
+export const lipDontProducts = data => {
+  return {
+    type: LIP_DONT_LIE,
+    payload: data,
+  };
+};
+
+export const fetchlipDontProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(lipDontProducts(data.data));
+  } catch (error) {
+    console.log(error`error for Lips Products`);
+  }
+};
+
+export const cleanProducts = data => {
+  return {
+    type: CLEAN,
+    payload: data,
+  };
+};
+
+export const fetchCleanProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(cleanProducts(data.data));
+  } catch (error) {
+    console.log(error`error for CLEAN Products`);
+  }
+};
+export const badBreathProducts = data => {
+  return {
+    type: BAD_BREATH,
+    payload: data,
+  };
+};
+
+export const fetchBadBreathProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    );
+    const data = await response.json();
+    dispatch(badBreathProducts(data.data));
+  } catch (error) {
+    console.log(error`error for Bad Breath Products`);
   }
 };
