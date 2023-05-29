@@ -11,6 +11,7 @@ import {fetchNewArrivalsNEW} from '../../redux/AllAction';
 import {fetchJsonData} from '../../redux/AllAction';
 ///import {fetchTopTrandProductReqNEW} from '../../redux/AllAction';
 import {fetchAllCategories} from '../../redux/AllAction';
+import {fetchTopTrandProductReq} from '../../redux/Action';
 const Splash = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -25,6 +26,7 @@ const Splash = () => {
           dispatch(fetchTopTrandProductReqNEW()),
           dispatch(fetchAllCategories()),
           dispatch(fetchFlashDealsProducts()),
+          dispatch(fetchTopTrandProductReq()),
           setTimeout(() => {
             navigation.navigate('Parent');
           }, 2000),

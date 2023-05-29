@@ -37,9 +37,9 @@ const BeautyBrand = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.productsCarousel);
 
+  //console.log('this console for bead brath', products);
   useEffect(() => {
     dispatch(fetchBadBreathProducts(id));
-    // console.log(id);
   }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));

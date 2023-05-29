@@ -8,6 +8,7 @@ import {
   SHAN_PRODUCTS,
   carouselImages,
 } from './AllAction';
+import {GET_ALL_ID} from './AllAction';
 import {FETCH_NEW_ARRIVALS_DEALS} from './AllAction';
 import {TOP_NEW_TRANDING_PRODUCTS_ACTION} from './AllAction';
 import {FETCH_NEW_BANNERS} from './AllAction';
@@ -48,6 +49,7 @@ const initialState = {
   lipsMakeupCarousel: [], //done
   cleaningCarousel: [],
   productsCarousel: [],
+  allIds: [],
 };
 export const homeReducer = (state = initialState, action) => {
   console.log(action.type);
@@ -171,6 +173,11 @@ export const homeReducer = (state = initialState, action) => {
       return {
         ...state,
         productsCarousel: action.payload,
+      };
+    case GET_ALL_ID:
+      return {
+        ...state,
+        allIds: action.payload,
       };
     default:
       return state;

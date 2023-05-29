@@ -17,6 +17,7 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
+import {getAllIds} from '../../../redux/AllAction';
 import {useSelector} from 'react-redux';
 import ProductBanners from './ProductBanners';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -40,6 +41,7 @@ import DairyCarousel from './DairyCarousel';
 import LipDontLie from './LipDontLie';
 import Cleaning from './Cleaning';
 import BadBreath from './BadBreath';
+import Splash from '../../Splash/Splash';
 const Home = () => {
   const navigation = useNavigation();
   const [flashDealId, setflashDealId] = useState();
@@ -188,19 +190,11 @@ const Home = () => {
         const cleaningCarouselTitle = cleaningCarousel['title'];
         const productsCarouselCategoryId = productsCarousel['categoryId'];
         const productsCarouselTitle = productsCarousel['title'];
-        // console.log(
-        //   'CategoryId',
-        //   productsCarouselCategoryId,
-        //   'title',
-        //   productsCarouselTitle,
-        // );
+
         const flashDealsIntialState = flashDealsProduct1;
-        //console.log(kitchenCarouselTitle);
-        //const flashDealsProduct2 = find(item.data[1], {key: 'title'})?.value;
-        // console.log('this console for flashDealsProductss', item.data[0]);
 
         const categoryId = FlashDealsCategoryId;
-        //console.log('this is consolse', flashDealsProduct2);
+        //useEffect(() => {}, []);
         return (
           <View style={styles.product}>
             <View style={styles.headTxt}>

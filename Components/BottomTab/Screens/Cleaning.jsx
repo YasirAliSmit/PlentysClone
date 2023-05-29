@@ -28,13 +28,14 @@ import {fetchBeaverages} from '../../../redux/AllAction';
 //import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
+import {fetchCleanProducts} from '../../../redux/AllAction';
 const Clean = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.cleaningCarousel);
-
+  //console.log(products, 'This console for');
   useEffect(() => {
-    dispatch(fetchBeaverages(id));
+    dispatch(fetchCleanProducts(id));
   }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));

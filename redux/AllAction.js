@@ -25,6 +25,7 @@ export const DAIRY_PRODUCTS = 'DAIRY_PRODUCTS';
 export const LIP_DONT_LIE = 'LIP_DONT_LIE';
 export const CLEAN = 'CLEAN';
 export const BAD_BREATH = 'BAD_BREATH';
+export const GET_ALL_ID = 'GET_ALL_ID';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
     dispatch({
@@ -33,7 +34,12 @@ export const RamdanDealsNewAction = RamdanDeals => {
     });
   };
 };
-
+export const getAllIds = data => {
+  return {
+    type: GET_ALL_ID,
+    payload: data,
+  };
+};
 export const carouselImages = banner => {
   return {
     type: CAROUSELIMAGES,

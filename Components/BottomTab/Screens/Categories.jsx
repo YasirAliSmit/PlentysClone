@@ -34,7 +34,6 @@ const Categories = () => {
   const [nameStates, setNameStates] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  //console.log(key3Value);
   const handleToggle = name => {
     setNameStates(prevStates => ({
       ...prevStates,
@@ -44,12 +43,7 @@ const Categories = () => {
   const dispatch = useDispatch();
   const particaularCategories = (name, childId) => {
     navigation.navigate('ParticularCategories', {name});
-    // console.log(childId, 'child id chali');
     dispatch(fetchPerticularProduct(childId));
-
-    // useEffect(() => {
-    //   dispatch(fetchPerticularProduct(childId));
-    // }, [dispatch]);
   };
   const minimum = key1Value.reduce((previousNumber, currentNumber) => {
     if (currentNumber.sequence < previousNumber.sequence) {
@@ -83,13 +77,14 @@ const Categories = () => {
     return (
       <View
         style={{
-          width: responsiveScreenWidth(35),
+          width: responsiveScreenWidth(30),
           height: responsiveScreenHeight(10),
           borderWidth: 1,
           borderColor: '#CBD5E1',
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
+          //backgroundColor: 'red',
         }}>
         <TouchableOpacity
           onPress={() => setSelectColor(false)}
@@ -109,7 +104,8 @@ const Categories = () => {
               fontFamily: 'Poppins-Bold',
               color: '#0B223F',
               textAlign: 'center',
-              width: responsiveScreenWidth(22),
+              width: responsiveScreenWidth(25),
+              //backgroundColor: 'red',
             }}>
             {item.name}
           </Text>
@@ -130,8 +126,9 @@ const Categories = () => {
         <View
           style={{
             flexDirection: 'row',
-            width: responsiveScreenWidth(70),
+            width: responsiveScreenWidth(60),
             marginTop: responsiveScreenHeight(2),
+            // backgroundColor: 'red',
           }}>
           <Text
             //onPress={() => dispatch(fetchPerticularProduct(1894))}
@@ -252,10 +249,6 @@ const Categories = () => {
     </View>
   );
 };
-
-// main view
-// 2 views
-// left and right
 
 export default Categories;
 

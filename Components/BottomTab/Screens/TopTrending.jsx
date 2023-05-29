@@ -27,9 +27,9 @@ const TopTrending = () => {
     dispatch(addToCart(product));
   };
   const topProduct = useSelector(state => state.main.topTranding);
-  useEffect(() => {
-    dispatch(fetchTopTrandProductReq());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchTopTrandProductReq());
+  // }, [dispatch]);
   const numColumns = 2;
   // const renderProduct = ({item}) => {
   //   const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
