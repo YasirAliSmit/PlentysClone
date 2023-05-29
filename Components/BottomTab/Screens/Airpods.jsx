@@ -34,9 +34,10 @@ const Airpods = ({title, id}) => {
   const dispatch = useDispatch();
   //const products = useSelector(state => state.main.beveragesCarousel);
   const products = useSelector(state => state.main.airpodsCarousel);
-  useEffect(() => {
-    dispatch(fetchairpordsProducts(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchairpordsProducts(id));
+  // }, []);
+  // console.log('fetchairpordsProducts', id);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

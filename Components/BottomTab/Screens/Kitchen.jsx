@@ -32,9 +32,7 @@ const Product = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.kitchenCarousel);
 
-  useEffect(() => {
-    dispatch(fetchkitchenCarousel(id));
-  }, []);
+  //console.log('this is id for kitchen', id);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

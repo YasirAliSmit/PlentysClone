@@ -33,10 +33,11 @@ const BeautyBrand = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.beautyBrandsCarousel);
 
-  useEffect(() => {
-    dispatch(fetchbeautyBrandProducts(id));
-    // console.log(id);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchbeautyBrandProducts(id));
+  //   // console.log(id);
+  // }, []);
+  //console.log('this is id for beauti brand', id);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

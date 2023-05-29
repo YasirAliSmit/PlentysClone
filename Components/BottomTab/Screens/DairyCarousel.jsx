@@ -36,9 +36,10 @@ const Product = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.dairyCarousel);
 
-  useEffect(() => {
-    dispatch(fetchDairyProducts(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchDairyProducts(id));
+  // }, []);
+  //console.log('this is for dairy', id);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

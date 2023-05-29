@@ -13,6 +13,7 @@ import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
+import {useNavigation} from '@react-navigation/native';
 import {
   responsiveScreenFontSize,
   responsiveHeight,
@@ -29,6 +30,7 @@ const Product = () => {
   const [uiData, setUiData] = useState([]);
   const products = useSelector(state => state.main.ramdanDeals);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const renderProduct = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
@@ -44,42 +46,45 @@ const Product = () => {
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image source={{uri: item.imageUrl}} style={styles.images} />
-            {item.promotionProductValue === null ? null : (
-              <View style={styles.discountBox}>
-                <Text style={styles.discount}>
-                  {item.promotionProductValue}%OFF
-                </Text>
-              </View>
-            )}
-            <View style={styles.brandRating}>
-              <Text style={styles.brandTxt}>{item.brand}</Text>
-              {item.avgRating ? (
-                <Text style={styles.brandRat}>
-                  <Entypo
-                    name={'star'}
-                    color={'#FA9E15'}
-                    size={responsiveScreenFontSize(2)}
-                  />
-                  {item.avgRating}
-                </Text>
-              ) : null}
-            </View>
-            <View style={styles.brandDetails}>
-              <Text style={styles.brandDetails}>{item.title}</Text>
-            </View>
-            <View style={styles.brandPrice}>
-              <Text style={styles.brandPrice}>
-                Rs. {ProductafterDiscountPrice}
-              </Text>
-
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
               {item.promotionProductValue === null ? null : (
-                <Text style={styles.BeforeDiscountbrandPrice}>
-                  {' '}
-                  {item.minPrice} PKR
-                </Text>
+                <View style={styles.discountBox}>
+                  <Text style={styles.discount}>
+                    {item.promotionProductValue}%OFF
+                  </Text>
+                </View>
               )}
-            </View>
+              <View style={styles.brandRating}>
+                <Text style={styles.brandTxt}>{item.brand}</Text>
+                {item.avgRating ? (
+                  <Text style={styles.brandRat}>
+                    <Entypo
+                      name={'star'}
+                      color={'#FA9E15'}
+                      size={responsiveScreenFontSize(2)}
+                    />
+                    {item.avgRating}
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.brandDetails}>
+                <Text style={styles.brandDetails}>{item.title}</Text>
+              </View>
+              <View style={styles.brandPrice}>
+                <Text style={styles.brandPrice}>
+                  Rs. {ProductafterDiscountPrice}
+                </Text>
+
+                {item.promotionProductValue === null ? null : (
+                  <Text style={styles.BeforeDiscountbrandPrice}>
+                    {' '}
+                    {item.minPrice} PKR
+                  </Text>
+                )}
+              </View>
+            </TouchableOpacity>
             <View style={styles.ParentBox}>
               <TouchableOpacity>
                 <View style={styles.box}>

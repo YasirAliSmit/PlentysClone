@@ -35,10 +35,11 @@ const LipDontLie = ({title, id}) => {
   const dispatch = useDispatch();
   //const products = useSelector(state => state.main.beveragesCarousel);
   const products = useSelector(state => state.main.lipsMakeupCarousel);
-  useEffect(() => {
-    dispatch(fetchlipDontProducts(id));
-    // console.log(products);
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchlipDontProducts(id));
+  //   // console.log(products);
+  // }, []);
+  // console.log(id);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

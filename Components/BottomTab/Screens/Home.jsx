@@ -42,6 +42,7 @@ import LipDontLie from './LipDontLie';
 import Cleaning from './Cleaning';
 import BadBreath from './BadBreath';
 import Splash from '../../Splash/Splash';
+//export var flashDealsProduct1;
 const Home = () => {
   const navigation = useNavigation();
   const [flashDealId, setflashDealId] = useState();
@@ -59,17 +60,12 @@ const Home = () => {
       case 'SliderBox':
         const stateName = find(item.properties, {key: 'imageData'})?.value;
 
-        // console.log(
-        //   'this console from stateName',
-        //   homeState[stateName],
-        //   stateName,
-        // );
         return <Banner item={homeState[stateName]} />;
       case 'HorizontalCategoryList':
         const categories1 = find(item.properties, {
           key: 'categoryItem1',
         })?.value;
-        //console.log(categories1);
+
         const resultOneImage = categories1;
 
         const categories2 = find(item.properties, {
@@ -155,6 +151,7 @@ const Home = () => {
         //const flashDealsProduct = find(item.data[0], {key: 'title'})?.value;
         const flashDealsProduct1 = find(item.data[0], {key: 'params'})?.value;
         const festiveEid = find(item.data[1], {key: 'params'})?.value;
+        //console.log(festiveEid);
         const makeupCarousel = find(item.data[2], {key: 'params'})?.value;
         const shanCarousel = find(item.data[3], {key: 'params'})?.value;
         const beveragesCarousel = find(item.data[4], {key: 'params'})?.value;
@@ -438,55 +435,6 @@ const Home = () => {
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
-        // renderItem={({item}) => {
-        //   // console.log(item);
-        //   return (
-        //     <View>
-        //       <View style={styles.container}>
-        //         <Banner item={item} />
-        //       </View>
-        //       <View style={styles.bannerProduct}>
-        //         <ProductBanners />
-        //       </View>
-        //       <View style={styles.product}>
-        //         <View style={styles.headTxt}>
-        //           <TouchableOpacity>
-        //             <Text style={styles.categories}>Ramadan Deals </Text>
-        //           </TouchableOpacity>
-        //           <TouchableOpacity
-        //             onPress={() => navigation.navigate('ViewRamdan')}>
-        //             <Text style={styles.viewAll}>
-        //               View all <AntDesign name="arrowright" size={20} />{' '}
-        //             </Text>
-        //           </TouchableOpacity>
-        //         </View>
-        //         <Product />
-        //       </View>
-        // <View style={styles.product}>
-        //   <View style={styles.headTxt}>
-        //     <TouchableOpacity>
-        //       <Text style={styles.categories}>New Arrivals </Text>
-        //     </TouchableOpacity>
-        //     <TouchableOpacity>
-        //       <Text style={styles.viewAll}>
-        //         View all <AntDesign name="arrowright" size={20} />{' '}
-        //       </Text>
-        //     </TouchableOpacity>
-        //   </View>
-        //   <ProductOne />
-        // </View>
-        //       <View style={{flex: 1}}>
-        //         <TopBrands />
-        //       </View>
-        //       <View style={styles.topPro}>
-        //         <TouchableOpacity>
-        //           <Text style={styles.topPro}>Top Tranding </Text>
-        //         </TouchableOpacity>
-        //         <TopTrending />
-        //       </View>
-        //     </View>
-        //   );
-        // }}
       />
     </View>
   );

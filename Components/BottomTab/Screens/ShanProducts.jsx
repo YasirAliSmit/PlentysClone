@@ -32,9 +32,10 @@ const Product = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.shanCarousel);
 
-  useEffect(() => {
-    dispatch(fetchShanProducts(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchShanProducts(id));
+  //   console.log('this is id for a shan product ', id);
+  // }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

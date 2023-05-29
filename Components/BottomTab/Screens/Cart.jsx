@@ -99,7 +99,7 @@ const Cart = () => {
     const totalCostOfCart = product.reduce((total, product) => {
       return total + product.minPrice;
     }, 0);
-    console.log(totalCostOfCart, 'totalCostOfCart');
+    ///console.log(totalCostOfCart, 'totalCostOfCart');
     setPrice(totalCostOfCart);
   });
 

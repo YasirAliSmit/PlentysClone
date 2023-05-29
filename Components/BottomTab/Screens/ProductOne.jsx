@@ -22,36 +22,32 @@ import {addToCart} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
 import {fetchNewArrivals} from '../../../redux/Action';
+import {useNavigation} from '@react-navigation/native';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {newArrivals} = useSelector(({main}) => main);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
   const renderProduct = ({item}) => {
-    //console.log(item);
-    // console.log(
-    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
-    // );
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
-          <Image
-            // source={require('../../assets/PlentysMartMob(1).png')}
-            source={{uri: item.imageUrl}}
-            style={styles.images}
-          />
-          <View style={styles.brandRating}>
-            <Text style={styles.brandTxt}>{item.brand}</Text>
-            {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
-          </View>
-          <View style={styles.brandDetails}>
-            <Text style={styles.brandDetails}>{item.title}</Text>
-          </View>
-          <View style={styles.brandPrice}>
-            <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Details', {item})}>
+            <Image source={{uri: item.imageUrl}} style={styles.images} />
+            <View style={styles.brandRating}>
+              <Text style={styles.brandTxt}>{item.brand}</Text>
+            </View>
+            <View style={styles.brandDetails}>
+              <Text style={styles.brandDetails}>{item.title}</Text>
+            </View>
+            <View style={styles.brandPrice}>
+              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.ParentBox}>
             <TouchableOpacity>
               <View style={styles.box}>
@@ -98,6 +94,7 @@ const styles = StyleSheet.create({
     marginHorizontal: responsiveScreenWidth(2.5),
     maxWidth: 200,
     resizeMode: 'contain',
+    // backgroundColor: 'red',
   },
   images: {
     width: responsiveScreenWidth(40),

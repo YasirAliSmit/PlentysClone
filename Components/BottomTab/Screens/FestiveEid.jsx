@@ -31,9 +31,9 @@ const Product = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.festiveEidCarousel);
 
-  useEffect(() => {
-    dispatch(festivalEidProducts(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(festivalEidProducts(id));
+  // }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };

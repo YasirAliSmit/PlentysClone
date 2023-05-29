@@ -18,6 +18,7 @@ import CategoriesOfMart from '../BottomTab/Screens/CategoriesOfMart';
 import Categories from '../BottomTab/Screens/Categories';
 import WholeSale from '../BottomTab/Screens/WholeSale';
 import NewArrivals from '../BottomTab/Screens/NewArrivals';
+import Details from '../BottomTab/Screens/Details';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -27,6 +28,12 @@ const Main = () => {
           options={{headerShown: false}}
           name="Splash"
           component={Splash}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Details"
+          component={Details}
         />
         <Stack.Screen
           options={{headerShown: false}}

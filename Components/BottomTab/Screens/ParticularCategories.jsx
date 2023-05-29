@@ -29,7 +29,7 @@ const ParticularCategories = ({route}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPerticularProduct());
-    console.log(particularCategories);
+    //console.log(particularCategories);
   }, [dispatch]);
   const navigation = useNavigation();
   const {name} = route.params;

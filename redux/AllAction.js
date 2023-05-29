@@ -257,7 +257,7 @@ export const festiveEid = data => {
 export const festivalEidProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1888&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(festiveEid(data.data));
@@ -275,7 +275,7 @@ export const makeUp = data => {
 export const fetchMakeUp = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=309&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(makeUp(data.data));
@@ -294,7 +294,7 @@ export const shanProducts = data => {
 export const fetchShanProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(shanProducts(data.data));
@@ -313,7 +313,7 @@ export const beaverages = data => {
 export const fetchBeaverages = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1890&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(beaverages(data.data));
@@ -332,7 +332,7 @@ export const kitchenCarousel = data => {
 export const fetchkitchenCarousel = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=40&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(kitchenCarousel(data.data));
@@ -351,7 +351,7 @@ export const airpordsProducts = data => {
 export const fetchairpordsProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=828&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(airpordsProducts(data.data));
@@ -370,7 +370,7 @@ export const beautyBrandProducts = data => {
 export const fetchbeautyBrandProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(beautyBrandProducts(data.data));
@@ -389,7 +389,7 @@ export const dairyProducts = data => {
 export const fetchDairyProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1892&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(dairyProducts(data.data));
@@ -407,7 +407,7 @@ export const lipDontProducts = data => {
 export const fetchlipDontProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=307&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(lipDontProducts(data.data));
@@ -426,7 +426,7 @@ export const cleanProducts = data => {
 export const fetchCleanProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=778&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(cleanProducts(data.data));
@@ -444,7 +444,7 @@ export const badBreathProducts = data => {
 export const fetchBadBreathProducts = childId => async dispatch => {
   try {
     const response = await fetch(
-      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=${childId}&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      `https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=1&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
     );
     const data = await response.json();
     dispatch(badBreathProducts(data.data));

@@ -34,12 +34,13 @@ const Clean = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.cleaningCarousel);
   //console.log(products, 'This console for');
-  useEffect(() => {
-    dispatch(fetchCleanProducts(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchCleanProducts(id));
+  // }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
+  // console.log('clearning ', id);
   const renderProduct = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;

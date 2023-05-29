@@ -32,9 +32,10 @@ const Product = ({title, id}) => {
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.makeupCarousel);
 
-  useEffect(() => {
-    dispatch(fetchMakeUp(id));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchMakeUp(id));
+  //   console.log('this is id for ', id);
+  // }, []);
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
