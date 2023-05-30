@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //import {addToCart} from '../../../redux/Action';
-import image from '../../assets/PlentysMartMob(1).png';
 import React from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import {useEffect, useState} from 'react';

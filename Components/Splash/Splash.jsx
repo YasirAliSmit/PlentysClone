@@ -56,6 +56,7 @@ const Splash = () => {
 
           setTimeout(() => {
             navigation.navigate('Parent');
+            //navigation.replace('BottomNavigation');
           }, 2000),
         ]);
       } catch (error) {

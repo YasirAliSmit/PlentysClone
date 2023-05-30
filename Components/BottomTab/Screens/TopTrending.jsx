@@ -21,113 +21,23 @@ import {
 } from 'react-native-responsive-dimensions';
 import {addToCart} from '../../../redux/Action';
 const TopTrending = () => {
-  //const product = useSelector(state => state.TopBrands.data);
   const dispatch = useDispatch();
   const handleAddToCart = product => {
     dispatch(addToCart(product));
   };
   const topProduct = useSelector(state => state.main.topTranding);
-  // useEffect(() => {
-  //   dispatch(fetchTopTrandProductReq());
-  // }, [dispatch]);
-  const numColumns = 2;
-  // const renderProduct = ({item}) => {
-  //   const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
-  //   const afterDiscount = item.minPrice - beforeDiscout;
-  //   const ProductafterDiscountPrice = Math.ceil(afterDiscount);
-  //   console.log(
-  //     `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
-  //   );
-  //   console
-  //     .log
-  //     //'this console for the Products',
-  //     //`this consoole for ${item.title} and ${item.promotionProductValue}`,
-  //     ();
-  //   return (
-  //     <View>
-  //       <View style={styles.Product}>
-  //         <View style={styles.ProdContainer}>
-  //           <Image source={{uri: item.imageUrl}} style={styles.images} />
-  //           {item.promotionProductValue === null ? null : (
-  //             <View style={styles.discountBox}>
-  //               <Text style={styles.discount}>
-  //                 {item.promotionProductValue}%OFF
-  //               </Text>
-  //             </View>
-  //           )}
-  //           <View style={styles.brandRating}>
-  //             <Text style={styles.brandTxt}>{item.brand}</Text>
-  //             {item.avgRating ? (
-  //               <Text style={styles.brandRat}>
-  //                 <Entypo
-  //                   name={'star'}
-  //                   color={'#FA9E15'}
-  //                   size={responsiveScreenFontSize(2)}
-  //                 />
-  //                 {item.avgRating}
-  //               </Text>
-  //             ) : null}
-  //           </View>
-  //           <View style={styles.brandDetails}>
-  //             <Text style={styles.brandDetails}>{item.title}</Text>
-  //           </View>
-  //           <View style={styles.brandPrice}>
-  //             <Text style={styles.brandPrice}>
-  //               Rs. {ProductafterDiscountPrice}
-  //             </Text>
 
-  //             {item.promotionProductValue === null ? null : (
-  //               <Text style={styles.BeforeDiscountbrandPrice}>
-  //                 {' '}
-  //                 {item.minPrice} PKR
-  //               </Text>
-  //             )}
-  //           </View>
-  //           <View style={styles.ParentBox}>
-  //             <TouchableOpacity>
-  //               <View style={styles.box}>
-  //                 <AntDesign
-  //                   style={styles.cart}
-  //                   color={'#fff'}
-  //                   name="hearto"
-  //                   size={20}
-  //                 />
-  //               </View>
-  //             </TouchableOpacity>
-  //             <TouchableOpacity onPress={() => handleAddToCart(item)}>
-  //               <View style={styles.box1}>
-  //                 <MaterialIcons
-  //                   style={styles.cart}
-  //                   color={'#0B223F'}
-  //                   name="shopping-cart"
-  //                   size={20}
-  //                 />
-  //               </View>
-  //             </TouchableOpacity>
-  //           </View>
-  //         </View>
-  //       </View>
-  //     </View>
-  //   );
-  // };
+  const numColumns = 2;
+
   const renderItem = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
 
-    // `this is product name ${item.brand} this is before discount price${beforeDiscout} and this our after discount${afterDiscount} and this fineal price ${ProductafterDiscountPrice}`,
-    //  `this is ${item}`,
-    // console.log(
-    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
-    // );
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
-          <Image
-            // source={require('../../assets/PlentysMartMob(1).png')}
-            source={{uri: item.imageUrl}}
-            style={styles.images}
-          />
+          <Image source={{uri: item.imageUrl}} style={styles.images} />
           <View style={styles.brandRating}>
             <Text style={styles.brandTxt}>{item.brand}</Text>
             <Text style={styles.brandRat}>
