@@ -303,22 +303,17 @@ const Details = () => {
       </ScrollView>
       <View style={styles.footer}>
         <View style={styles.addAndLess}>
-          <Text>
-            <AntDesign
-              style={styles.min}
-              name={'minus'}
-              size={20}
-              color={'red'}
-            />
+          <Text style={styles.min}>
+            <AntDesign name={'minus'} size={20} color={'#0B223F'} />
           </Text>
           <Text style={styles.countProduct}>0</Text>
-          <Text>
+          <Text style={styles.plus}>
             <AntDesign
               name={'plus'}
-              //style={styles.plus}
-              style={{marginTop: responsiveScreenHeight(5)}}
+              style={styles.plus}
+              //style={{marginTop: responsiveScreenHeight(10)}}
               size={20}
-              color={'red'}
+              color={'#0B223F'}
             />
           </Text>
         </View>
@@ -573,31 +568,34 @@ const styles = StyleSheet.create({
     color: '#0B223F',
   },
   addAndLess: {
-    width: responsiveScreenWidth(25),
-    height: responsiveScreenHeight(4),
+    width: responsiveScreenWidth(20),
+    height: responsiveScreenHeight(3),
     backgroundColor: '#fff',
+    elevation: 5,
     borderRadius: responsiveScreenWidth(2),
     position: 'relative',
     top: responsiveScreenHeight(3),
-    left: responsiveScreenWidth(2),
+    //left: responsiveScreenWidth(1),
+    left: responsiveScreenWidth(5),
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  // countProduct: {
-  //   color: '#F9C21A',
-  //   fontSize: responsiveScreenFontSize(3),
-  //   position: 'absolute',
-  //   left: responsiveScreenWidth(10),
-  // },
+  countProduct: {
+    color: '#F9C21A',
+    fontSize: responsiveScreenFontSize(2),
+    position: 'absolute',
+    left: responsiveScreenWidth(9),
+  },
   plus: {
     // position: 'absolute',
     // left: responsiveScreenWidth(0),
     // top: responsiveScreenHeight(5),
-    marginTop: responsiveScreenHeight(5),
+    marginTop: responsiveScreenHeight(0.5),
   },
   min: {
-    position: 'absolute',
-    left: responsiveScreenWidth(10),
+    //position: 'absolute',
+    //left: responsiveScreenWidth(10),
     //top: responsiveScreenHeight(-1),
+    marginTop: responsiveScreenHeight(0.5),
   },
 });
