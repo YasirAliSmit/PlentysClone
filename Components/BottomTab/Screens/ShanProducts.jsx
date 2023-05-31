@@ -36,8 +36,16 @@ const Product = ({title, id}) => {
   //   dispatch(fetchShanProducts(id));
   //   console.log('this is id for a shan product ', id);
   // }, []);
-  const handleAddToCart = product => {
-    dispatch(addToCart(product));
+  const handleAddToCart = item => {
+    const productDetails = {
+      imageUrl: item.imageUrl,
+      brand: item.brand,
+      title: item.title,
+      minPrice: item.minPrice,
+      purchaseLimit: item.purchaseLimit,
+      productId: item.productId,
+    };
+    dispatch(addToCart(productDetails));
   };
   const renderProduct = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;

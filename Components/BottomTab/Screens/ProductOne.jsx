@@ -28,8 +28,16 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {newArrivals} = useSelector(({main}) => main);
-  const handleAddToCart = product => {
-    dispatch(addToCart(product));
+  const handleAddToCart = item => {
+    const productDetails = {
+      imageUrl: item.imageUrl,
+      brand: item.brand,
+      title: item.title,
+      minPrice: item.minPrice,
+      purchaseLimit: item.purchaseLimit,
+      productId: item.productId,
+    };
+    dispatch(addToCart(productDetails));
   };
   const renderProduct = ({item}) => {
     return (

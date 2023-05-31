@@ -26,6 +26,9 @@ export const LIP_DONT_LIE = 'LIP_DONT_LIE';
 export const CLEAN = 'CLEAN';
 export const BAD_BREATH = 'BAD_BREATH';
 export const GET_ALL_ID = 'GET_ALL_ID';
+export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
+export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
+
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
     dispatch({
@@ -74,6 +77,18 @@ export const addToCart = products => {
     payload: products,
   };
 };
+export const increaseQuantity = productId => {
+  return {
+    type: INCREASE_QUANTITY,
+    payload: productId,
+  };
+};
+export const decreaseQuantity = productId => {
+  return {
+    type: DECREASE_QUANTITY,
+    payload: productId,
+  };
+};
 export const getPerticularProduct = data => {
   return {
     type: GET_PERTICULAR_PRODUCTS,
@@ -115,8 +130,6 @@ export const fetchRamdanDealsNEW = () => async dispatch => {
     }
 
     const data = await response.json();
-
-    console.log('data.datadata.datadata.data ', typeof data.data);
 
     dispatch(RamdanDealsNewAction(JSON.parse(JSON.stringify(data.data))));
   } catch (error) {

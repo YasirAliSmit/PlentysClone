@@ -11,7 +11,7 @@ import React from 'react';
 import {useRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 //import AntDesign from 'react-native-vector-icons/dist/Ionicons';
-
+import {addToCart} from '../../../redux/AllAction';
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
@@ -46,8 +46,16 @@ const Details = () => {
   const description = item.description;
 
   const pointsArray = point.split(',');
-  const handleAddToCart = product => {
-    dispatch(addToCart(product));
+  const handleAddToCart = item => {
+    const productDetails = {
+      imageUrl: item.imageUrl,
+      brand: item.brand,
+      title: item.title,
+      minPrice: item.minPrice,
+      purchaseLimit: item.purchaseLimit,
+      productId: item.productId,
+    };
+    dispatch(addToCart(productDetails));
   };
   //console.log(particularCategories);
   const renderItem = ({item}) => {
@@ -303,9 +311,11 @@ const Details = () => {
       </ScrollView>
       <View style={styles.footer}>
         <View style={styles.addAndLess}>
-          <Text style={styles.min}>
-            <AntDesign name={'minus'} size={20} color={'#0B223F'} />
-          </Text>
+          <TouchableOpacity>
+            <Text style={styles.min}>
+              <AntDesign name={'minus'} size={20} color={'#0B223F'} />
+            </Text>
+          </TouchableOpacity>
           <Text style={styles.countProduct}>0</Text>
           <Text style={styles.plus}>
             <AntDesign
@@ -317,7 +327,9 @@ const Details = () => {
             />
           </Text>
         </View>
-        <TouchableOpacity style={styles.addBtn}>
+        <TouchableOpacity
+          onPress={() => handleAddToCart(item)}
+          style={styles.addBtn}>
           <Text style={styles.addBtnText}>Add to Cart</Text>
         </TouchableOpacity>
       </View>
