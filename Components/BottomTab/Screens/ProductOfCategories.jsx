@@ -30,7 +30,7 @@ const ProductOfCategories = ({route}) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPerticularProduct());
-    console.log(particularCategories);
+    //console.log(particularCategories);
   }, [dispatch]);
   const navigation = useNavigation();
   const {name} = route.params;
@@ -62,6 +62,7 @@ const ProductOfCategories = ({route}) => {
           <View style={styles.brandDetails}>
             <Text style={styles.brandDetails}>{item.title}</Text>
           </View>
+
           <View style={styles.brandPrice}>
             <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
           </View>

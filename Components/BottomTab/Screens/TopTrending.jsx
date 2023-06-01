@@ -20,7 +20,11 @@ import {
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import {addToCart} from '../../../redux/Action';
+import {useNavigation} from '@react-navigation/native';
+import {find} from 'lodash';
 const TopTrending = () => {
+  const cartProducts = useSelector(state => state.main.cartItems);
+  const navigation = useNavigation();
   const dispatch = useDispatch();
   const handleAddToCart = item => {
     const productDetails = {
@@ -38,6 +42,8 @@ const TopTrending = () => {
   const numColumns = 2;
 
   const renderItem = ({item}) => {
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -45,25 +51,28 @@ const TopTrending = () => {
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
-          <Image source={{uri: item.imageUrl}} style={styles.images} />
-          <View style={styles.brandRating}>
-            <Text style={styles.brandTxt}>{item.brand}</Text>
-            <Text style={styles.brandRat}>
-              {' '}
-              <Entypo
-                name={'star'}
-                color={'#FA9E15'}
-                size={responsiveScreenFontSize(2)}
-              />
-              {item.avgRating}
-            </Text>
-          </View>
-          <View style={styles.brandDetails}>
-            <Text style={styles.brandDetails}>{item.title}</Text>
-          </View>
-          <View style={styles.brandPrice}>
-            <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Details', {item})}>
+            <Image source={{uri: item.imageUrl}} style={styles.images} />
+            <View style={styles.brandRating}>
+              <Text style={styles.brandTxt}>{item.brand}</Text>
+              <Text style={styles.brandRat}>
+                {' '}
+                <Entypo
+                  name={'star'}
+                  color={'#FA9E15'}
+                  size={responsiveScreenFontSize(2)}
+                />
+                {item.avgRating}
+              </Text>
+            </View>
+            <View style={styles.brandDetails}>
+              <Text style={styles.brandDetails}>{item.title}</Text>
+            </View>
+            <View style={styles.brandPrice}>
+              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.ParentBox}>
             <TouchableOpacity>
               <View style={styles.box}>
@@ -76,7 +85,13 @@ const TopTrending = () => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <View style={styles.box1}>
+              <View
+                style={{
+                  width: responsiveScreenWidth(15),
+                  borderRadius: responsiveScreenWidth(2),
+                  height: responsiveScreenHeight(4),
+                  backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+                }}>
                 <MaterialIcons
                   style={styles.cart}
                   color={'#0B223F'}

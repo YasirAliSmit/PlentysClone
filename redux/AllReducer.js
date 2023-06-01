@@ -87,11 +87,44 @@ export const homeReducer = (state = initialState, action) => {
         ...state,
         allCategorys: action.payload,
       };
-    case ADD_TO_CART:
-      return {
-        ...state,
-        cartItems: [...state.cartItems, action.payload],
-      };
+
+    //  old code star
+    // case ADD_TO_CART:
+    //   return {
+    //     ...state,
+    //     cartItems: [...state.cartItems, action.payload],
+    //   };
+    //old code end
+    case 'ADD_TO_CART':
+      const {productId: addToCartProductId} = action.payload;
+      const existingItemIndex = state.cartItems.findIndex(
+        item => item.productId === addToCartProductId,
+      );
+
+      if (existingItemIndex !== -1) {
+        state.cartItems[existingItemIndex].quantity += 1;
+        return {...state};
+      } else {
+        return {
+          ...state,
+          cartItems: [...state.cartItems, {...action.payload, quantity: 1}],
+        };
+      }
+
+    case 'UPDATE_QUANTITY':
+      const {productId: updateProductId, quantity: updateQuantity} =
+        action.payload;
+      const itemIndex = state.cartItems.findIndex(
+        item => item.productId === updateProductId,
+      );
+
+      if (itemIndex !== -1) {
+        state.cartItems[itemIndex].quantity = updateQuantity;
+        return {...state};
+      }
+
+      return state;
+
     case DELETE_FROM_CART:
       return {
         ...state,

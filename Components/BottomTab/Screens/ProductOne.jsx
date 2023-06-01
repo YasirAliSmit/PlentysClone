@@ -18,6 +18,7 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {find} from 'lodash';
 import {addToCart} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
@@ -28,6 +29,7 @@ const Product = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {newArrivals} = useSelector(({main}) => main);
+  const cartProducts = useSelector(state => state.main.cartItems);
   const handleAddToCart = item => {
     const productDetails = {
       imageUrl: item.imageUrl,
@@ -40,6 +42,8 @@ const Product = () => {
     dispatch(addToCart(productDetails));
   };
   const renderProduct = ({item}) => {
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -68,8 +72,14 @@ const Product = () => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <View style={styles.box1}>
-                <MaterialIcons
+              <View
+                style={{
+                  width: responsiveScreenWidth(15),
+                  borderRadius: responsiveScreenWidth(2),
+                  height: responsiveScreenHeight(4),
+                  backgroundColor: foundElement ? '#22CB5C' : '#F9C21A',
+                }}>
+                <MaterialIcons //foundElement
                   style={styles.cart}
                   color={'#0B223F'}
                   name="shopping-cart"

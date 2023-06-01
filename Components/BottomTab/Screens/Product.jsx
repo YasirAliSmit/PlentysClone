@@ -21,6 +21,7 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+const {find} = require('lodash');
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
 
@@ -29,8 +30,10 @@ const Product = () => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [uiData, setUiData] = useState([]);
   const products = useSelector(state => state.main.ramdanDeals);
+  const cartProducts = useSelector(state => state.main.cartItems);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  //console.log(cartProducts);
 
   const renderProduct = ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
@@ -50,6 +53,8 @@ const Product = () => {
       // console.log('Hello');
       // setIsAddedToCart(true);
     };
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     return (
       <View>
         <View style={styles.Product}>
@@ -97,7 +102,10 @@ const Product = () => {
               <TouchableOpacity>
                 <View style={styles.box}>
                   <AntDesign
-                    style={styles.cart}
+                    style={{
+                      alignSelf: 'center',
+                      marginTop: responsiveHeight(0.5),
+                    }}
                     color={'#fff'}
                     name="hearto"
                     size={20}
@@ -105,11 +113,23 @@ const Product = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleAddToCart(item)}>
-                <View style={styles.box1}>
+                <View
+                  style={{
+                    width: responsiveWidth(15),
+                    borderRadius: responsiveWidth(2),
+                    height: responsiveScreenHeight(4),
+                    // backgroundColor: '#F9C21A',
+                    backgroundColor: foundElement ? '#22CB5C' : '#F9C21A',
+                  }}>
                   <MaterialIcons
-                    style={styles.cart}
-                    color={cartIconColor}
+                    style={{
+                      alignSelf: 'center',
+                      marginTop: responsiveHeight(0.5),
+                      //backgroundColor: 'red',
+                    }}
+                    //color={cartIconColor}
                     //color={'#0B223F'}
+
                     name="shopping-cart"
                     size={20}
                   />

@@ -6,8 +6,9 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
+  Animated,
 } from 'react-native';
-import React from 'react';
+import React, {useRef} from 'react';
 import {useRoute} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 //import AntDesign from 'react-native-vector-icons/dist/Ionicons';
@@ -24,7 +25,7 @@ import {fetchPerticularProduct} from '../../../redux/AllAction';
 import {legacy_createStore} from 'redux';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-
+import {find} from 'lodash';
 import {useEffect} from 'react';
 const Details = () => {
   const [showView, setShowView] = useState(true);
@@ -37,6 +38,7 @@ const Details = () => {
   const dispatch = useDispatch();
   const particularCategories = useSelector(state => state.main.categories);
   const {item} = route.params;
+  const cartProducts = useSelector(state => state.main.cartItems);
   useEffect(() => {
     dispatch(fetchPerticularProduct(item.categoryId));
   }, []);
@@ -57,17 +59,32 @@ const Details = () => {
     };
     dispatch(addToCart(productDetails));
   };
+  const scrollViewRef = useRef(null);
+  const scrollY = useRef(new Animated.Value(0)).current;
+
   //console.log(particularCategories);
   const renderItem = ({item}) => {
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     return (
       <View style={{flex: 1}}>
         <View style={styles.contain}>
-          <Image style={styles.productImages} source={{uri: item.imageUrl}} />
-          <Text style={styles.brand}>{item.brand}</Text>
-          <Text style={styles.title}>{item.title}</Text>
-          <Text style={styles.prices}>Rs .{item.minPrice}</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Details', {item})}>
+            <Image style={styles.productImages} source={{uri: item.imageUrl}} />
+            <Text style={styles.brand}>{item.brand}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.prices}>Rs .{item.minPrice}</Text>
+          </TouchableOpacity>
           <View style={styles.icons}>
-            <TouchableOpacity>
+            <TouchableOpacity
+              style={{
+                width: responsiveScreenWidth(15),
+                borderRadius: responsiveScreenWidth(2),
+                height: responsiveScreenHeight(4),
+                backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+              }}
+              onPress={() => handleAddToCart(item)}>
               <AntDesign
                 style={styles.shoppingCarts}
                 color={'#0B223F'}
@@ -88,6 +105,7 @@ const Details = () => {
       </View>
     );
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerOfShoppingCart}>
@@ -104,6 +122,7 @@ const Details = () => {
           <Text style={styles.shoppingCart}>Product Detail</Text>
         </View>
       </View>
+
       <ScrollView>
         <View>
           <Image style={styles.brandImage} source={{uri: item.imageUrl}} />
@@ -272,39 +291,6 @@ const Details = () => {
             data={particularCategories}
             numColumns={column}
             showsVerticalScrollIndicator={false}
-            // renderItem={({item}) => {
-            //   return (
-            //     <View style={{flex: 1}}>
-            //       <View style={styles.contain}>
-            //         <Image
-            //           style={styles.productImages}
-            //           source={{uri: item.imageUrl}}
-            //         />
-            //         <Text style={styles.brand}>{item.brand}</Text>
-            //         <Text style={styles.title}>{item.title}</Text>
-            //         <Text style={styles.prices}>Rs .{item.minPrice}</Text>
-            //         <View style={styles.icons}>
-            //           <TouchableOpacity>
-            //             <AntDesign
-            //               style={styles.shoppingCarts}
-            //               color={'#0B223F'}
-            //               name={'shoppingcart'}
-            //               size={25}
-            //             />
-            //           </TouchableOpacity>
-            //           <TouchableOpacity>
-            //             <AntDesign
-            //               style={styles.hearto}
-            //               color={'#0B223F'}
-            //               name={'hearto'}
-            //               size={25}
-            //             />
-            //           </TouchableOpacity>
-            //         </View>
-            //       </View>
-            //     </View>
-            //   );
-            // }}
             renderItem={renderItem}
           />
         </View>
@@ -531,11 +517,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   shoppingCarts: {
-    padding: responsiveScreenWidth(2),
+    //padding: responsiveScreenWidth(2),
     borderRadius: responsiveScreenHeight(1),
     //height: responsiveScreenHeight(5),
     paddingHorizontal: responsiveScreenWidth(4),
-    backgroundColor: '#F9C21A',
+    //backgroundColor: '#F9C21A',
     marginBottom: responsiveScreenHeight(1),
   },
   hearto: {

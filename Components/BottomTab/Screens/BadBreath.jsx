@@ -31,12 +31,15 @@ import {fetchRamdanDeals} from '../../../redux/Action';
 import {addToCart} from '../../../redux/AllAction';
 import {fetchkitchenCarousel} from '../../../redux/AllAction';
 import {fetchbeautyBrandProducts} from '../../../redux/AllAction';
+import {useNavigation} from '@react-navigation/native';
+import {find} from 'lodash';
 // import {fetchBadBreathProducts} from '../../../redux/AllAction';
 const BeautyBrand = ({title, id}) => {
+  const cartProducts = useSelector(state => state.main.cartItems);
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.productsCarousel);
-
+  const navigation = useNavigation();
   //console.log('this console for bead brath', products);
   // useEffect(() => {
   //   dispatch(fetchBadBreathProducts(id));
@@ -68,31 +71,36 @@ const BeautyBrand = ({title, id}) => {
     // console.log(
     //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
     // );
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     return (
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image source={{uri: item.imageUrl}} style={styles.images} />
-            {item.promotionProductValue === null ? null : (
-              <View style={styles.discountBox}>
-                <Text style={styles.discount}>
-                  {item.promotionProductValue}%OFF
-                </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
+              {item.promotionProductValue === null ? null : (
+                <View style={styles.discountBox}>
+                  <Text style={styles.discount}>
+                    {item.promotionProductValue}%OFF
+                  </Text>
+                </View>
+              )}
+              <View style={styles.brandRating}>
+                <Text style={styles.brandTxt}>{item.brand}</Text>
+                {item.avgRating ? (
+                  <Text style={styles.brandRat}>
+                    <Entypo
+                      name={'star'}
+                      color={'#FA9E15'}
+                      size={responsiveScreenFontSize(2)}
+                    />
+                    {item.avgRating}
+                  </Text>
+                ) : null}
               </View>
-            )}
-            <View style={styles.brandRating}>
-              <Text style={styles.brandTxt}>{item.brand}</Text>
-              {item.avgRating ? (
-                <Text style={styles.brandRat}>
-                  <Entypo
-                    name={'star'}
-                    color={'#FA9E15'}
-                    size={responsiveScreenFontSize(2)}
-                  />
-                  {item.avgRating}
-                </Text>
-              ) : null}
-            </View>
+            </TouchableOpacity>
             <View style={styles.brandDetails}>
               <Text style={styles.brandDetails}>{item.title}</Text>
             </View>
@@ -120,7 +128,13 @@ const BeautyBrand = ({title, id}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleAddToCart(item)}>
-                <View style={styles.box1}>
+                <View
+                  style={{
+                    width: responsiveWidth(15),
+                    borderRadius: responsiveWidth(2),
+                    height: responsiveScreenHeight(4),
+                    backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+                  }}>
                   <MaterialIcons
                     style={styles.cart}
                     color={'#0B223F'}

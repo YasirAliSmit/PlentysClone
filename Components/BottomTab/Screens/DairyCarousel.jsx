@@ -30,12 +30,15 @@ import {fetchMakeUp} from '../../../redux/AllAction';
 //import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
+import {useNavigation} from '@react-navigation/native';
 // import {fetchDairyProducts} from '../../../redux/AllAction';
+import {find} from 'lodash';
 const Product = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.dairyCarousel);
-
+  const navigation = useNavigation();
+  const cartProducts = useSelector(state => state.main.cartItems);
   // useEffect(() => {
   //   dispatch(fetchDairyProducts(id));
   // }, []);
@@ -55,6 +58,8 @@ const Product = ({title, id}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     // console.log(
     //   `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
     // );
@@ -70,30 +75,33 @@ const Product = ({title, id}) => {
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image source={{uri: item.imageUrl}} style={styles.images} />
-            {item.promotionProductValue === null ? null : (
-              <View style={styles.discountBox}>
-                <Text style={styles.discount}>
-                  {item.promotionProductValue}%OFF
-                </Text>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
+              {item.promotionProductValue === null ? null : (
+                <View style={styles.discountBox}>
+                  <Text style={styles.discount}>
+                    {item.promotionProductValue}%OFF
+                  </Text>
+                </View>
+              )}
+              <View style={styles.brandRating}>
+                <Text style={styles.brandTxt}>{item.brand}</Text>
+                {item.avgRating ? (
+                  <Text style={styles.brandRat}>
+                    <Entypo
+                      name={'star'}
+                      color={'#FA9E15'}
+                      size={responsiveScreenFontSize(2)}
+                    />
+                    {item.avgRating}
+                  </Text>
+                ) : null}
               </View>
-            )}
-            <View style={styles.brandRating}>
-              <Text style={styles.brandTxt}>{item.brand}</Text>
-              {item.avgRating ? (
-                <Text style={styles.brandRat}>
-                  <Entypo
-                    name={'star'}
-                    color={'#FA9E15'}
-                    size={responsiveScreenFontSize(2)}
-                  />
-                  {item.avgRating}
-                </Text>
-              ) : null}
-            </View>
-            <View style={styles.brandDetails}>
-              <Text style={styles.brandDetails}>{item.title}</Text>
-            </View>
+              <View style={styles.brandDetails}>
+                <Text style={styles.brandDetails}>{item.title}</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.brandPrice}>
               <Text style={styles.brandPrice}>
                 Rs. {ProductafterDiscountPrice}
@@ -118,7 +126,13 @@ const Product = ({title, id}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleAddToCart(item)}>
-                <View style={styles.box1}>
+                <View
+                  style={{
+                    width: responsiveWidth(15),
+                    borderRadius: responsiveWidth(2),
+                    height: responsiveScreenHeight(4),
+                    backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+                  }}>
                   <MaterialIcons
                     style={styles.cart}
                     color={'#0B223F'}

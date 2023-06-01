@@ -12,6 +12,8 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import {useState} from 'react';
+import Login from './Screens/Login';
+import Signup from './Screens/Signup';
 import {
   responsiveFontSize,
   responsiveHeight,

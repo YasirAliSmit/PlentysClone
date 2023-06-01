@@ -20,16 +20,20 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {find} from 'lodash';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
 //import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
+import {useNavigation} from '@react-navigation/native';
 
 const FlashDealsProduct = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.flashDealsCarousel);
+  const navigation = useNavigation();
+  const cartProducts = useSelector(state => state.main.cartItems);
   //console.log(products);
   // useEffect(() => {
   //   dispatch(fetchRamdanDeals());
@@ -63,26 +67,31 @@ const FlashDealsProduct = () => {
   };
   const renderProduct = ({item}) => {
     //console.log(item.promotionProductValue);
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     return (
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image source={{uri: item.imageUrl}} style={styles.images} />
-            <View style={styles.brandRating}>
-              <Text style={styles.brandTxt}>{item.brand}</Text>
-              {item.avgRating ? (
-                <Text style={styles.brandRat}>
-                  <Ionicons name="star" color={'#FA9E15'} size={15} />
-                  {item.avgRating}
-                </Text>
-              ) : null}
-            </View>
-            <View style={styles.brandDetails}>
-              <Text style={styles.brandDetails}>{item.title}</Text>
-            </View>
-            <View style={styles.brandPrice}>
-              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-            </View>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
+              <View style={styles.brandRating}>
+                <Text style={styles.brandTxt}>{item.brand}</Text>
+                {item.avgRating ? (
+                  <Text style={styles.brandRat}>
+                    <Ionicons name="star" color={'#FA9E15'} size={15} />
+                    {item.avgRating}
+                  </Text>
+                ) : null}
+              </View>
+              <View style={styles.brandDetails}>
+                <Text style={styles.brandDetails}>{item.title}</Text>
+              </View>
+              <View style={styles.brandPrice}>
+                <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+              </View>
+            </TouchableOpacity>
             <View style={styles.ParentBox}>
               <TouchableOpacity>
                 <View style={styles.box}>
@@ -95,7 +104,13 @@ const FlashDealsProduct = () => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleAddToCart(item)}>
-                <View style={styles.box1}>
+                <View
+                  style={{
+                    width: responsiveWidth(15),
+                    borderRadius: responsiveWidth(2),
+                    height: responsiveScreenHeight(4),
+                    backgroundColor: foundElement ? '#22CB5C' : '#F9C21A',
+                  }}>
                   <MaterialIcons
                     style={styles.cart}
                     color={'#0B223F'}

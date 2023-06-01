@@ -19,6 +19,8 @@ import Categories from '../BottomTab/Screens/Categories';
 import WholeSale from '../BottomTab/Screens/WholeSale';
 import NewArrivals from '../BottomTab/Screens/NewArrivals';
 import Details from '../BottomTab/Screens/Details';
+import Login from '../BottomTab/Screens/Login';
+import Signup from '../BottomTab/Screens/Signup';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -37,8 +39,18 @@ const Main = () => {
         />
         <Stack.Screen
           options={{headerShown: false}}
+          name="Signup"
+          component={Signup}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
           name="Categories"
           component={Categories}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Login"
+          component={Login}
         />
         <Stack.Screen
           options={{headerShown: false}}

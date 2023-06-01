@@ -29,10 +29,14 @@ import {fetchBeaverages} from '../../../redux/AllAction';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
 import {fetchCleanProducts} from '../../../redux/AllAction';
+import {useNavigation} from '@react-navigation/native';
+import {find} from 'lodash';
 const Clean = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector(state => state.main.cleaningCarousel);
+  const navigation = useNavigation();
+  const cartProducts = useSelector(state => state.main.cartItems);
   //console.log(products, 'This console for');
   // useEffect(() => {
   //   dispatch(fetchCleanProducts(id));
@@ -53,6 +57,8 @@ const Clean = ({title, id}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     // console.log(
     //   `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
     // );
@@ -68,14 +74,17 @@ const Clean = ({title, id}) => {
       <View>
         <View style={styles.Product}>
           <View style={styles.ProdContainer}>
-            <Image source={{uri: item.imageUrl}} style={styles.images} />
-            {item.promotionProductValue === null ? null : (
-              <View style={styles.discountBox}>
-                <Text style={styles.discount}>
-                  {item.promotionProductValue}%OFF
-                </Text>
-              </View>
-            )}
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
+              {item.promotionProductValue === null ? null : (
+                <View style={styles.discountBox}>
+                  <Text style={styles.discount}>
+                    {item.promotionProductValue}%OFF
+                  </Text>
+                </View>
+              )}
+            </TouchableOpacity>
             <View style={styles.brandRating}>
               <Text style={styles.brandTxt}>{item.brand}</Text>
               {item.avgRating ? (
@@ -116,7 +125,13 @@ const Clean = ({title, id}) => {
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => handleAddToCart(item)}>
-                <View style={styles.box1}>
+                <View
+                  style={{
+                    width: responsiveWidth(15),
+                    borderRadius: responsiveWidth(2),
+                    height: responsiveScreenHeight(4),
+                    backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+                  }}>
                   <MaterialIcons
                     style={styles.cart}
                     color={'#0B223F'}
