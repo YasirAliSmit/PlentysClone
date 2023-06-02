@@ -27,6 +27,7 @@ import {fetchBeaverages} from '../../redux/AllAction';
 import {fetchkitchenCarousel} from '../../redux/AllAction';
 import {fetchairpordsProducts} from '../../redux/AllAction';
 import {fetchbeautyBrandProducts} from '../../redux/AllAction';
+import {fetchShampoProducts} from '../../redux/AllAction';
 const Splash = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -53,6 +54,7 @@ const Splash = () => {
           dispatch(fetchlipDontProducts()),
           dispatch(fetchCleanProducts()),
           dispatch(fetchBadBreathProducts()),
+          dispatch(fetchShampoProducts()),
 
           setTimeout(() => {
             navigation.navigate('Parent');

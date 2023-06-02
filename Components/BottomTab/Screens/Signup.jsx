@@ -1,5 +1,5 @@
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   responsiveFontSize,
   responsiveScreenFontSize,
@@ -14,8 +14,20 @@ import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import {TouchableOpacity, StatusBar} from 'react-native';
 //import {useNavigation} from '@react-navigation/native';
+import Feather from 'react-native-vector-icons/dist/Feather';
+
 const Signup = () => {
   const navigation = useNavigation();
+  const [showPassword, setShowPassword] = useState(false);
+  const [confimShowPassword, setConfimShowPassword] = useState(false);
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+  const toggleConfirmPasswordVisibility = () => {
+    setConfimShowPassword(!confimShowPassword);
+  };
   return (
     <View style={{flex: 1}}>
       <StatusBar backgroundColor={'#0B223F'} />
@@ -83,7 +95,19 @@ const Signup = () => {
           style={styles.input}
           placeholderTextColor="grey"
           placeholder="**************"
+          value={password}
+          secureTextEntry={!showPassword}
+          onChangeText={setPassword}
         />
+        <TouchableOpacity
+          style={styles.eyes}
+          onPress={togglePasswordVisibility}>
+          <Feather
+            name={showPassword ? 'eye' : 'eye-off'}
+            color={'black'}
+            size={20}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.email}>
         <MaterialIcons
@@ -97,7 +121,21 @@ const Signup = () => {
           style={styles.input}
           placeholderTextColor="grey"
           placeholder="**************"
+          value={confirmPassword}
+          secureTextEntry={!confimShowPassword}
+          // secureTextEntry={!showPassword}
+          // onChangeText={console.log(confirmPassword)}
+          onChangeText={setConfirmPassword}
         />
+        <TouchableOpacity
+          style={styles.eyes}
+          onPress={toggleConfirmPasswordVisibility}>
+          <Feather
+            name={confimShowPassword ? 'eye' : 'eye-off'}
+            color={'black'}
+            size={20}
+          />
+        </TouchableOpacity>
       </View>
       <View style={styles.email}>
         <AntDesign
@@ -216,5 +254,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: responsiveScreenFontSize(1.5),
     marginTop: responsiveScreenHeight(1),
+  },
+  eyes: {
+    position: 'absolute',
+    top: responsiveScreenHeight(4),
+    right: responsiveScreenWidth(2),
   },
 });

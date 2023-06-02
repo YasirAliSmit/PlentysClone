@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     left: responsiveScreenWidth(5),
   },
   shoppingCart: {
-    fontSize: responsiveScreenFontSize(4  ),
+    fontSize: responsiveScreenFontSize(4),
     color: '#fff',
     left: responsiveScreenWidth(7),
     fontFamily: 'Poppins-Bold',
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0B223F',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: responsiveScreenHeight(15),
+    marginTop: responsiveScreenHeight(10),
   },
   noProductTextBtnTxt: {
     fontFamily: 'Poppins-Bold',

@@ -72,6 +72,7 @@ const Categories = () => {
         dispatch(fetchPerticularProduct(childId));
       } else {
         setSelectedKey(item.childId);
+        // console.log(item.childId, 'this is child id of categoresi');
       }
     }
     return (
@@ -117,7 +118,7 @@ const Categories = () => {
     const categoriesOfProduct = products[item.childId];
     //console.log(item);
     const childCategories = (name, childId) => {
-      //console.log(name, childId);
+      console.log(name, childId);
       dispatch(fetchPerticularProduct(childId));
       navigation.navigate('ChildCategories', {name, childId});
     };

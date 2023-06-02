@@ -80,6 +80,7 @@ const TopTrending = () => {
                   style={styles.cart}
                   color={'#fff'}
                   name="hearto"
+                  onPress={() => navigation.navigate('Login')}
                   size={20}
                 />
               </View>

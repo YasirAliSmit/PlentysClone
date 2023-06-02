@@ -15,6 +15,7 @@ export const AIRPORDS_PRODUCTS = 'AIRPORDS_PRODUCTS';
 export const CAROUSELIMAGES = 'CAROUSELIMAGES';
 import _ from 'lodash';
 import Makeup from '../Components/BottomTab/Screens/Makeup';
+import axios from 'axios';
 export const FESTIVE_EID = `FESTIVE_EID`;
 export const MAKE_UP = 'MAKE_UP';
 export const SHAN_PRODUCTS = 'SHAN_PRODUCTS';
@@ -28,7 +29,7 @@ export const BAD_BREATH = 'BAD_BREATH';
 export const GET_ALL_ID = 'GET_ALL_ID';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
-
+export const GET_SHAMPO_PRODUCTS = 'GET_SHAMPO_PRODUCTS';
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
     dispatch({
@@ -463,5 +464,23 @@ export const fetchBadBreathProducts = childId => async dispatch => {
     dispatch(badBreathProducts(data.data));
   } catch (error) {
     console.log(error`error for Bad Breath Products`);
+  }
+};
+export const getShampoProducts = products => {
+  return {
+    type: GET_SHAMPO_PRODUCTS,
+    data: products,
+  };
+};
+export const fetchShampoProducts = childId => async dispatch => {
+  try {
+    const response = await fetch(
+      'https://api.plentys.pk/api/v1/public/product/search?title=/&categoryId=297&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1',
+    );
+    const data = await response.json();
+    dispatch(getShampoProducts(data.data));
+    //.then(dispatch(getShampoProducts(response.data)));
+  } catch (error) {
+    console.log('this is error for shampo products', error);
   }
 };

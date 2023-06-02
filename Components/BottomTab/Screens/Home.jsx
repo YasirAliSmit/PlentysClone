@@ -205,7 +205,7 @@ const Home = () => {
                   ViewAllProducts(flashDealsProduct1['title'], categoryId)
                 }>
                 <Text style={styles.viewAll}>
-                  View all <AntDesign name="arrowright" size={20} />{' '}
+                  View all <AntDesign name="arrowright" size={20} />
                 </Text>
               </TouchableOpacity>
             </View>

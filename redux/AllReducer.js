@@ -25,6 +25,7 @@ import {BEAVERAGES} from './AllAction';
 import {AIRPORDS_PRODUCTS} from './AllAction';
 import {BEAUTY_BRAND} from './AllAction';
 import {DAIRY_PRODUCTS} from './AllAction';
+import {GET_SHAMPO_PRODUCTS} from './AllAction';
 const initialState = {
   banner: [],
   ramdanDeals: [],
@@ -50,6 +51,7 @@ const initialState = {
   cleaningCarousel: [],
   productsCarousel: [],
   allIds: [],
+  shampo: [],
 };
 export const homeReducer = (state = initialState, action) => {
   console.log(action.type);
@@ -161,6 +163,11 @@ export const homeReducer = (state = initialState, action) => {
       return {
         ...state,
         makeupCarousel: action.payload,
+      };
+    case GET_SHAMPO_PRODUCTS:
+      return {
+        ...state,
+        shampo: action.payload,
       };
     case SHAN_PRODUCTS:
       return {

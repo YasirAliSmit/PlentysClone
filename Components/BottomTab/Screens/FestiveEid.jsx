@@ -116,6 +116,7 @@ const Product = ({title, id}) => {
                     color={'#fff'}
                     name="hearto"
                     size={20}
+                    onPress={() => navigation.navigate('Login')}
                   />
                 </View>
               </TouchableOpacity>
