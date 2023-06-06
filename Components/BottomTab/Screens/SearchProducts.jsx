@@ -29,6 +29,7 @@ import {fetchPerticularProduct} from '../../../redux/AllAction';
 import axios from 'axios';
 const SearchProducts = ({route}) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {search} = route.params;
   const [Data, setData] = useState('');
   const searchData = async () => {

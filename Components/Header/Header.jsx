@@ -14,6 +14,9 @@ import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
+  responsiveScreenWidth,
+  responsiveScreenHeight,
+  responsiveScreenFontSize,
 } from 'react-native-responsive-dimensions';
 import {useState} from 'react';
 import React from 'react';
@@ -69,12 +72,13 @@ const Header = () => {
       <Modal visible={showModal} transparent={true} style={styles.modal}>
         <View style={styles.centerView}>
           <View style={styles.modalView}>
-            <TouchableOpacity onPress={() => setShowModal(false)}>
+            <TouchableOpacity>
               <Entypo
                 name="circle-with-cross"
                 style={styles.cross}
-                color="black"
+                color="grey"
                 size={20}
+                onPress={() => setShowModal(false)}
               />
             </TouchableOpacity>
             <View>
@@ -87,13 +91,15 @@ const Header = () => {
                   }}>
                   <View
                     style={{
-                      width: responsiveWidth(40),
-                      height: responsiveHeight(20),
+                      width: responsiveWidth(30),
+                      height: responsiveHeight(15),
                       backgroundColor: '#0B223F',
                       zIndex: 1,
                       marginLeft: responsiveWidth(2.5),
                       marginRight: responsiveWidth(3),
                       borderRadius: responsiveWidth(1),
+                      position: 'absolute',
+                      left: responsiveScreenWidth(5),
                     }}>
                     <Image
                       style={styles.khi}
@@ -106,11 +112,13 @@ const Header = () => {
 
                   <View
                     style={{
-                      width: responsiveWidth(40),
-                      height: responsiveHeight(20),
+                      width: responsiveWidth(30),
+                      height: responsiveHeight(15),
                       backgroundColor: '#617186',
                       zIndex: 1,
-                      borderRadius: responsiveWidth(1),
+                      borderRadius: responsiveWidth(2),
+                      position: 'absolute',
+                      left: responsiveScreenWidth(40),
                     }}>
                     <Image
                       style={styles.khi}
@@ -137,12 +145,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     backgroundColor: '#0B223F',
     width: '100%',
-    height: 60,
+    height: responsiveScreenHeight(6),
   },
   logo: {
     marginTop: responsiveHeight(1.5),
-    marginLeft: responsiveWidth(3),
-    marginRight: responsiveWidth(21),
+    marginLeft: responsiveWidth(6),
+    marginRight: responsiveWidth(27),
   },
   icon: {
     flexDirection: 'row',
@@ -154,22 +162,22 @@ const styles = StyleSheet.create({
     marginLeft: responsiveWidth(2),
   },
   whatappIcon: {
-    marginTop: responsiveHeight(2.5),
-    marginHorizontal: responsiveWidth(1.5),
+    marginTop: responsiveScreenHeight(2.5),
+    marginHorizontal: responsiveScreenWidth(1.5),
   },
   search: {
-    marginTop: responsiveHeight(2.5),
-    marginHorizontal: responsiveWidth(1.5),
+    marginTop: responsiveScreenHeight(2.5),
+    marginHorizontal: responsiveScreenWidth(1.5),
   },
   location: {
-    marginTop: responsiveHeight(2.5),
-    marginHorizontal: responsiveWidth(1.5),
+    marginTop: responsiveScreenHeight(2.5),
+    marginHorizontal: responsiveScreenWidth(1.5),
   },
 
   karachi: {
-    fontSize: responsiveFontSize(1.5),
-    marginTop: responsiveHeight(2.5),
-    marginLeft: responsiveWidth(3),
+    fontSize: responsiveScreenFontSize(1.5),
+    marginTop: responsiveScreenHeight(2.5),
+    marginLeft: responsiveScreenWidth(3),
     color: 'white',
     fontFamily: 'Poppins-Bold',
     letterSpacing: 2,
@@ -184,23 +192,23 @@ const styles = StyleSheet.create({
   },
   modalView: {
     backgroundColor: '#e2e8f0',
-    height: responsiveHeight(50),
-    width: responsiveWidth(90),
+    height: responsiveScreenHeight(35),
+    width: responsiveScreenWidth(80),
     elevation: 2,
     borderRadius: 3,
     position: 'absolute',
   },
   cross: {
     position: 'absolute',
-    top: responsiveHeight(0),
-    left: responsiveWidth(90),
+    top: responsiveScreenHeight(-2),
+    left: responsiveScreenWidth(80),
   },
   cityText: {
     fontFamily: 'Poppins-Bold',
     letterSpacing: 1.5,
-    fontSize: responsiveFontSize(3),
+    fontSize: responsiveFontSize(2),
     color: '#0B223F',
-    marginLeft: responsiveWidth(13),
+    marginLeft: responsiveWidth(18),
     marginTop: responsiveHeight(3),
   },
   rec: {
@@ -209,9 +217,9 @@ const styles = StyleSheet.create({
     backgroundColor: '0B223F',
   },
   khi: {
-    marginLeft: responsiveWidth(10),
+    marginLeft: responsiveWidth(8),
     marginTop: responsiveHeight(4),
-    width: responsiveWidth(20),
+    width: responsiveWidth(15),
     objectFit: 'contain',
   },
   lhr: {
@@ -221,19 +229,19 @@ const styles = StyleSheet.create({
   karachiTxt: {
     color: '#0B223F',
     position: 'absolute',
-    top: responsiveHeight(10),
+    top: responsiveHeight(8),
     left: responsiveWidth(7),
     fontFamily: 'Poppins-Bold',
-    fontSize: responsiveFontSize(2.5),
+    fontSize: responsiveFontSize(2),
     letterSpacing: 2,
   },
   lahoreTxt: {
     color: '#617186',
     position: 'absolute',
-    top: responsiveHeight(10),
+    top: responsiveHeight(8),
     left: responsiveWidth(7),
     fontFamily: 'Poppins-Bold',
-    fontSize: responsiveFontSize(2.5),
+    fontSize: responsiveFontSize(2),
     letterSpacing: 2,
   },
 });
