@@ -22,19 +22,28 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {clearCartData} from '../../../redux/AllAction';
 import _ from 'lodash';
 import {removeFromCart} from '../../../redux/AllAction';
-import noImgae from '../../assets/EmptyCard.png';
+import {updateProductQuantity} from '../../../redux/AllAction';
 const Cart = () => {
   //console.log(price);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [price, setPrice] = useState(0);
   const product = useSelector(state => state.main.cartItems);
-
+  console.log(product);
   const clearCart = () => {
     dispatch(clearCartData());
     setPrice(0);
   };
-
+  const handlePlusButton = (productId, quantity) => {
+    dispatch(updateProductQuantity(productId, quantity + 1));
+  };
+  const handleMinusButton = (productId, quantity) => {
+    if (quantity > 1) {
+      // Decrease the quantity
+      dispatch(updateProductQuantity(productId, quantity - 1));
+    }
+    //dispatch(updateProductQuantity(productId, quantity - 1));
+  };
   const renderItem = ({item}) => {
     const handleDelete = id => {
       dispatch(removeFromCart(id));
@@ -51,7 +60,9 @@ const Cart = () => {
             <Image style={styles.ProductImage} source={{uri: item.imageUrl}} />
           </View>
           <View style={styles.brandTxt}>
-            <Text style={styles.brandHeading}>{item.brand}</Text>
+            <Text style={styles.brandHeading}>
+              {item.brand} {item.purchaseLimit}
+            </Text>
             <Text style={styles.brandTitle}>{item.title}</Text>
             <Text style={styles.brandRs}>Rs. {item.minPrice}</Text>
           </View>
@@ -69,27 +80,49 @@ const Cart = () => {
               color={'black'}
               size={20}
             />
-            <View style={styles.plusandmin}>
-              <TouchableOpacity>
-                <AntDesign
-                  style={styles.plus}
-                  name={'plus'}
-                  color={'black'}
-                  size={20}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.count}>
-                <Text>1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity>
+          </View>
+          <View style={styles.plusandmin}>
+            <TouchableOpacity
+              onPress={() => handlePlusButton(item.productId, item.quantity)}
+              disabled={item.quantity === item.purchaseLimit}>
+              <AntDesign
+                style={styles.plus}
+                name={'plus'}
+                //color={'black'}
+                color={item.quantity === item.purchaseLimit ? 'gray' : 'black'}
+                size={20}
+              />
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.count}>
+              <Text>{item.quantity}</Text>
+            </TouchableOpacity>
+            <TouchableOpacity disabled={item.quantity === 1}>
+              <AntDesign
+                onPress={() => handleMinusButton(item.productId, item.quantity)}
+                style={styles.min}
+                name={'minus'}
+                // color={'black'}
+                color={item.quantity === 1 ? 'gray' : 'black'}
+                size={20}
+              />
+            </TouchableOpacity>
+            {/* <TouchableOpacity
+                onPress={() =>
+                  handleMinusButton(item.productId, item.quantity)
+                  
+                }> */}
+            {/* <TouchableOpacity
+                onPress={() => handleMinusButton(item.productId, item.quantity)}
+                disabled={item.quantity === 1}>
                 <AntDesign
                   style={styles.heart}
                   name={'minus'}
-                  color={'black'}
+                  // color={'black'}
+                  color={item.quantity === 1 ? 'gray' : 'black'}
                   size={20}
                 />
-              </TouchableOpacity>
-            </View>
+              </TouchableOpacity> */}
           </View>
         </View>
       </View>
@@ -97,7 +130,7 @@ const Cart = () => {
   };
   useEffect(() => {
     const totalCostOfCart = product.reduce((total, product) => {
-      return total + product.minPrice;
+      return total + product.minPrice * product.quantity;
     }, 0);
     ///console.log(totalCostOfCart, 'totalCostOfCart');
     setPrice(totalCostOfCart);
@@ -263,18 +296,43 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: responsiveScreenHeight(-7),
     right: 0,
+    //backgroundColor: 'red',
+    marginRight: responsiveScreenWidth(5),
+    //height: responsiveScreenHeight(10),
   },
   heart: {
     marginTop: responsiveScreenHeight(3),
     marginLeft: responsiveScreenWidth(2),
   },
-  plus: {
-    marginTop: responsiveScreenHeight(3),
-    marginLeft: responsiveScreenWidth(-5),
-  },
   plusandmin: {
     flexDirection: 'row',
+    width: responsiveScreenWidth(20),
+    height: responsiveScreenHeight(3),
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+    position: 'relative',
+    backgroundColor: '#E2E8F0',
+    top: responsiveScreenHeight(13),
+    left: responsiveScreenWidth(4),
+    borderRadius: responsiveScreenWidth(2),
   },
+  plus: {
+    // marginTop: responsiveScreenHeight(3),
+    // marginLeft: responsiveScreenWidth(-5),
+    position: 'absolute',
+    //backgroundColor: 'black',
+    //borderSize:1,
+    //right: 0,
+    top: responsiveScreenHeight(0.5),
+  },
+  min: {
+    position: 'absolute',
+    //backgroundColor: 'red',
+    //left: -5,
+    left: responsiveScreenWidth(13),
+    top: responsiveScreenHeight(0.5),
+  },
+
   total: {
     color: '#fff',
     fontSize: responsiveScreenFontSize(2),
@@ -290,8 +348,11 @@ const styles = StyleSheet.create({
     marginLeft: responsiveScreenWidth(3),
   },
   count: {
-    marginTop: responsiveScreenHeight(3),
-    marginLeft: responsiveScreenWidth(2),
+    // marginTop: responsiveScreenHeight(3),
+    // marginLeft: responsiveScreenWidth(2),
+    position: 'absolute',
+    top: responsiveScreenHeight(0.5),
+    left: responsiveScreenWidth(8),
   },
   nextBtn: {
     width: responsiveScreenWidth(65),

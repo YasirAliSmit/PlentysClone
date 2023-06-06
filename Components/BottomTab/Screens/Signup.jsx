@@ -22,11 +22,81 @@ const Signup = () => {
   const [confimShowPassword, setConfimShowPassword] = useState(false);
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [number, setNumber] = useState('');
+  const [referalCode, setReferralCode] = useState('');
+  const [nameError, setNameError] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [showError, setShowError] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [showNameError, setShowNameError] = useState(false);
+  const [showEmailEror, setShowEmailError] = useState(false);
+  const [showNumberError, setShowNumberError] = useState(false);
+  const [showPasswordError, setShowPasswordError] = useState(false);
+  const [showConfirmPasswordError, setShowConfirmPasswordError] =
+    useState(false);
+  //const [password,setPassword] = useState('')
+  // console.log(referalCode);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
   const toggleConfirmPasswordVisibility = () => {
     setConfimShowPassword(!confimShowPassword);
+  };
+  const handleSignIn = () => {
+    // if (
+    //   fullName.length > 5 &&
+    //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) &&
+    //   /^(\+92|0)?3[0-4|6-9]\d{8}$/.test(number) &&
+    //   password.length > 5 &&
+    //   password == confirmPassword
+    // ) {
+    //   console.log('right Name');
+    //   console.log('right Email');
+    //   console.log('right Number');
+    //   console.log('right Number');
+    //   console.log('right password');
+    //   setShowError(false);
+    // } else {
+    //   setShowError(true);
+    //   setNameError('Kindly Enter Name');
+    //   setEmailError('Kindly Enter Valid Email');
+    //   setPhoneNumber('Kindly Enter Valid Number');
+    //   setPasswordError('Password Length Should be grater than 5');
+    //   setConfirmPasswordError('Password Should Be Same');
+    // }
+    if (fullName.length >= 5) {
+      setShowNameError(false);
+      if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+        setShowEmailError(false);
+        if (/^(\+92|0)?3[0-4|6-9]\d{8}$/.test(number)) {
+          setShowNumberError(false);
+          if (password.length >= 5) {
+            setShowPasswordError(false);
+            if (password == confirmPassword) {
+            } else {
+              setConfirmPasswordError('Password Should Be Same');
+              setShowConfirmPasswordError(true);
+            }
+          } else {
+            setPasswordError('Password Length Should be grater than 5');
+            setShowPasswordError(true);
+          }
+        } else {
+          setPhoneNumber('Kindly Enter Valid Number');
+          setShowNumberError(true);
+        }
+      } else {
+        setEmailError('Kindly Enter Valid Email');
+        setShowEmailError(true);
+      }
+    } else {
+      setNameError('Name Length Should Be Grater than 5');
+      setShowNameError(true);
+    }
   };
   return (
     <View style={{flex: 1}}>
@@ -53,7 +123,13 @@ const Signup = () => {
           color={'#0B223F'}
         />
         <Text style={styles.fullNameTxt}>Full Name*</Text>
-        <TextInput style={styles.input} placeholder="Full Name" />
+        <TextInput
+          style={styles.input}
+          value={fullName}
+          placeholder="Full Name"
+          onChangeText={setFullName}
+        />
+        {showNameError ? <Text style={styles.error}>{nameError}</Text> : null}
       </View>
       <View style={styles.email}>
         <MaterialIcons
@@ -66,22 +142,24 @@ const Signup = () => {
         <TextInput
           style={styles.input}
           placeholder="enter your email address"
+          value={email}
+          onChangeText={setEmail}
         />
+        {showEmailEror ? <Text style={styles.error}>{emailError}</Text> : null}
       </View>
       <View style={styles.email}>
-        {/* <MaterialIcons
-          style={styles.user}
-          name="alternate-email"
-          size={15}
-          color={'#0B223F'}
-        /> */}
         <Text style={styles.user}>+92</Text>
         <Text style={styles.fullNameTxt}>Phone*</Text>
         <TextInput
           style={styles.input}
           placeholderTextColor="grey"
           placeholder="3**************"
+          value={number}
+          onChangeText={setNumber}
         />
+        {showNumberError ? (
+          <Text style={styles.error}>{phoneNumber}</Text>
+        ) : null}
       </View>
       <View style={styles.email}>
         <MaterialIcons
@@ -108,6 +186,9 @@ const Signup = () => {
             size={20}
           />
         </TouchableOpacity>
+        {showPasswordError ? (
+          <Text style={styles.error}>{passwordError}</Text>
+        ) : null}
       </View>
       <View style={styles.email}>
         <MaterialIcons
@@ -136,6 +217,9 @@ const Signup = () => {
             size={20}
           />
         </TouchableOpacity>
+        {showConfirmPasswordError ? (
+          <Text style={styles.error}>{confirmPasswordError}</Text>
+        ) : null}
       </View>
       <View style={styles.email}>
         <AntDesign
@@ -149,9 +233,11 @@ const Signup = () => {
           style={styles.input}
           placeholderTextColor="grey"
           placeholder="enter refferal code"
+          onChangeText={setReferralCode}
+          value={referalCode}
         />
       </View>
-      <TouchableOpacity style={styles.btn}>
+      <TouchableOpacity onPress={() => handleSignIn()} style={styles.btn}>
         <Text style={styles.btnTxt}>Sign Up</Text>
       </TouchableOpacity>
       <Text style={styles.regTxt}>
@@ -259,5 +345,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: responsiveScreenHeight(4),
     right: responsiveScreenWidth(2),
+  },
+  error: {
+    color: 'red',
+    position: 'absolute',
+    top: responsiveScreenHeight(5.5),
+    left: responsiveScreenWidth(2),
+    fontSize: responsiveScreenFontSize(1),
   },
 });

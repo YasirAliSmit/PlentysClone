@@ -30,6 +30,19 @@ export const GET_ALL_ID = 'GET_ALL_ID';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const GET_SHAMPO_PRODUCTS = 'GET_SHAMPO_PRODUCTS';
+// export const INCREASE_QUANTITY_BY_ONE_ = 'INCREASE_QUANTITY_BY_ONE_';
+// export const DECREASE_QUANTITY_BY_ONE = 'DECREASE_QUANTITY_BY_ONE_';
+
+export const UPDATE_PRODUCT_QUANTITY = 'UPDATE_PRODUCT_QUANTITY';
+export const updateProductQuantity = (productId, quantity) => {
+  return {
+    type: UPDATE_PRODUCT_QUANTITY,
+    payload: {
+      productId,
+      quantity,
+    },
+  };
+};
 export const RamdanDealsNewAction = RamdanDeals => {
   return dispatch => {
     dispatch({
@@ -469,7 +482,7 @@ export const fetchBadBreathProducts = childId => async dispatch => {
 export const getShampoProducts = products => {
   return {
     type: GET_SHAMPO_PRODUCTS,
-    data: products,
+    payload: products,
   };
 };
 export const fetchShampoProducts = childId => async dispatch => {
@@ -479,6 +492,7 @@ export const fetchShampoProducts = childId => async dispatch => {
     );
     const data = await response.json();
     dispatch(getShampoProducts(data.data));
+    //console.log('here is shampo data', data.data);
     //.then(dispatch(getShampoProducts(response.data)));
   } catch (error) {
     console.log('this is error for shampo products', error);

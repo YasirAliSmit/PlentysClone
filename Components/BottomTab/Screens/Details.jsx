@@ -56,6 +56,7 @@ const Details = () => {
       minPrice: item.minPrice,
       purchaseLimit: item.purchaseLimit,
       productId: item.productId,
+      quantity: 1,
     };
     dispatch(addToCart(productDetails));
   };
@@ -302,7 +303,7 @@ const Details = () => {
               <AntDesign name={'minus'} size={20} color={'#0B223F'} />
             </Text>
           </TouchableOpacity>
-          <Text style={styles.countProduct}>0</Text>
+          <Text style={styles.countProduct}>{item.quantity}</Text>
           <Text style={styles.plus}>
             <AntDesign
               name={'plus'}

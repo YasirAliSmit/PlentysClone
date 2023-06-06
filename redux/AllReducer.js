@@ -26,6 +26,7 @@ import {AIRPORDS_PRODUCTS} from './AllAction';
 import {BEAUTY_BRAND} from './AllAction';
 import {DAIRY_PRODUCTS} from './AllAction';
 import {GET_SHAMPO_PRODUCTS} from './AllAction';
+import {UPDATE_PRODUCT_QUANTITY} from './AllAction';
 const initialState = {
   banner: [],
   ramdanDeals: [],
@@ -91,41 +92,58 @@ export const homeReducer = (state = initialState, action) => {
       };
 
     //  old code star
-    // case ADD_TO_CART:
-    //   return {
-    //     ...state,
-    //     cartItems: [...state.cartItems, action.payload],
-    //   };
+    case ADD_TO_CART:
+      return {
+        ...state,
+        cartItems: [...state.cartItems, action.payload],
+      };
+
     //old code end
-    case 'ADD_TO_CART':
-      const {productId: addToCartProductId} = action.payload;
-      const existingItemIndex = state.cartItems.findIndex(
-        item => item.productId === addToCartProductId,
-      );
+    case UPDATE_PRODUCT_QUANTITY:
+      const {productId, quantity} = action.payload;
+      const updatedCartItems = state.cartItems.map(item => {
+        if (item.productId === productId) {
+          return {
+            ...item,
+            quantity,
+            totalPrice: item.minPrice * quantity,
+          };
+        }
+        return item;
+      });
+      return {
+        ...state,
+        cartItems: updatedCartItems,
+      };
+    // case 'ADD_TO_CART':
+    //   const {productId: addToCartProductId} = action.payload;
+    //   const existingItemIndex = state.cartItems.findIndex(
+    //     item => item.productId === addToCartProductId,
+    //   );
 
-      if (existingItemIndex !== -1) {
-        state.cartItems[existingItemIndex].quantity += 1;
-        return {...state};
-      } else {
-        return {
-          ...state,
-          cartItems: [...state.cartItems, {...action.payload, quantity: 1}],
-        };
-      }
+    //   if (existingItemIndex !== -1) {
+    //     state.cartItems[existingItemIndex].quantity += 1;
+    //     return {...state};
+    //   } else {
+    //     return {
+    //       ...state,
+    //       cartItems: [...state.cartItems, {...action.payload, quantity: 1}],
+    //     };
+    //   }
 
-    case 'UPDATE_QUANTITY':
-      const {productId: updateProductId, quantity: updateQuantity} =
-        action.payload;
-      const itemIndex = state.cartItems.findIndex(
-        item => item.productId === updateProductId,
-      );
+    // case 'UPDATE_QUANTITY':
+    //   const {productId: updateProductId, quantity: updateQuantity} =
+    //     action.payload;
+    //   const itemIndex = state.cartItems.findIndex(
+    //     item => item.productId === updateProductId,
+    //   );
 
-      if (itemIndex !== -1) {
-        state.cartItems[itemIndex].quantity = updateQuantity;
-        return {...state};
-      }
+    //   if (itemIndex !== -1) {
+    //     state.cartItems[itemIndex].quantity = updateQuantity;
+    //     return {...state};
+    //   }
 
-      return state;
+    //   return state;
 
     case DELETE_FROM_CART:
       return {

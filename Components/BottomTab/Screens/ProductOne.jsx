@@ -28,6 +28,7 @@ const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const [quantity, setQuantiy] = useState(1);
   const {newArrivals} = useSelector(({main}) => main);
   const cartProducts = useSelector(state => state.main.cartItems);
   const handleAddToCart = item => {
@@ -38,14 +39,17 @@ const Product = () => {
       minPrice: item.minPrice,
       purchaseLimit: item.purchaseLimit,
       productId: item.productId,
+      quantity: 1,
     };
     dispatch(addToCart(productDetails));
   };
   const renderProduct = ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
+
     return (
       <View style={styles.Product}>
+        {/* </View><View style={{backgroundColor: 'red'}}> */}
         <View style={styles.ProdContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Details', {item})}>

@@ -34,6 +34,7 @@ const TopTrending = () => {
       minPrice: item.minPrice,
       purchaseLimit: item.purchaseLimit,
       productId: item.productId,
+      quantity: 1,
     };
     dispatch(addToCart(productDetails));
   };

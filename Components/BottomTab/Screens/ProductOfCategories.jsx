@@ -18,6 +18,7 @@ import {
   responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {find} from 'lodash';
 
 import {addToCart, getAllCategory} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
@@ -27,6 +28,7 @@ import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 const ProductOfCategories = ({route}) => {
   const particularCategories = useSelector(state => state.main.categories);
+  const cartProducts = useSelector(state => state.main.cartItems);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPerticularProduct());
@@ -35,6 +37,8 @@ const ProductOfCategories = ({route}) => {
   const navigation = useNavigation();
   const {name} = route.params;
   const renderItem = ({item}) => {
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
     const handleAddToCart = item => {
       const productDetails = {
         imageUrl: item.imageUrl,
@@ -43,6 +47,7 @@ const ProductOfCategories = ({route}) => {
         minPrice: item.minPrice,
         purchaseLimit: item.purchaseLimit,
         productId: item.productId,
+        quantity: 1,
       };
 
       dispatch(addToCart(productDetails));
@@ -50,22 +55,25 @@ const ProductOfCategories = ({route}) => {
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
-          <Image
-            // source={require('../../assets/PlentysMartMob(1).png')}
-            source={{uri: item.imageUrl}}
-            style={styles.images}
-          />
-          <View style={styles.brandRating}>
-            <Text style={styles.brandTxt}>{item.brand}</Text>
-            {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
-          </View>
-          <View style={styles.brandDetails}>
-            <Text style={styles.brandDetails}>{item.title}</Text>
-          </View>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Details', {item})}>
+            <Image
+              // source={require('../../assets/PlentysMartMob(1).png')}
+              source={{uri: item.imageUrl}}
+              style={styles.images}
+            />
+            <View style={styles.brandRating}>
+              <Text style={styles.brandTxt}>{item.brand}</Text>
+              {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
+            </View>
+            <View style={styles.brandDetails}>
+              <Text style={styles.brandDetails}>{item.title}</Text>
+            </View>
 
-          <View style={styles.brandPrice}>
-            <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-          </View>
+            <View style={styles.brandPrice}>
+              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+            </View>
+          </TouchableOpacity>
           <View style={styles.ParentBox}>
             <TouchableOpacity>
               <View style={styles.box}>
@@ -78,7 +86,13 @@ const ProductOfCategories = ({route}) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <View style={styles.box1}>
+              <View
+                style={{
+                  width: responsiveScreenWidth(15),
+                  borderRadius: responsiveScreenWidth(2),
+                  height: responsiveScreenHeight(4),
+                  backgroundColor: foundElement ? '#22CB5C' : '#F9C21A',
+                }}>
                 <MaterialIcons
                   style={styles.cart}
                   color={'#0B223F'}

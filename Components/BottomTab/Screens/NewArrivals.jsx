@@ -38,12 +38,15 @@ const Product = () => {
       minPrice: item.minPrice,
       purchaseLimit: item.purchaseLimit,
       productId: item.productId,
+      quantity: 1,
     };
-    dispatch(addToCart(productDetails));
+    // console.log(' this is item ', item);
+    //(addToCart({...productDetails, quantity: 1}));
   };
   const renderProduct = ({item}) => {
     return (
-      <View style={styles.Product}>
+      // <View style={styles.Product}>
+      <View style={{backgroundColor: 'red'}}>
         <View style={styles.ProdContainer}>
           <Image
             // source={require('../../assets/PlentysMartMob(1).png')}
