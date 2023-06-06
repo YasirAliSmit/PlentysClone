@@ -57,13 +57,13 @@ const Splash = () => {
           dispatch(fetchShampoProducts()),
 
           setTimeout(() => {
-            navigation.navigate('Parent');
+            navigation.replace('Parent');
             //navigation.replace('BottomNavigation');
           }, 2000),
         ]);
       } catch (error) {
         setTimeout(() => {
-          navigation.navigate('Parent');
+          navigation.replace('Parent');
         }, 2000);
       }
     };

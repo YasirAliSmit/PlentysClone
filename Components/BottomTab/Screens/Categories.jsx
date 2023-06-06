@@ -62,19 +62,16 @@ const Categories = () => {
       setSelectedName(name);
     };
     function navigateToOther(item, name, childId) {
-      // console.log(item.name);
-      // console.log(item.childId);
       handleNamePress(item);
       setSelectColor(false);
       if (!products[item.childId]) {
-        //navigation.navigate('ProductOfCategories');
         navigation.navigate('ProductOfCategories', {name, childId});
         dispatch(fetchPerticularProduct(childId));
       } else {
         setSelectedKey(item.childId);
-        // console.log(item.childId, 'this is child id of categoresi');
       }
     }
+    console.log(item);
     return (
       <View
         style={{
@@ -85,19 +82,8 @@ const Categories = () => {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
-          //backgroundColor: 'red',
         }}>
-        <TouchableOpacity
-          onPress={() => setSelectColor(false)}
-          style={
-            selectColor && item.name === 'Plentys Mart'
-              ? {
-                  backgroundColor: '#F9C21A',
-                  padding: responsiveScreenWidth(5),
-                  paddingVertical: responsiveScreenHeight(4),
-                }
-              : null
-          }>
+        <TouchableOpacity onPress={() => setSelectColor(false)}>
           <Text
             onPress={() => navigateToOther(item, item.name, item.childId)}
             style={{
@@ -106,7 +92,8 @@ const Categories = () => {
               color: '#0B223F',
               textAlign: 'center',
               width: responsiveScreenWidth(25),
-              //backgroundColor: 'red',
+              // backgroundColor:
+              //   item.name == 'Cigs and Supplies' ? '#F9C21A' : '#E2E8F0',
             }}>
             {item.name}
           </Text>
@@ -117,10 +104,10 @@ const Categories = () => {
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
     //console.log(item);
-    const childCategories = (name, childId) => {
+    const childCategories = (name, childId, description) => {
       console.log(name, childId);
       dispatch(fetchPerticularProduct(childId));
-      navigation.navigate('ChildCategories', {name, childId});
+      navigation.navigate('ChildCategories', {name, childId, description});
     };
     return (
       <>
@@ -167,7 +154,11 @@ const Categories = () => {
                     <View key={item.id}>
                       <TouchableOpacity
                         onPress={() =>
-                          childCategories(item.name, item.childId)
+                          childCategories(
+                            item.name,
+                            item.childId,
+                            item.description,
+                          )
                         }>
                         {/* onPress={() => console.log(item.name, item.childId)}> */}
                         <View>

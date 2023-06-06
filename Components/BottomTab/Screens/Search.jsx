@@ -5,17 +5,36 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   responsiveHeight,
   responsiveScreenFontSize,
+  responsiveScreenWidth,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import FontAwesome from 'react-native-vector-icons/dist/FontAwesome';
+import axios from 'axios';
 
 const Search = ({navigation}) => {
+  const [search, setSearch] = useState();
+  const [Data, setData] = useState();
+  const searchData = async () => {
+    // try {
+    //   const response = await axios.get(
+    //     `https://api.plentys.pk/api/v1/public/product/search?title=${search}/&categoryId=1&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+    //   );
+    //   setData(response.data.data);
+    //   console.log('this is new console', Data);
+    // } catch (error) {
+    //   console.log(error, 'error while fetch search products');
+    // }
+    navigation.navigate('SearchProducts', {search});
+  };
+  // useEffect(() => {
+  //   searchData();
+  // }, []);
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -28,7 +47,13 @@ const Search = ({navigation}) => {
         />
       </TouchableOpacity>
       <View style={styles.content}>
-        <TextInput placeholder="Search" type="text" style={styles.input} />
+        <TextInput
+          placeholder="Search"
+          value={search}
+          onChangeText={setSearch}
+          type="text"
+          style={styles.input}
+        />
         <AntDesign
           name="search1"
           style={styles.srh}
@@ -42,7 +67,7 @@ const Search = ({navigation}) => {
           size={responsiveScreenFontSize(3)}
         />
       </View>
-      <TouchableOpacity style={styles.camera}>
+      <TouchableOpacity onPress={() => searchData()} style={styles.camera}>
         <AntDesign
           name="search1"
           color="#fff"
@@ -76,8 +101,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     fontSize: responsiveScreenFontSize(2),
     paddingLeft: responsiveWidth(15),
-    left: 33,
-    top: responsiveHeight(1.5),
+    left: responsiveScreenWidth(8),
+    top: responsiveHeight(2),
   },
   content: {
     height: 60,

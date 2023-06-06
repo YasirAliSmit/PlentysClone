@@ -17,27 +17,36 @@ import {
   responsiveScreenHeight,
   responsiveScreenWidth,
   responsiveWidth,
+  responsiveHeight,
 } from 'react-native-responsive-dimensions';
-import {find} from 'lodash';
 import {addToCart, getAllCategory} from '../../../redux/AllAction';
 import {useDispatch, useSelector} from 'react-redux';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
-const ChildCategories = ({route}) => {
-  const particularCategories = useSelector(state => state.main.categories);
-  const cartProducts = useSelector(state => state.main.cartItems);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getPerticularProduct());
-    //console.log(particularCategories);
-  }, [dispatch]);
+import {fetchPerticularProduct} from '../../../redux/AllAction';
+import axios from 'axios';
+const SearchProducts = ({route}) => {
   const navigation = useNavigation();
-  const {name, childId, description} = route.params;
+  const {search} = route.params;
+  const [Data, setData] = useState('');
+  const searchData = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.plentys.pk/api/v1/public/product/search?title=${search}/&categoryId=1&minPrice=1&maxPrice=&productIds=&storeId=&brandId=&rating=&conditionId=&discountValue=&promotionId=&lookupShippingTypeId=&lookupAttributeValueIds=&freshBaazar=&exactDiscount=&cityId=1&orderBy=stockDesc&limit=60&page=1`,
+      );
+      setData(response.data.data);
+    } catch (error) {
+      console.log(error, 'error while fetch search products');
+    }
+    // navigation.navigate('SearchProducts', {search});
+  };
+  console.log('this is new console', Data);
+  useEffect(() => {
+    searchData();
+  }, []);
   const renderItem = ({item}) => {
-    const searchCriteria = element => element.productId == item.productId;
-    const foundElement = find(cartProducts, searchCriteria);
     const handleAddToCart = item => {
       const productDetails = {
         imageUrl: item.imageUrl,
@@ -50,6 +59,7 @@ const ChildCategories = ({route}) => {
       };
       dispatch(addToCart(productDetails));
     };
+
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -64,13 +74,13 @@ const ChildCategories = ({route}) => {
               <Text style={styles.brandTxt}>{item.brand}</Text>
               {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
             </View>
+            <View style={styles.brandDetails}>
+              <Text style={styles.brandDetails}>{item.title}</Text>
+            </View>
+            <View style={styles.brandPrice}>
+              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
+            </View>
           </TouchableOpacity>
-          <View style={styles.brandDetails}>
-            <Text style={styles.brandDetails}>{item.title}</Text>
-          </View>
-          <View style={styles.brandPrice}>
-            <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-          </View>
           <View style={styles.ParentBox}>
             <TouchableOpacity>
               <View style={styles.box}>
@@ -83,14 +93,7 @@ const ChildCategories = ({route}) => {
               </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <View
-                style={{
-                  width: responsiveScreenWidth(15),
-                  borderRadius: responsiveScreenWidth(2),
-                  height: responsiveScreenHeight(4),
-                  backgroundColor: foundElement ? '#22CB5C' : '#F9C21A',
-                }}>
-                {/* <View style={styles.box1}> */}
+              <View style={styles.box1}>
                 <MaterialIcons
                   style={styles.cart}
                   color={'#0B223F'}
@@ -141,10 +144,9 @@ const ChildCategories = ({route}) => {
         </View>
       </View>
       <View style={styles.categoriesView}>
-        <Text style={styles.categoriesName}>{name}</Text>
-        {/* <Text style={styles.categoriesName}>{description}</Text> */}
+        <Text style={styles.categoriesName}>{search}</Text>
         <FlatList
-          data={particularCategories}
+          data={Data}
           renderItem={renderItem}
           numColumns={2}
           showsVerticalScrollIndicator={false}
@@ -153,8 +155,7 @@ const ChildCategories = ({route}) => {
     </View>
   );
 };
-
-export default ChildCategories;
+export default SearchProducts;
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

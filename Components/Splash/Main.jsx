@@ -21,6 +21,7 @@ import NewArrivals from '../BottomTab/Screens/NewArrivals';
 import Details from '../BottomTab/Screens/Details';
 import Login from '../BottomTab/Screens/Login';
 import Signup from '../BottomTab/Screens/Signup';
+import SearchProducts from '../BottomTab/Screens/SearchProducts';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -117,6 +118,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="CategoriesOfMart"
           component={CategoriesOfMart}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="SearchProducts"
+          component={SearchProducts}
         />
       </Stack.Navigator>
     </NavigationContainer>
