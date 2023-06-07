@@ -29,7 +29,7 @@ const Cart = () => {
   const navigation = useNavigation();
   const [price, setPrice] = useState(0);
   const product = useSelector(state => state.main.cartItems);
-  console.log(product);
+  ///console.log(product);
   const clearCart = () => {
     dispatch(clearCartData());
     setPrice(0);

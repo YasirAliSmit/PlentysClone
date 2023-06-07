@@ -57,7 +57,7 @@ const Categories = () => {
     setMinNumSeq(minimum.sequence);
   }, []);
 
-  const renderItem = ({item}) => {
+  const renderItem = ({item, index}) => {
     const handleNamePress = name => {
       setSelectedName(name);
     };
@@ -71,18 +71,27 @@ const Categories = () => {
         setSelectedKey(item.childId);
       }
     }
-    console.log(item);
+
     return (
       <View
-        style={{
-          width: responsiveScreenWidth(30),
-          height: responsiveScreenHeight(10),
-          borderWidth: 1,
-          borderColor: '#CBD5E1',
-          alignItems: 'center',
-          justifyContent: 'center',
-          backgroundColor: item === selectedName ? '#F9C21A' : '#E2E8F0',
-        }}>
+        style={[
+          {
+            width: responsiveScreenWidth(30),
+            height: responsiveScreenHeight(10),
+            borderWidth: 1,
+            borderColor: '#CBD5E1',
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            backgroundColor:
+              selectColor && item.name === key1Value[0].name
+                ? '#F9C21A'
+                : null || item === selectedName
+                ? '#F9C21A'
+                : '#E2E8F0',
+            // backgroundColor:  item === selectedName ? '#F9C21A' : '#E2E8F0',
+          },
+        ]}>
         <TouchableOpacity onPress={() => setSelectColor(false)}>
           <Text
             onPress={() => navigateToOther(item, item.name, item.childId)}
@@ -92,8 +101,12 @@ const Categories = () => {
               color: '#0B223F',
               textAlign: 'center',
               width: responsiveScreenWidth(25),
+              //paddingVertical: responsiveScreenHeight(3),
+              //paddingHorizontal: responsiveScreenWidth(2),
               // backgroundColor:
-              //   item.name == 'Cigs and Supplies' ? '#F9C21A' : '#E2E8F0',
+              //   selectColor && item.name === key1Value[0].name
+              //     ? '#F9C21A'
+              //     : null,
             }}>
             {item.name}
           </Text>
@@ -105,7 +118,7 @@ const Categories = () => {
     const categoriesOfProduct = products[item.childId];
     //console.log(item);
     const childCategories = (name, childId, description) => {
-      console.log(name, childId);
+      //console.log(name, childId);
       dispatch(fetchPerticularProduct(childId));
       navigation.navigate('ChildCategories', {name, childId, description});
     };
@@ -217,7 +230,7 @@ const Categories = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <View style={{width: 120}}>
+        <View style={{responsiveScreenWidth: 50}}>
           <FlatList
             data={key1Value}
             style={{borderLeftWidth: 0}}
@@ -245,6 +258,14 @@ const Categories = () => {
 export default Categories;
 
 const styles = StyleSheet.create({
+  firstItem: {
+    fontWeight: 'bold',
+    color: 'red',
+  },
+  item: {
+    fontWeight: 'normal',
+    color: 'red',
+  },
   container: {
     flex: 1,
   },

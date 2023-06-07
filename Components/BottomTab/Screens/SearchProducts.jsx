@@ -26,6 +26,7 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {fetchPerticularProduct} from '../../../redux/AllAction';
+import search from '../../assets/Search.png';
 import axios from 'axios';
 const SearchProducts = ({route}) => {
   const navigation = useNavigation();
@@ -43,10 +44,11 @@ const SearchProducts = ({route}) => {
     }
     // navigation.navigate('SearchProducts', {search});
   };
-  console.log('this is new console', Data);
+  //console.log('this is new console', Data);
   useEffect(() => {
     searchData();
   }, []);
+  //console.log(Data.length);
   const renderItem = ({item}) => {
     const handleAddToCart = item => {
       const productDetails = {
@@ -62,50 +64,47 @@ const SearchProducts = ({route}) => {
     };
 
     return (
-      <View style={styles.Product}>
-        <View style={styles.ProdContainer}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Details', {item})}>
-            <Image
-              // source={require('../../assets/PlentysMartMob(1).png')}
-              source={{uri: item.imageUrl}}
-              style={styles.images}
-            />
-            <View style={styles.brandRating}>
-              <Text style={styles.brandTxt}>{item.brand}</Text>
-              {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
-            </View>
-            <View style={styles.brandDetails}>
-              <Text style={styles.brandDetails}>{item.title}</Text>
-            </View>
-            <View style={styles.brandPrice}>
-              <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
-            </View>
-          </TouchableOpacity>
-          <View style={styles.ParentBox}>
-            <TouchableOpacity>
-              <View style={styles.box}>
-                <AntDesign
-                  style={styles.cart}
-                  color={'#fff'}
-                  name="hearto"
-                  size={20}
-                />
+      <>
+        <View style={styles.Product}>
+          <View style={styles.ProdContainer}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('Details', {item})}>
+              <Image source={{uri: item.imageUrl}} style={styles.images} />
+              <View style={styles.brandRating}>
+                <Text style={styles.brandTxt}>{item.brand}</Text>
+              </View>
+              <View style={styles.brandDetails}>
+                <Text style={styles.brandDetails}>{item.title}</Text>
+              </View>
+              <View style={styles.brandPrice}>
+                <Text style={styles.brandPrice}>Rs. {item.minPrice}</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleAddToCart(item)}>
-              <View style={styles.box1}>
-                <MaterialIcons
-                  style={styles.cart}
-                  color={'#0B223F'}
-                  name="shopping-cart"
-                  size={20}
-                />
-              </View>
-            </TouchableOpacity>
+            <View style={styles.ParentBox}>
+              <TouchableOpacity>
+                <View style={styles.box}>
+                  <AntDesign
+                    style={styles.cart}
+                    color={'#fff'}
+                    name="hearto"
+                    size={20}
+                  />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => handleAddToCart(item)}>
+                <View style={styles.box1}>
+                  <MaterialIcons
+                    style={styles.cart}
+                    color={'#0B223F'}
+                    name="shopping-cart"
+                    size={20}
+                  />
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
+      </>
     );
   };
   return (
@@ -123,18 +122,13 @@ const SearchProducts = ({route}) => {
           </TouchableOpacity>
           <Text style={styles.shoppingCart}>Categories</Text>
 
-          <TouchableOpacity
-            style={styles.arrowup}
-            //onPress={() => navigation.navigate('BottomNavigation')}
-          >
+          <TouchableOpacity style={styles.arrowup}>
             <AntDesign name="arrowup" size={20} color={'#fff'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.upDown}>
             <AntDesign name="arrowdown" size={20} color={'#fff'} />
           </TouchableOpacity>
-          <TouchableOpacity
-          //onPress={() => navigation.navigate('BottomNavigation')}
-          >
+          <TouchableOpacity>
             <AntDesign
               name="filter"
               style={styles.filter}
@@ -144,15 +138,30 @@ const SearchProducts = ({route}) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.categoriesView}>
-        <Text style={styles.categoriesName}>{search}</Text>
-        <FlatList
-          data={Data}
-          renderItem={renderItem}
-          numColumns={2}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
+      {Data.length == 0 ? (
+        <View style={{flex: 1}}>
+          <Text style={styles.categoriesName}>SEARCH : {search}</Text>
+
+          <Image
+            style={styles.notFoundImages}
+            source={require('../../assets/Search.png')}
+          />
+          <Text style={styles.notFoundtxt}>No product found!</Text>
+          <Text style={styles.notFoundtxtDetail}>
+            We couldn’t find any search results. Give it another go!
+          </Text>
+        </View>
+      ) : (
+        <View style={styles.categoriesView}>
+          <Text style={styles.categoriesName}>SEARCH : {search}</Text>
+          <FlatList
+            data={Data}
+            renderItem={renderItem}
+            numColumns={2}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -167,6 +176,13 @@ const styles = StyleSheet.create({
 
     top: 0,
     zIndex: 5,
+  },
+  notFoundImages: {
+    width: responsiveScreenWidth(50),
+    // height: responsiveScreenHeight(50),
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: responsiveScreenHeight(5),
   },
   arrow: {
     top: responsiveScreenHeight(2.5),
@@ -291,5 +307,19 @@ const styles = StyleSheet.create({
   cart: {
     alignSelf: 'center',
     marginTop: responsiveScreenHeight(0.5),
+  },
+  notFoundtxt: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: responsiveScreenFontSize(3),
+    color: '#284975',
+    alignSelf: 'center',
+  },
+  notFoundtxtDetail: {
+    fontSize: responsiveScreenFontSize(2),
+    color: '#009FD1',
+    alignSelf: 'center',
+    width: responsiveScreenWidth(70),
+    textAlign: 'center',
+    fontFamily: 'Poppins-Light',
   },
 });

@@ -303,7 +303,7 @@ const Details = () => {
               <AntDesign name={'minus'} size={20} color={'#0B223F'} />
             </Text>
           </TouchableOpacity>
-          <Text style={styles.countProduct}>{item.quantity}</Text>
+          <Text style={styles.countProduct}>1</Text>
           <Text style={styles.plus}>
             <AntDesign
               name={'plus'}
