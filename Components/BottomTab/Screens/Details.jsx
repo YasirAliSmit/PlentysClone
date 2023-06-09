@@ -63,68 +63,9 @@ const Details = () => {
   const scrollViewRef = useRef(null);
   const scrollY = useRef(new Animated.Value(0)).current;
 
-  //console.log(particularCategories);
-  const renderItem = ({item}) => {
-    const searchCriteria = element => element.productId == item.productId;
-    const foundElement = find(cartProducts, searchCriteria);
+  const renderItemHeader = () => {
     return (
       <View style={{flex: 1}}>
-        <View style={styles.contain}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Details', {item})}>
-            <Image style={styles.productImages} source={{uri: item.imageUrl}} />
-            <Text style={styles.brand}>{item.brand}</Text>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.prices}>Rs .{item.minPrice}</Text>
-          </TouchableOpacity>
-          <View style={styles.icons}>
-            <TouchableOpacity
-              style={{
-                width: responsiveScreenWidth(15),
-                borderRadius: responsiveScreenWidth(2),
-                height: responsiveScreenHeight(4),
-                backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
-              }}
-              onPress={() => handleAddToCart(item)}>
-              <AntDesign
-                style={styles.shoppingCarts}
-                color={'#0B223F'}
-                name={'shoppingcart'}
-                size={25}
-              />
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <AntDesign
-                style={styles.hearto}
-                color={'#0B223F'}
-                name={'hearto'}
-                size={25}
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    );
-  };
-
-  return (
-    <View style={styles.container}>
-      <View style={styles.headerOfShoppingCart}>
-        <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('BottomNavigation')}>
-            <Ionicons
-              name="chevron-back"
-              style={styles.arrow}
-              size={20}
-              color={'#fff'}
-            />
-          </TouchableOpacity>
-          <Text style={styles.shoppingCart}>Product Detail</Text>
-        </View>
-      </View>
-
-      <ScrollView>
         <View>
           <Image style={styles.brandImage} source={{uri: item.imageUrl}} />
           {item.getValue === null ? null : (
@@ -286,16 +227,76 @@ const Details = () => {
             />
           </TouchableOpacity>
         </View>
-        <View>
-          <Text style={styles.similarProducts}>Similar Products</Text>
-          <FlatList
-            data={particularCategories}
-            numColumns={column}
-            showsVerticalScrollIndicator={false}
-            renderItem={renderItem}
-          />
+        <Text style={styles.similarProducts}>Similar Products</Text>
+      </View>
+    );
+  };
+  const renderItem = ({item}) => {
+    const searchCriteria = element => element.productId == item.productId;
+    const foundElement = find(cartProducts, searchCriteria);
+    return (
+      <View style={{flex: 1}}>
+        <View style={styles.contain}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Details', {item})}>
+            <Image style={styles.productImages} source={{uri: item.imageUrl}} />
+            <Text style={styles.brand}>{item.brand}</Text>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.prices}>Rs .{item.minPrice}</Text>
+          </TouchableOpacity>
+          <View style={styles.icons}>
+            <TouchableOpacity
+              style={{
+                width: responsiveScreenWidth(15),
+                borderRadius: responsiveScreenWidth(2),
+                height: responsiveScreenHeight(4),
+                backgroundColor: foundElement ? '#00D84A' : '#F9C21A',
+              }}
+              onPress={() => handleAddToCart(item)}>
+              <AntDesign
+                style={styles.shoppingCarts}
+                color={'#0B223F'}
+                name={'shoppingcart'}
+                size={25}
+              />
+            </TouchableOpacity>
+            <TouchableOpacity>
+              <AntDesign
+                style={styles.hearto}
+                color={'#0B223F'}
+                name={'hearto'}
+                size={25}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
-      </ScrollView>
+      </View>
+    );
+  };
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.headerOfShoppingCart}>
+        <View style={{flexDirection: 'row'}}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('BottomNavigation')}>
+            <Ionicons
+              name="chevron-back"
+              style={styles.arrow}
+              size={20}
+              color={'#fff'}
+            />
+          </TouchableOpacity>
+          <Text style={styles.shoppingCart}>Product Detail</Text>
+        </View>
+      </View>
+      <FlatList
+        data={particularCategories}
+        numColumns={column}
+        showsVerticalScrollIndicator={false}
+        renderItem={renderItem}
+        ListHeaderComponent={renderItemHeader}
+      />
       <View style={styles.footer}>
         <View style={styles.addAndLess}>
           <TouchableOpacity>
@@ -337,6 +338,9 @@ const styles = StyleSheet.create({
 
     top: 0,
     zIndex: 5,
+    //    position: 'absolute',
+    top: 0,
+    left: 0,
   },
   arrow: {
     top: responsiveScreenHeight(2),

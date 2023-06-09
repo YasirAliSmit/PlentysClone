@@ -33,6 +33,8 @@ const Categories = () => {
   const key2Value = products[selectedKey];
   const [nameStates, setNameStates] = useState({});
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const result = products['2'];
+  const [data, setData] = useState({});
 
   const handleToggle = name => {
     setNameStates(prevStates => ({
@@ -41,8 +43,14 @@ const Categories = () => {
     }));
   };
   const dispatch = useDispatch();
-  const particaularCategories = (name, childId) => {
-    navigation.navigate('ParticularCategories', {name});
+  const particaularCategories = (name, childId, description, item) => {
+    navigation.navigate('ParticularCategories', {
+      name,
+      childId,
+      description,
+      item,
+    });
+
     dispatch(fetchPerticularProduct(childId));
   };
   const minimum = key1Value.reduce((previousNumber, currentNumber) => {
@@ -65,7 +73,7 @@ const Categories = () => {
       handleNamePress(item);
       setSelectColor(false);
       if (!products[item.childId]) {
-        navigation.navigate('ProductOfCategories', {name, childId});
+        navigation.navigate('ProductOfCategories', {item, name, childId});
         dispatch(fetchPerticularProduct(childId));
       } else {
         setSelectedKey(item.childId);
@@ -101,12 +109,6 @@ const Categories = () => {
               color: '#0B223F',
               textAlign: 'center',
               width: responsiveScreenWidth(25),
-              //paddingVertical: responsiveScreenHeight(3),
-              //paddingHorizontal: responsiveScreenWidth(2),
-              // backgroundColor:
-              //   selectColor && item.name === key1Value[0].name
-              //     ? '#F9C21A'
-              //     : null,
             }}>
             {item.name}
           </Text>
@@ -116,9 +118,8 @@ const Categories = () => {
   };
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
-    //console.log(item);
+    //console.log(categoriesOfProduct);
     const childCategories = (name, childId, description) => {
-      //console.log(name, childId);
       dispatch(fetchPerticularProduct(childId));
       navigation.navigate('ChildCategories', {name, childId, description});
     };
@@ -132,8 +133,14 @@ const Categories = () => {
             // backgroundColor: 'red',
           }}>
           <Text
-            //onPress={() => dispatch(fetchPerticularProduct(1894))}
-            onPress={() => particaularCategories(item.name, item.childId)}
+            onPress={() =>
+              particaularCategories(
+                item.name,
+                item.childId,
+                item.description,
+                item,
+              )
+            }
             style={styles.name}>
             {item.name}
           </Text>
@@ -173,7 +180,6 @@ const Categories = () => {
                             item.description,
                           )
                         }>
-                        {/* onPress={() => console.log(item.name, item.childId)}> */}
                         <View>
                           <Image
                             style={styles.images}
@@ -295,33 +301,18 @@ const styles = StyleSheet.create({
   name: {
     fontSize: responsiveScreenFontSize(1.5),
     fontFamily: 'Poppins-Light',
-    //color: '#fff',
+
     color: '#284975',
     marginTop: responsiveScreenHeight(1),
     marginLeft: responsiveScreenWidth(2),
-    // position: 'absolute',
-    // left: 0,
-    // top: 10,
-    // zIndex: 999,
-    // left: -10,
-    // right: 0,
-    // zIndex: 999,
-
-    // position: 'absolute',
-    // top: 0,
-    // left: 5,
-    // zIndex: 1,
-    //left: 0,
-    //backgroundColor: 'red',
-    //marginRight: responsiveScreenWidth(-5),
-    //marginBottom: 5,
-    //marginTop: responsiveScreenHeight(1),
   },
   right: {
     position: 'absolute',
 
     top: responsiveScreenHeight(1),
     left: responsiveScreenWidth(55),
+
+    zIndex: 5,
   },
   righttop: {
     left: responsiveScreenWidth(55),

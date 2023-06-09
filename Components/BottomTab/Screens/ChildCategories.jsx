@@ -142,6 +142,7 @@ const ChildCategories = ({route}) => {
       </View>
       <View style={styles.categoriesView}>
         <Text style={styles.categoriesName}>{name}</Text>
+
         {/* <Text style={styles.categoriesName}>{description}</Text> */}
         <FlatList
           data={particularCategories}

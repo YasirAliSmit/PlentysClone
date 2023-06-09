@@ -1,17 +1,15 @@
 import Main from './Components/Splash/Main';
 import {Provider} from 'react-redux';
-import {store, persistor} from './redux/Store';
-import Cart from './Components/BottomTab/Screens/Cart';
-import {persistStore, persistReducer} from 'redux-persist';
+import {store} from './redux/Store';
 import {PersistGate} from 'redux-persist/integration/react';
-// const persistor = persistStore();
+import {persistor} from './redux/Store';
+import Loader from './Components/BottomTab/Screens/Loader.json';
 const App = () => {
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Main />
-      </PersistGate>
+      <Main />
     </Provider>
   );
 };
+
 export default App;

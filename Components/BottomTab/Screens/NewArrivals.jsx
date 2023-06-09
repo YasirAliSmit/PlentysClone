@@ -45,8 +45,7 @@ const Product = () => {
   };
   const renderProduct = ({item}) => {
     return (
-      // <View style={styles.Product}>
-      <View style={{backgroundColor: 'red'}}>
+      <View style={styles.Product}>
         <View style={styles.ProdContainer}>
           <Image
             // source={require('../../assets/PlentysMartMob(1).png')}

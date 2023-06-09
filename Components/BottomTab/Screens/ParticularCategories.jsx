@@ -25,16 +25,28 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
+import {groupBy} from 'lodash';
+//import {find} from 'lodash';
 const ParticularCategories = ({route}) => {
   const particularCategories = useSelector(state => state.main.categories);
+
   const cartProducts = useSelector(state => state.main.cartItems);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getPerticularProduct());
-    //console.log(particularCategories);
   }, [dispatch]);
   const navigation = useNavigation();
-  const {name} = route.params;
+  const products = useSelector(state => state.main.allCategorys);
+  const {name, childId, description, item} = route.params;
+  // console.log('this item for description ', description);
+  // console.log('this item for description ', name);
+  //console.log('this item for description ', products[item.parentId]);
+  const result = products[item.parentId];
+  const groupedItems = groupBy(particularCategories, 'categoryId');
+  const findData = find(result, {name});
+  const findDatas = find(result, 'parentId');
+  ///console.log('this is new console', findData);
+  ///console.log('tests', groupedItems);
   const renderItem = ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
@@ -50,6 +62,7 @@ const ParticularCategories = ({route}) => {
       };
       dispatch(addToCart(productDetails));
     };
+
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -118,18 +131,13 @@ const ParticularCategories = ({route}) => {
           </TouchableOpacity>
           <Text style={styles.shoppingCart}>Categories</Text>
 
-          <TouchableOpacity
-            style={styles.arrowup}
-            //onPress={() => navigation.navigate('BottomNavigation')}
-          >
+          <TouchableOpacity style={styles.arrowup}>
             <AntDesign name="arrowup" size={20} color={'#fff'} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.upDown}>
             <AntDesign name="arrowdown" size={20} color={'#fff'} />
           </TouchableOpacity>
-          <TouchableOpacity
-          //onPress={() => navigation.navigate('BottomNavigation')}
-          >
+          <TouchableOpacity>
             <AntDesign
               name="filter"
               style={styles.filter}
@@ -141,6 +149,7 @@ const ParticularCategories = ({route}) => {
       </View>
       <View style={styles.categoriesView}>
         <Text style={styles.categoriesName}>{name}</Text>
+
         <FlatList
           data={particularCategories}
           renderItem={renderItem}
