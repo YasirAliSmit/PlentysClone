@@ -7,7 +7,9 @@ import Loader from './Components/BottomTab/Screens/Loader.json';
 const App = () => {
   return (
     <Provider store={store}>
-      <Main />
+      <PersistGate loading={null} persistor={persistor}>
+        <Main />
+      </PersistGate>
     </Provider>
   );
 };

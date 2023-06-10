@@ -6,6 +6,7 @@ import {
   Image,
   FlatList,
   TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 //import {addToCart} from '../../../redux/Action';
 import image from '../../assets/PlentysMartMob(1).png';
@@ -48,7 +49,7 @@ const SearchProducts = ({route}) => {
   useEffect(() => {
     searchData();
   }, []);
-  //console.log(Data.length);
+  console.log(Data.length);
   const renderItem = ({item}) => {
     const handleAddToCart = item => {
       const productDetails = {

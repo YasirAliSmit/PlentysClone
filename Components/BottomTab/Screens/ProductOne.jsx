@@ -31,17 +31,30 @@ const Product = () => {
   const [quantity, setQuantiy] = useState(1);
   const {newArrivals} = useSelector(({main}) => main);
   const cartProducts = useSelector(state => state.main.cartItems);
+  // const handleAddToCart = item => {
+  //   const productDetails = {
+  //     imageUrl: item.imageUrl,
+  //     brand: item.brand,
+  //     title: item.title,
+  //     minPrice: item.minPrice,
+  //     purchaseLimit: item.purchaseLimit,
+  //     productId: item.productId,
+  //     quantity: 1,
+  //   };
+  //   dispatch(addToCart(productDetails));
+  // };
   const handleAddToCart = item => {
-    const productDetails = {
-      imageUrl: item.imageUrl,
-      brand: item.brand,
-      title: item.title,
-      minPrice: item.minPrice,
-      purchaseLimit: item.purchaseLimit,
-      productId: item.productId,
-      quantity: 1,
-    };
-    dispatch(addToCart(productDetails));
+    dispatch(
+      addToCart({
+        imageUrl: item.imageUrl,
+        brand: item.brand,
+        title: item.title,
+        minPrice: item.minPrice,
+        purchaseLimit: item.purchaseLimit,
+        productId: item.productId,
+        quantity: 1,
+      }),
+    );
   };
   const renderProduct = ({item}) => {
     const searchCriteria = element => element.productId == item.productId;

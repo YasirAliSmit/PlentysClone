@@ -135,7 +135,8 @@ const Cart = () => {
     ///console.log(totalCostOfCart, 'totalCostOfCart');
     setPrice(totalCostOfCart);
   });
-
+  const numberOfProducts = product.length;
+  //console.log(numberOfProducts);
   return (
     <View style={styles.container}>
       <View style={styles.headerOfShoppingCart}>
@@ -192,7 +193,11 @@ const Cart = () => {
               <Text style={styles.totalPrice}>PKR:{price}</Text>
             </View>
             <View>
-              <TouchableOpacity style={styles.nextBtn}>
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('Gatway', {price, numberOfProducts})
+                }
+                style={styles.nextBtn}>
                 <Text style={styles.nextBtnTxt}>Next</Text>
               </TouchableOpacity>
             </View>

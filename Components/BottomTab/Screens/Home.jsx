@@ -42,6 +42,7 @@ import LipDontLie from './LipDontLie';
 import Cleaning from './Cleaning';
 import BadBreath from './BadBreath';
 import Splash from '../../Splash/Splash';
+import Loader from './Loader.json';
 //export var flashDealsProduct1;
 const Home = () => {
   const navigation = useNavigation();

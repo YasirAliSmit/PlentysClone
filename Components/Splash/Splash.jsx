@@ -1,5 +1,5 @@
 import {StyleSheet, StatusBar, View, Image} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 
@@ -28,6 +28,8 @@ import {fetchkitchenCarousel} from '../../redux/AllAction';
 import {fetchairpordsProducts} from '../../redux/AllAction';
 import {fetchbeautyBrandProducts} from '../../redux/AllAction';
 import {fetchShampoProducts} from '../../redux/AllAction';
+import Loader from './../BottomTab/Screens/Loader.json';
+import {ActivityIndicator} from 'react-native-paper';
 const Splash = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -59,12 +61,12 @@ const Splash = () => {
           setTimeout(() => {
             navigation.replace('Parent');
             //navigation.replace('BottomNavigation');
-          }, 2000),
+          }, 3000),
         ]);
       } catch (error) {
         setTimeout(() => {
           navigation.replace('Parent');
-        }, 2000);
+        }, 3000);
       }
     };
     fetchData();

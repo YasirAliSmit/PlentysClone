@@ -22,6 +22,7 @@ import Details from '../BottomTab/Screens/Details';
 import Login from '../BottomTab/Screens/Login';
 import Signup from '../BottomTab/Screens/Signup';
 import SearchProducts from '../BottomTab/Screens/SearchProducts';
+import Gatway from '../BottomTab/Screens/Gatway';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -123,6 +124,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="SearchProducts"
           component={SearchProducts}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Gatway"
+          component={Gatway}
         />
       </Stack.Navigator>
     </NavigationContainer>
