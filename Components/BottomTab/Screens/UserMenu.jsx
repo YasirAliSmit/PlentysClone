@@ -37,21 +37,27 @@ const UserMenu = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.detailsContent}>
-        <View style={styles.trackContent}>
-          <MaterialIcons
-            name={'location-pin'}
-            style={styles.pin}
-            color={'#00D84A'}
-            size={30}
-          />
-          <Text style={styles.tranchTxt}>Track Order</Text>
-          <AntDesign
-            name={'arrowright'}
-            style={styles.left}
-            color={'#94A3B8'}
-            size={25}
-          />
-        </View>
+        <TouchableOpacity onPress={() => navigation.navigate('TrackOrder')}>
+          <View style={styles.trackContent}>
+            <MaterialIcons
+              name={'location-pin'}
+              style={styles.pin}
+              color={'#00D84A'}
+              size={30}
+            />
+            <Text
+              onPress={() => navigation.navigate('TrackOrder')}
+              style={styles.tranchTxt}>
+              Track Order
+            </Text>
+            <AntDesign
+              name={'arrowright'}
+              style={styles.left}
+              color={'#94A3B8'}
+              size={25}
+            />
+          </View>
+        </TouchableOpacity>
         <View style={styles.nextContent}>
           <View style={styles.contectUs}>
             <MaterialIcons

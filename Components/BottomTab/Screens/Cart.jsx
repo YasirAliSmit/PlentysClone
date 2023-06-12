@@ -14,8 +14,9 @@ import {
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
+  useResponsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
-import {BottomSheet} from 'react-native-gesture-handler';
+
 import {useNavigation} from '@react-navigation/native';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -23,6 +24,8 @@ import {clearCartData} from '../../../redux/AllAction';
 import _ from 'lodash';
 import {removeFromCart} from '../../../redux/AllAction';
 import {updateProductQuantity} from '../../../redux/AllAction';
+import {Swipeable} from 'react-native-gesture-handler';
+
 const Cart = () => {
   //console.log(price);
   const dispatch = useDispatch();
@@ -48,71 +51,101 @@ const Cart = () => {
     const handleDelete = id => {
       dispatch(removeFromCart(id));
     };
+    const handleNewDelet = () => {
+      const cartItems = state.cartItems.filter(
+        item => item.productId !== action.payload,
+      );
+    };
+    const leftSwipe = () => {
+      return (
+        <View style={styles.leftSwipe}>
+          <TouchableOpacity onPress={() => handleDelete(item.productId)}>
+            {/* <Text>{item.brand}</Text> */}
+            <AntDesign name="delete" color="#fff" size={30} />
+          </TouchableOpacity>
+        </View>
+      );
+    };
+    const RightSwipe = () => {
+      return (
+        <View style={styles.RightSwipe}>
+          <Text>Edit</Text>
+        </View>
+      );
+    };
     return (
-      <View
-        style={{
-          position: 'relative',
+      <Swipeable renderLeftActions={leftSwipe}>
+        <View
+          style={{
+            position: 'relative',
 
-          height: responsiveScreenHeight(20),
-        }}>
-        <View style={styles.parent} key={item.brandId}>
-          <View style={styles.ProductImageView}>
-            <Image style={styles.ProductImage} source={{uri: item.imageUrl}} />
-          </View>
-          <View style={styles.brandTxt}>
-            <Text style={styles.brandHeading}>
-              {item.brand} {item.purchaseLimit}
-            </Text>
-            <Text style={styles.brandTitle}>{item.title}</Text>
-            <Text style={styles.brandRs}>Rs. {item.minPrice}</Text>
-          </View>
-          <View style={styles.binheart}>
-            <AntDesign
-              style={styles.bin}
-              name={'delete'}
-              color="black"
-              size={20}
-              onPress={() => handleDelete(item.productId)}
-            />
-            <AntDesign
-              style={styles.heart}
-              name={'hearto'}
-              color={'black'}
-              size={20}
-            />
-          </View>
-          <View style={styles.plusandmin}>
-            <TouchableOpacity
-              onPress={() => handlePlusButton(item.productId, item.quantity)}
-              disabled={item.quantity === item.purchaseLimit}>
+            height: responsiveScreenHeight(20),
+          }}>
+          <View style={styles.parent} key={item.brandId}>
+            <View style={styles.ProductImageView}>
+              <Image
+                style={styles.ProductImage}
+                source={{uri: item.imageUrl}}
+              />
+            </View>
+            <View style={styles.brandTxt}>
+              <Text style={styles.brandHeading}>
+                {item.brand} {item.purchaseLimit}
+              </Text>
+              <Text style={styles.brandTitle}>{item.title}</Text>
+              <Text style={styles.brandRs}>Rs. {item.minPrice}</Text>
+            </View>
+            <View style={styles.binheart}>
               <AntDesign
-                style={styles.plus}
-                name={'plus'}
-                //color={'black'}
-                color={item.quantity === item.purchaseLimit ? 'gray' : 'black'}
+                style={styles.bin}
+                name={'delete'}
+                color="black"
+                size={20}
+                onPress={() => handleDelete(item.productId)}
+              />
+              <AntDesign
+                style={styles.heart}
+                name={'hearto'}
+                color={'black'}
                 size={20}
               />
-            </TouchableOpacity>
+            </View>
+            <View style={styles.plusandmin}>
+              <TouchableOpacity
+                onPress={() => handlePlusButton(item.productId, item.quantity)}
+                disabled={item.quantity === item.purchaseLimit}>
+                <AntDesign
+                  style={styles.plus}
+                  name={'plus'}
+                  //color={'black'}
+                  color={
+                    item.quantity === item.purchaseLimit ? 'gray' : 'black'
+                  }
+                  size={20}
+                />
+              </TouchableOpacity>
 
-            <TouchableOpacity style={styles.count}>
-              <Text>{item.quantity}</Text>
-            </TouchableOpacity>
-            <TouchableOpacity disabled={item.quantity === 1}>
-              <AntDesign
-                onPress={() => handleMinusButton(item.productId, item.quantity)}
-                style={styles.min}
-                name={'minus'}
-                // color={'black'}
-                color={item.quantity === 1 ? 'gray' : 'black'}
-                size={20}
-              />
-            </TouchableOpacity>
-            {/* <TouchableOpacity
+              <TouchableOpacity style={styles.count}>
+                <Text>{item.quantity}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity disabled={item.quantity === 1}>
+                <AntDesign
+                  onPress={() =>
+                    handleMinusButton(item.productId, item.quantity)
+                  }
+                  style={styles.min}
+                  name={'minus'}
+                  // color={'black'}
+                  color={item.quantity === 1 ? 'gray' : 'black'}
+                  size={20}
+                />
+              </TouchableOpacity>
+              {/* <TouchableOpacity
                 onPress={() =>
                   handleMinusButton(item.productId, item.quantity)
                   
                 }> */}
-            {/* <TouchableOpacity
+              {/* <TouchableOpacity
                 onPress={() => handleMinusButton(item.productId, item.quantity)}
                 disabled={item.quantity === 1}>
                 <AntDesign
@@ -123,9 +156,10 @@ const Cart = () => {
                   size={20}
                 />
               </TouchableOpacity> */}
+            </View>
           </View>
         </View>
-      </View>
+      </Swipeable>
     );
   };
   useEffect(() => {
@@ -428,15 +462,16 @@ const styles = StyleSheet.create({
     //textAlign: 'center',
     alignItems: 'center',
   },
-  // BottomSheet: {
-  //   backgroundColor: 'blue', // Change the color as per your requirement
-  //   borderTopLeftRadius: 10,
-  //   borderTopRightRadius: 10,
-  //   padding: 16,
-  //   height: 300,
-  //   zIndex: 9,
-  // },
-  // noItemImage: {
-  //   // marginTop: responsiveScreenHeight(5),
-  // },
+  leftSwipe: {
+    backgroundColor: 'red',
+    height: responsiveScreenHeight(13),
+    marginTop: responsiveScreenHeight(0.9),
+    borderRadius: responsiveScreenWidth(2),
+    width: responsiveScreenWidth(15),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  RightSwipe: {
+    backgroundColor: 'grey',
+  },
 });

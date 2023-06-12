@@ -26,10 +26,11 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {groupBy} from 'lodash';
+import {fetchPerticularProduct} from '../../../redux/AllAction';
 //import {find} from 'lodash';
 const ParticularCategories = ({route}) => {
   const particularCategories = useSelector(state => state.main.categories);
-
+  //console.log(particularCategories);
   const cartProducts = useSelector(state => state.main.cartItems);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -37,16 +38,15 @@ const ParticularCategories = ({route}) => {
   }, [dispatch]);
   const navigation = useNavigation();
   const products = useSelector(state => state.main.allCategorys);
-  const {name, childId, description, item} = route.params;
-  // console.log('this item for description ', description);
-  // console.log('this item for description ', name);
-  //console.log('this item for description ', products[item.parentId]);
+  const {name, childId, description, item, categoriesOfProduct} = route.params;
+  //console.log(childId);
   const result = products[item.parentId];
   const groupedItems = groupBy(particularCategories, 'categoryId');
   const findData = find(result, {name});
   const findDatas = find(result, 'parentId');
-  ///console.log('this is new console', findData);
-  ///console.log('tests', groupedItems);
+  useEffect(() => {
+    dispatch(fetchPerticularProduct(childId));
+  }, []);
   const renderItem = ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
@@ -116,6 +116,9 @@ const ParticularCategories = ({route}) => {
       </View>
     );
   };
+  function topProductList(item) {
+    dispatch(fetchPerticularProduct(item.childId));
+  }
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -149,7 +152,22 @@ const ParticularCategories = ({route}) => {
       </View>
       <View style={styles.categoriesView}>
         <Text style={styles.categoriesName}>{name}</Text>
-
+        <FlatList
+          data={categoriesOfProduct}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          renderItem={({item}) => {
+            return (
+              <View>
+                <Text
+                  onPress={() => topProductList(item)}
+                  style={styles.middleScroll}>
+                  {item.name}
+                </Text>
+              </View>
+            );
+          }}
+        />
         <FlatList
           data={particularCategories}
           renderItem={renderItem}
@@ -292,5 +310,11 @@ const styles = StyleSheet.create({
   cart: {
     alignSelf: 'center',
     marginTop: responsiveScreenHeight(0.5),
+  },
+  middleScroll: {
+    color: '#284975',
+    fontSize: responsiveScreenFontSize(1.8),
+    fontFamily: 'Poppins-Bold',
+    marginHorizontal: responsiveScreenWidth(4),
   },
 });

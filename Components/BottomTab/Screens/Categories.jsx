@@ -43,15 +43,22 @@ const Categories = () => {
     }));
   };
   const dispatch = useDispatch();
-  const particaularCategories = (name, childId, description, item) => {
+  const particaularCategories = (
+    name,
+    childId,
+    description,
+    item,
+    categoriesOfProduct,
+  ) => {
     navigation.navigate('ParticularCategories', {
       name,
       childId,
       description,
       item,
+      categoriesOfProduct,
     });
 
-    dispatch(fetchPerticularProduct(childId));
+    // dispatch(fetchPerticularProduct(childId));
   };
   const minimum = key1Value.reduce((previousNumber, currentNumber) => {
     if (currentNumber.sequence < previousNumber.sequence) {
@@ -75,7 +82,9 @@ const Categories = () => {
       if (!products[item.childId]) {
         navigation.navigate('ProductOfCategories', {item, name, childId});
         dispatch(fetchPerticularProduct(childId));
+        console.log('i run');
       } else {
+        console.log('Hello');
         setSelectedKey(item.childId);
       }
     }
@@ -114,14 +123,16 @@ const Categories = () => {
           </Text>
         </TouchableOpacity>
       </View>
+      ///This is one Rendered Item
     );
   };
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
-    //console.log(categoriesOfProduct);
+
     const childCategories = (name, childId, description) => {
       dispatch(fetchPerticularProduct(childId));
       navigation.navigate('ChildCategories', {name, childId, description});
+      console.log('called');
     };
     return (
       <>
@@ -139,6 +150,7 @@ const Categories = () => {
                 item.childId,
                 item.description,
                 item,
+                categoriesOfProduct,
               )
             }
             style={styles.name}>
@@ -236,7 +248,7 @@ const Categories = () => {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <View style={{responsiveScreenWidth: 50}}>
+        <View style={{width: responsiveScreenWidth(30)}}>
           <FlatList
             data={key1Value}
             style={{borderLeftWidth: 0}}
@@ -245,7 +257,7 @@ const Categories = () => {
           />
         </View>
         <View style={{flex: 1, alignItems: 'flex-start', paddingLeft: 10}}>
-          <View style={{}}>
+          <View>
             <Text style={styles.shopAll}>Shop all</Text>
             <AntDesign
               size={15}

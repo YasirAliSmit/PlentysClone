@@ -108,6 +108,22 @@ const SearchProducts = ({route}) => {
       </>
     );
   };
+  const searchScreen = () => {
+    return (
+      <View style={{flex: 1}}>
+        <Text style={styles.categoriesName}>SEARCH : {search}</Text>
+
+        <Image
+          style={styles.notFoundImages}
+          source={require('../../assets/Search.png')}
+        />
+        <Text style={styles.notFoundtxt}>No product found!</Text>
+        <Text style={styles.notFoundtxtDetail}>
+          We couldn’t find any search results. Give it another go!
+        </Text>
+      </View>
+    );
+  };
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
