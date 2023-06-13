@@ -68,14 +68,9 @@ const ParticularCategories = ({route}) => {
         <View style={styles.ProdContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Details', {item})}>
-            <Image
-              // source={require('../../assets/PlentysMartMob(1).png')}
-              source={{uri: item.imageUrl}}
-              style={styles.images}
-            />
+            <Image source={{uri: item.imageUrl}} style={styles.images} />
             <View style={styles.brandRating}>
               <Text style={styles.brandTxt}>{item.brand}</Text>
-              {/* <Text style={styles.brandRat}>{item.avgRating}</Text> */}
             </View>
             <View style={styles.brandDetails}>
               <Text style={styles.brandDetails}>{item.title}</Text>

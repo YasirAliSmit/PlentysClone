@@ -3,8 +3,8 @@ import React from 'react';
 
 const TrackOrder = () => {
   return (
-    <View>
-      <Text>TrackOrder</Text>
+    <View styles={{backgroundColor: 'red'}}>
+      <Text>Hello</Text>
     </View>
   );
 };
