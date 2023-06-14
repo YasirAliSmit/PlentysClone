@@ -47,27 +47,7 @@ const Signup = () => {
     setConfimShowPassword(!confimShowPassword);
   };
   const handleSignIn = () => {
-    // if (
-    //   fullName.length > 5 &&
-    //   /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email) &&
-    //   /^(\+92|0)?3[0-4|6-9]\d{8}$/.test(number) &&
-    //   password.length > 5 &&
-    //   password == confirmPassword
-    // ) {
-    //   console.log('right Name');
-    //   console.log('right Email');
-    //   console.log('right Number');
-    //   console.log('right Number');
-    //   console.log('right password');
-    //   setShowError(false);
-    // } else {
-    //   setShowError(true);
-    //   setNameError('Kindly Enter Name');
-    //   setEmailError('Kindly Enter Valid Email');
-    //   setPhoneNumber('Kindly Enter Valid Number');
-    //   setPasswordError('Password Length Should be grater than 5');
-    //   setConfirmPasswordError('Password Should Be Same');
-    // }
+
     if (fullName.length >= 5) {
       setShowNameError(false);
       if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {

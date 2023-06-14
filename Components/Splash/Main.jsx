@@ -24,6 +24,11 @@ import Signup from '../BottomTab/Screens/Signup';
 import SearchProducts from '../BottomTab/Screens/SearchProducts';
 import Gatway from '../BottomTab/Screens/Gatway';
 import TrackOrder from '../BottomTab/Screens/TrackOrder';
+import Contect from '../BottomTab/Screens/Contect';
+import Privacy from '../BottomTab/Screens/Privacy';
+import Return from '../BottomTab/Screens/Return';
+import About from '../BottomTab/Screens/About';
+import UserMenu from '../BottomTab/Screens/UserMenu';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -135,6 +140,32 @@ const Main = () => {
           options={{headerShown: false}}
           name="TrackOrder"
           component={TrackOrder}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Contect"
+          component={Contect}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Privacy"
+          component={Privacy}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="Return"
+          component={Return}
+        />
+
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="About"
+          component={About}
+        />
+        <Stack.Screen
+          options={{headerShown: false}}
+          name="UserMenu"
+          component={UserMenu}
         />
       </Stack.Navigator>
     </NavigationContainer>

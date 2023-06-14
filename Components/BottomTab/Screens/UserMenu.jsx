@@ -66,7 +66,11 @@ const UserMenu = () => {
               color={'#F9C21A'}
               size={30}
             />
-            <Text style={styles.tranchTxt}>Contect Us</Text>
+            <Text
+              style={styles.tranchTxt}
+              onPress={() => navigation.navigate('Contect')}>
+              Contect Us
+            </Text>
             <AntDesign
               name={'arrowright'}
               style={styles.left}
@@ -81,7 +85,11 @@ const UserMenu = () => {
               color={'#A0C43C'}
               size={30}
             />
-            <Text style={styles.tranchTxt}>Privacy & Policy</Text>
+            <Text
+              style={styles.tranchTxt}
+              onPress={() => navigation.navigate('Privacy')}>
+              Privacy & Policy
+            </Text>
             <AntDesign
               name={'arrowright'}
               style={styles.left}
@@ -96,7 +104,11 @@ const UserMenu = () => {
               color={'#DB3D3D'}
               size={30}
             />
-            <Text style={styles.tranchTxt}>Return Policy</Text>
+            <Text
+              style={styles.tranchTxt}
+              onPress={() => navigation.navigate('Return')}>
+              Return Policy
+            </Text>
             <AntDesign
               name={'arrowright'}
               style={styles.left}
@@ -111,7 +123,11 @@ const UserMenu = () => {
               color={'#DB3D3D'}
               size={30}
             />
-            <Text style={styles.tranchTxt}>About Us</Text>
+            <Text
+              style={styles.tranchTxt}
+              onPress={() => navigation.navigate('About')}>
+              About Us
+            </Text>
             <AntDesign
               name={'arrowright'}
               style={styles.left}

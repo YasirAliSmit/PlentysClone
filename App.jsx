@@ -6,6 +6,8 @@ import {persistor} from './redux/Store';
 import Loader from './Components/BottomTab/Screens/Loader.json';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 const App = () => {
+ 
+
   return (
     <GestureHandlerRootView style={{flex: 1}}>
       <Provider store={store}>
