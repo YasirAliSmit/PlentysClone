@@ -24,6 +24,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchProducts} from '../../../redux/Action';
 import {fetchNewArrivals} from '../../../redux/Action';
 import {useNavigation} from '@react-navigation/native';
+import {addToFav} from '../../../redux/AllAction';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -31,18 +32,19 @@ const Product = () => {
   const [quantity, setQuantiy] = useState(1);
   const {newArrivals} = useSelector(({main}) => main);
   const cartProducts = useSelector(state => state.main.cartItems);
-  // const handleAddToCart = item => {
-  //   const productDetails = {
-  //     imageUrl: item.imageUrl,
-  //     brand: item.brand,
-  //     title: item.title,
-  //     minPrice: item.minPrice,
-  //     purchaseLimit: item.purchaseLimit,
-  //     productId: item.productId,
-  //     quantity: 1,
-  //   };
-  //   dispatch(addToCart(productDetails));
-  // };
+  const WishList = useSelector(state => state.main.WishList);
+
+  const handleAddToFav = item => {
+    const productDetails = {
+      imageUrl: item.imageUrl,
+      brand: item.brand,
+      title: item.title,
+      minPrice: item.minPrice,
+      purchaseLimit: item.purchaseLimit,
+      productId: item.productId,
+    };
+    dispatch(addToFav(productDetails));
+  };
   const handleAddToCart = item => {
     dispatch(
       addToCart({
@@ -59,10 +61,11 @@ const Product = () => {
   const renderProduct = ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
-
+    const searchWishListProducts = element =>
+      element.productId == item.productId;
+    const foundWishList = find(WishList, searchWishListProducts);
     return (
       <View style={styles.Product}>
-        {/* </View><View style={{backgroundColor: 'red'}}> */}
         <View style={styles.ProdContainer}>
           <TouchableOpacity
             onPress={() => navigation.navigate('Details', {item})}>
@@ -78,14 +81,14 @@ const Product = () => {
             </View>
           </TouchableOpacity>
           <View style={styles.ParentBox}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => handleAddToFav(item)}>
               <View style={styles.box}>
                 <AntDesign
                   style={styles.cart}
-                  color={'#fff'}
+                  color={foundWishList ? 'red' : '#fff'}
+                  // name="hearto"
                   name="hearto"
                   size={20}
-                  onPress={() => navigation.navigate('Login')}
                 />
               </View>
             </TouchableOpacity>

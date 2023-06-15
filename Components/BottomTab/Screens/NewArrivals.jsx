@@ -40,8 +40,7 @@ const Product = () => {
       productId: item.productId,
       quantity: 1,
     };
-    // console.log(' this is item ', item);
-    //(addToCart({...productDetails, quantity: 1}));
+    dispatch(addToCart(productDetails))
   };
   const renderProduct = ({item}) => {
     return (

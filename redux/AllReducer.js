@@ -27,6 +27,9 @@ import {BEAUTY_BRAND} from './AllAction';
 import {DAIRY_PRODUCTS} from './AllAction';
 import {GET_SHAMPO_PRODUCTS} from './AllAction';
 import {UPDATE_PRODUCT_QUANTITY} from './AllAction';
+import {ADD_TO_FAV} from './AllAction';
+import {CLEAR_WISH_LIST} from './AllAction';
+import {REMOVE_FROM_WISH_LIST} from './AllAction';
 const initialState = {
   banner: [],
   ramdanDeals: [],
@@ -53,6 +56,7 @@ const initialState = {
   productsCarousel: [],
   allIds: [],
   shampo: [],
+  WishList: [],
 };
 export const homeReducer = (state = initialState, action) => {
   console.log(action.type);
@@ -236,6 +240,23 @@ export const homeReducer = (state = initialState, action) => {
       return {
         ...state,
         allIds: action.payload,
+      };
+    case ADD_TO_FAV:
+      return {
+        ...state,
+        WishList: [...state.WishList, action.payload],
+      };
+    case CLEAR_WISH_LIST:
+      return {
+        ...state,
+        WishList: [],
+      };
+    case REMOVE_FROM_WISH_LIST:
+      return {
+        ...state,
+        WishList: state.WishList.filter(
+          item => item.productId !== action.payload,
+        ),
       };
     default:
       return state;

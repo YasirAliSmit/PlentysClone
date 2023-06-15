@@ -49,6 +49,8 @@ const BottomNavigation = () => {
     });
   };
   const product = useSelector(state => state.main.cartItems);
+  const WishList = useSelector(state => state.main.WishList);
+  //////// console.log(WishList);
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -142,12 +144,51 @@ const BottomNavigation = () => {
         options={{
           headerShown: false,
           tabBarShowLabel: false,
+          // tabBarButton: ({color, size}) => {
+          //   <TouchableOpacity>
+          //     <AntDesign
+          //       name="hearto"
+          //       color={color}
+          //       size={responsiveScreenFontSize(3)}
+          //     />
+          //   </TouchableOpacity>;
+          // },
           tabBarIcon: ({color, size}) => (
-            <AntDesign
-              name="hearto"
-              color={color}
-              size={responsiveScreenFontSize(3)}
-            />
+            <>
+              <AntDesign
+                name="hearto"
+                color={color}
+                size={responsiveScreenFontSize(3)}
+                style={{
+                  marginTop: responsiveScreenHeight(0),
+                  //marginBottom: responsiveScreenHeight(2),
+                }}
+              />
+              {WishList.length >= 1 ? (
+                <View
+                  style={{
+                    backgroundColor: '#DB3D3D',
+                    zIndex: 1,
+                    height: responsiveScreenHeight(2),
+                    width: responsiveScreenWidth(5),
+                    position: 'relative',
+                    left: responsiveScreenWidth(3),
+                    top: responsiveScreenHeight(-3.5),
+                    borderRadius: responsiveScreenWidth(7),
+                  }}>
+                  <Text
+                    style={{
+                      color: '#fff',
+                      position: 'absolute',
+                      left: responsiveScreenWidth(1),
+                      zIndex: 1,
+                      fontSize: responsiveFontSize(1.5),
+                    }}>
+                    {WishList.length}
+                  </Text>
+                </View>
+              ) : null}
+            </>
           ),
         }}
         component={Fav}

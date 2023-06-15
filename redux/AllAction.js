@@ -1,3 +1,4 @@
+import {useDispatch} from 'react-redux';
 export const FETCH_NEW_RAMDAN_DEALS = 'FETCH_NEW_RAMDAN_DEALS';
 export const FETCH_NEW_ARRIVALS_DEALS = 'FETCH_NEW_ARRIVALS_DEALS';
 export const TOP_NEW_TRANDING_PRODUCTS_ACTION =
@@ -6,6 +7,7 @@ export const FETCH_NEW_BANNERS = 'FETCH_NEW_BANNERS';
 export const GET_ALL_CATEGORY = 'GET_ALL_CATEGORY';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const CLEAR_CART_DATA = 'CLEAR_CART_DATA';
+export const CLEAR_WISH_LIST = 'CLEAR_WISH_LIST';
 export const DELETE_FROM_CART = 'DELETE_FROM_CART';
 export const GET_PERTICULAR_PRODUCTS = 'GET_PERTICULAR_PRODUCTS';
 export const HOME_LAYOUT = 'HOME_LAYOUT';
@@ -30,10 +32,12 @@ export const GET_ALL_ID = 'GET_ALL_ID';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const GET_SHAMPO_PRODUCTS = 'GET_SHAMPO_PRODUCTS';
-// export const INCREASE_QUANTITY_BY_ONE_ = 'INCREASE_QUANTITY_BY_ONE_';
-// export const DECREASE_QUANTITY_BY_ONE = 'DECREASE_QUANTITY_BY_ONE_';
-
+export const ADD_TO_FAV = 'ADD_TO_FAV';
+export const REMOVE_FROM_FAV = 'REMOVE_FROM_FAV';
+export const DELETE_WISH_LIST = 'DELETE_WISH_LIST';
 export const UPDATE_PRODUCT_QUANTITY = 'UPDATE_PRODUCT_QUANTITY';
+export const REMOVE_FROM_WISH_LIST = 'REMOVE_FROM_WISH_LIST';
+
 export const updateProductQuantity = (productId, quantity) => {
   return {
     type: UPDATE_PRODUCT_QUANTITY,
@@ -89,6 +93,12 @@ export const addToCart = products => {
   return {
     type: ADD_TO_CART,
     payload: products,
+  };
+};
+export const addToFav = data => {
+  return {
+    type: ADD_TO_FAV,
+    payload: data,
   };
 };
 export const increaseQuantity = productId => {
@@ -497,4 +507,28 @@ export const fetchShampoProducts = childId => async dispatch => {
   } catch (error) {
     console.log('this is error for shampo products', error);
   }
+};
+export const clearWishList = () => {
+  return {
+    type: CLEAR_WISH_LIST,
+  };
+};
+
+export const handleAddToCart = item => {
+  const productDetails = {
+    imageUrl: item.imageUrl,
+    brand: item.brand,
+    title: item.title,
+    minPrice: item.minPrice,
+    purchaseLimit: item.purchaseLimit,
+    productId: item.productId,
+    quantity: 1,
+  };
+  dispatch(addToCart(productDetails));
+};
+export const removeFavProduct = productId => {
+  return {
+    type: REMOVE_FROM_WISH_LIST,
+    payload: productId,
+  };
 };

@@ -140,22 +140,6 @@ const Cart = () => {
                   size={20}
                 />
               </TouchableOpacity>
-              {/* <TouchableOpacity
-                onPress={() =>
-                  handleMinusButton(item.productId, item.quantity)
-                  
-                }> */}
-              {/* <TouchableOpacity
-                onPress={() => handleMinusButton(item.productId, item.quantity)}
-                disabled={item.quantity === 1}>
-                <AntDesign
-                  style={styles.heart}
-                  name={'minus'}
-                  // color={'black'}
-                  color={item.quantity === 1 ? 'gray' : 'black'}
-                  size={20}
-                />
-              </TouchableOpacity> */}
             </View>
           </View>
         </View>

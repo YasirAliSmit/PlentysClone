@@ -14,6 +14,7 @@ import Entypo from 'react-native-vector-icons/dist/Entypo';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useEffect, useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
+import {addToFav} from '../../../redux/AllAction';
 import {
   responsiveScreenFontSize,
   responsiveHeight,
@@ -31,6 +32,7 @@ const Product = () => {
   const [uiData, setUiData] = useState([]);
   const products = useSelector(state => state.main.ramdanDeals);
   const cartProducts = useSelector(state => state.main.cartItems);
+  const WishList = useSelector(state => state.main.WishList);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   //console.log(cartProducts);
@@ -56,6 +58,21 @@ const Product = () => {
     };
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
+    const searchWishListProducts = element =>
+      element.productId == item.productId;
+    const foundWishList = find(WishList, searchWishListProducts);
+    const handleAddToFav = item => {
+      const productDetails = {
+        imageUrl: item.imageUrl,
+        brand: item.brand,
+        title: item.title,
+        minPrice: item.minPrice,
+        purchaseLimit: item.purchaseLimit,
+        productId: item.productId,
+      };
+      dispatch(addToFav(productDetails));
+    };
+
     return (
       <View>
         <View style={styles.Product}>
@@ -107,10 +124,11 @@ const Product = () => {
                       alignSelf: 'center',
                       marginTop: responsiveHeight(0.5),
                     }}
-                    color={'#fff'}
+                    color={foundWishList ? 'red' : '#fff'}
                     name="hearto"
+                    // name="hearto"
                     size={20}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={() => handleAddToFav(item)}
                   />
                 </View>
               </TouchableOpacity>
@@ -161,6 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginBottom: responsiveScreenHeight(2.5),
     marginHorizontal: responsiveScreenWidth(2.5),
+    // backgroundColor: 'red',
   },
   images: {
     width: responsiveWidth(40),

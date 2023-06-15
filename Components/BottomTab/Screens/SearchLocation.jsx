@@ -21,6 +21,7 @@ const SearchLocation = () => {
         /> */}
         <GooglePlacesAutocomplete
           placeholder="Type a place"
+          ///query={{key: 'AIzaSyCq_uqOuhZYWpR94UfSd4mwiEAgvJU3GFc'}}
           query={{key: 'AIzaSyC8Zym3AAjvppiRTlqmFpkXjEOxG9Mp5ms'}}
           fetchDetails={true}
           onPress={(data, details = null) => console.log(data, details)}

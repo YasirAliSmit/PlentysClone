@@ -1,16 +1,18 @@
-import {StyleSheet, Text, View, Button} from 'react-native';
+import {StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
-import {responsiveScreenHeight} from 'react-native-responsive-dimensions';
+import {
+  responsiveScreenHeight,
+  responsiveScreenWidth,
+  responsiveScreenFontSize,
+} from 'react-native-responsive-dimensions';
 import {PermissionsAndroid} from 'react-native-permissions';
 import Geolocation from '@react-native-community/geolocation';
 const TrackOrder = () => {
   const [mLat, setMLet] = useState(0);
   const [mLog, setMLog] = useState(0);
-  useEffect(() => {
-    requestCameraPermission();
-  }, []);
+
   const requestCameraPermission = async () => {
     try {
       const granted = await PermissionsAndroid.request(
@@ -48,8 +50,8 @@ const TrackOrder = () => {
         region={{
           latitude: 24.8607,
           longitude: 67.0011,
-          latitudeDelta: 5,
-          longitudeDelta: 5,
+          latitudeDelta: 0.5,
+          longitudeDelta: 0.5,
         }}>
         <Marker
           coordinate={{
@@ -60,11 +62,9 @@ const TrackOrder = () => {
           }}
         />
       </MapView>
-      <Button
-        onPress={() => getLocation()}
-        title="Get Location"
-        color={'red'}
-      />
+      <TouchableOpacity style={styles.btn} onPress={() => getLocation()}>
+        <Text style={styles.btnTxt}>Get Current Location</Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -82,5 +82,21 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  btn: {
+    backgroundColor: '#0B223F',
+    width: responsiveScreenWidth(50),
+    height: responsiveScreenHeight(5),
+    borderRadius: responsiveScreenWidth(6),
+    position: 'absolute',
+    top: responsiveScreenHeight(80),
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  btnTxt: {
+    fontFamily: 'Poppins-Light',
+    color: '#fff',
+    fontSize: responsiveScreenFontSize(2),
   },
 });

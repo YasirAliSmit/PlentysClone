@@ -21,6 +21,7 @@ import {
 } from 'react-native-responsive-dimensions';
 import {addToCart} from '../../../redux/Action';
 import {useNavigation} from '@react-navigation/native';
+import {addToFav} from '../../../redux/AllAction';
 import {find} from 'lodash';
 const TopTrending = () => {
   const cartProducts = useSelector(state => state.main.cartItems);
@@ -39,7 +40,7 @@ const TopTrending = () => {
     dispatch(addToCart(productDetails));
   };
   const topProduct = useSelector(state => state.main.topTranding);
-
+  const WishList = useSelector(state => state.main.WishList);
   const numColumns = 2;
 
   const renderItem = ({item}) => {
@@ -48,6 +49,20 @@ const TopTrending = () => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
+    const searchWishListProducts = element =>
+      element.productId == item.productId;
+    const foundWishList = find(WishList, searchWishListProducts);
+    const handleAddToFav = item => {
+      const productDetails = {
+        imageUrl: item.imageUrl,
+        brand: item.brand,
+        title: item.title,
+        minPrice: item.minPrice,
+        purchaseLimit: item.purchaseLimit,
+        productId: item.productId,
+      };
+      dispatch(addToFav(productDetails));
+    };
 
     return (
       <View style={styles.Product}>
@@ -79,9 +94,9 @@ const TopTrending = () => {
               <View style={styles.box}>
                 <AntDesign
                   style={styles.cart}
-                  color={'#fff'}
+                  color={foundWishList ? 'red' : '#fff'}
                   name="hearto"
-                  onPress={() => navigation.navigate('Login')}
+                  onPress={() => handleAddToFav(item)}
                   size={20}
                 />
               </View>
