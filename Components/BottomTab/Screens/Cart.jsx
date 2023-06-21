@@ -14,7 +14,6 @@ import {
   responsiveScreenFontSize,
   responsiveScreenHeight,
   responsiveScreenWidth,
-  useResponsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
 
 import {useNavigation} from '@react-navigation/native';

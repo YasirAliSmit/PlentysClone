@@ -97,6 +97,7 @@ const UserMenu = () => {
               size={25}
             />
           </View>
+          
           <View style={styles.return}>
             <Ionicons
               name={'return-up-back'}
@@ -116,6 +117,7 @@ const UserMenu = () => {
               size={25}
             />
           </View>
+          
           <View style={styles.info}>
             <Ionicons
               name={'information-circle'}
@@ -135,8 +137,28 @@ const UserMenu = () => {
               size={25}
             />
           </View>
+          
         </View>
       </View>
+      <View style={styles.infoQr}>
+            <Ionicons
+              name={'qr-code'}
+              style={styles.pin}
+              color={'black'}
+              size={30}
+            />
+            <Text
+              style={styles.tranchTxt}
+              onPress={() => navigation.navigate('QrCode')}>
+              Generate Qr Code
+            </Text>
+            <AntDesign
+              name={'arrowright'}
+              style={styles.left}
+              color={'#94A3B8'}
+              size={25}
+            />
+          </View>
     </View>
   );
 };
@@ -312,6 +334,21 @@ const styles = StyleSheet.create({
     borderColor: '#CBD5E1',
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15,
+  },
+  infoQr:{
+    backgroundColor: '#fff',
+    width: responsiveScreenWidth(85),
+    height: responsiveScreenHeight(6),
+    //backgroundColor: 'red',
+    top: responsiveScreenHeight(75),
+    alignSelf: 'center',
+    borderRadius: responsiveScreenWidth(5),
+    // elevation: 20,
+    position: 'absolute',
+    borderWidth: 1,
+    borderTopWidth: 0,
+    borderLeftWidth: 0,
+    borderRightWidth: 0,
   },
   contectUs: {
     width: responsiveScreenWidth(85),

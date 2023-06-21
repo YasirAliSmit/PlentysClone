@@ -69,7 +69,7 @@ const Search = ({navigation}) => {
             size={responsiveScreenFontSize(2)}
           />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.mic}>
+        <TouchableOpacity onPress={()=>navigation.navigate('TestCamera')} style={styles.mic}>
           <Entypo
             name="camera"
             color="#fff"

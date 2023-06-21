@@ -29,6 +29,8 @@ import Privacy from '../BottomTab/Screens/Privacy';
 import Return from '../BottomTab/Screens/Return';
 import About from '../BottomTab/Screens/About';
 import UserMenu from '../BottomTab/Screens/UserMenu';
+import TestCamera from '../BottomTab/Screens/camera';
+import QrCode from '../BottomTab/Screens/QrCode';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -166,6 +168,16 @@ const Main = () => {
           options={{headerShown: false}}
           name="UserMenu"
           component={UserMenu}
+        />
+           <Stack.Screen
+          options={{headerShown: false}}
+          name="TestCamera"
+          component={TestCamera}
+        />
+          <Stack.Screen
+          options={{headerShown: false}}
+          name="QrCode"
+          component={QrCode}
         />
       </Stack.Navigator>
     </NavigationContainer>
