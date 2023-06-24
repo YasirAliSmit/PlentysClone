@@ -4,7 +4,7 @@ import {
   View,
   StatusBar,
   TouchableOpacity,
-  ScrollView,
+  ScrollView,Modal,
   FlatList,
 } from 'react-native';
 const _ = require('lodash');
@@ -43,17 +43,18 @@ import Cleaning from './Cleaning';
 import BadBreath from './BadBreath';
 import Splash from '../../Splash/Splash';
 import Loader from './Loader.json';
-//export var flashDealsProduct1;
+import AnimatedModal from './AnimatedModal';
 const Home = () => {
   const navigation = useNavigation();
-  const [flashDealId, setflashDealId] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
   const ViewAllProducts = (title, id) => {
-    // console.log('View all Products');
     navigation.navigate('ViewRamdan', {title, id});
   };
-  //homestate[findState.value]
   const homeState = useSelector(state => state.main);
-  //console.log('homeState=>', homeState);
   useEffect(() => {}, []);
   const renderItem = ({item}) => {
     //console.log(item.identifier);
@@ -78,12 +79,13 @@ const Home = () => {
           key: 'categoryItem3',
         })?.value;
         const resultThreeImage = categories3;
-        return (
+        return (<>
           <ProductBanners
             resultOneImage={resultOneImage}
             resultTwoImage={resultTwoImage}
             resultThreeImage={resultThreeImage}
-          />
+            />
+            </>
         );
       case 'wholesaleOffer':
         const wholeSale = find(item.properties, {key: 'title'})?.value;
@@ -210,6 +212,7 @@ const Home = () => {
                 </Text>
               </TouchableOpacity>
             </View>
+            
             <FlashDealsProduct />
             <View style={styles.headTxt}>
               <TouchableOpacity>
@@ -431,11 +434,25 @@ const Home = () => {
         <StatusBar backgroundColor={'#0B223F'} />
         <Header />
       </View>
+      
+      <TouchableOpacity onPress={()=> setModalVisible(true)}  style={styles.spinner}><Text style={styles.spinnerTxt}>Spinner</Text></TouchableOpacity>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={closeModal}
+      >
+        <View style={styles.modalContainer}>
+          {/* Render the custom content component */}
+          <AnimatedModal closeModal={closeModal} />
+        </View>
+      </Modal>
       <FlatList
         data={homeState.homeLayout}
         renderItem={renderItem}
         keyExtractor={(_, index) => index.toString()}
         showsVerticalScrollIndicator={false}
+     
       />
     </View>
   );
@@ -463,6 +480,7 @@ const styles = StyleSheet.create({
   product: {
     flex: 1,
     top: responsiveScreenHeight(4),
+    position:'relative'
   },
   header: {
     width: '100%',
@@ -512,6 +530,36 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     color: '#305586',
     marginLeft: responsiveScreenWidth(2),
+  },
+  spinner:{
+    width:responsiveScreenWidth(20),
+    height:responsiveScreenHeight(5),
+   // padding:responsiveScreenWidth(5),
+    borderRadius:responsiveScreenWidth(40),
+    backgroundColor:'#F9C21A',
+    position:'absolute',
+    top:responsiveScreenHeight(80),
+    left:responsiveScreenWidth(78),
+    zIndex:20,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  spinnerTxt:{
+    fontFamily: 'Poppins-Bold',
+    color: '#305586',
+  },
+  modalContainer: {
+  //height:responsiveScreenHeight(40),
+marginTop:responsiveScreenHeight(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+    alignItems:'center',
+    width:responsiveScreenWidth(90),
+    alignSelf:'center',
+    borderRadius:responsiveScreenWidth(7)
+  
+   
   },
 });
 //This is updated Project
