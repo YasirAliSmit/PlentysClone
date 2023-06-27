@@ -549,7 +549,7 @@ const styles = StyleSheet.create({
     color: '#305586',
   },
   modalContainer: {
-  //height:responsiveScreenHeight(40),
+  height:responsiveScreenHeight(30),
 marginTop:responsiveScreenHeight(30),
     justifyContent: 'center',
     alignItems: 'center',
