@@ -6,51 +6,88 @@ import {
   TouchableOpacity,
   Animated,
 } from 'react-native';
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   responsiveScreenHeight,
   responsiveScreenWidth,
 } from 'react-native-responsive-dimensions';
-
+import ConfettiCannon from 'react-native-confetti-cannon'
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import {useEffect} from 'react';
+import { transform } from 'lodash';
 
 const AnimatedModal = ({closeModal}) => {
+  const [showImage,setShowImage] = useState(true)
+  const [startAmination,setStartAnimation] =useState(false)
   const animation = useRef(new Animated.Value(0)).current; /// this is reference of animation in side animation.value we need to pass intialValue
   const animationValue = useRef(new Animated.Value(0)).current;
   const isFlipped = useRef(false);
   const animatedValue = new Animated.Value(0)
   let currentValue = 0 
-  const flipAnimated = () => {
-    if(currentValue>=90){
-      Animated.spring(animatedValue,{
-        toValue:0,
-        useNativeDriver:false
-      }).start()
-    }else{
-      Animated.spring(animatedValue,{
-        toValue:180,
-        useNativeDriver:false
-      }).start()
-    }
-  }
+ const images = [
+{
+  id:1,
+  front:'../../assets/1x/front.png',
+  back:'../../assets/1x/back.png'
+},{
+  id:2,
+  front:'../../assets/1x/front.png',
+  back:'../../assets/1x/back.png'
+},{
+  id:3,
+  front:'../../assets/1x/front.png',
+  back:'../../assets/1x/back.png'
+},
+ ]
   animatedValue.addListener(({value})=>{
     currentValue = value 
   })
   const setInterpolate = animatedValue.interpolate({
     inputRange:[0,180],
     outputRange:['180deg','360deg']
+ 
   })
   const rotateYAnimatedStyle = {
     transform:[{rotateY:setInterpolate}]
   }
+  
   const startAnimations = () => {
     Animated.spring(animation, {
-      toValue: 2000,
+      toValue: 3000,
       useNativeDriver: true,
     }).start(); // its is animation spring or start  spring take two parameter first reference and object in side object u can pass from and two like toValue
   };
+const flipAnimation = () => {
+  if(currentValue >= 90){
+    Animated.spring(animatedValue,{
+      toValue:0,
+      tension:10,
+      // friction:8,
+      useNativeDriver:true
+    }).start()
+  }else{
+    Animated.spring(animatedValue,{
+      toValue:180,
+      
+       tension:10,
+      // friction:8,
+      useNativeDriver:false
+    }).start()
+  }
+  setInterval(()=>{setShowImage(false)},50)
+}
 
+const startCardAnition = ()=>{
+  // Animated.spring(animation,{
+  //   toValue:1
+  //   ,useNativeDriver:true
+  // }).start()
+  Animated.timing(animation, {
+    toValue: 1,
+    duration: 1500,
+    useNativeDriver: true,
+  }).start();
+}
   return (
     <View style={styles.modalContainer}>
       <Image
@@ -65,7 +102,7 @@ const AnimatedModal = ({closeModal}) => {
               {
                 rotate: animation.interpolate({
                   inputRange: [0, 1],
-                  outputRange: ['0deg', '360deg'],
+                  outputRange: ['180deg', '360deg'],
                 }),
               },
             ],
@@ -87,21 +124,46 @@ const AnimatedModal = ({closeModal}) => {
           </View>
             </TouchableOpacity>
           <View>
-            <Image
-              style={styles.front}
-              source={require('../../assets/1x/front.png')}
-            />
+            <TouchableOpacity onPress={() => console.log('tttttttttt')}>
+            <Animated.Image
+             // style={[styles.front,rotateYAnimatedStyle]}
+             style={[styles.front,rotateYAnimatedStyle,{transform:[{translateX:animation.interpolate({
+              inputRange:[0,1],
+              outputRange:[0,120]
+            })}]}]}
+
+             //source={require('../../assets/1x/front.png')}
+              source={showImage?require('../../assets/1x/front.png'):require('../../assets/1x/back.png')}
+            /></TouchableOpacity>
           </View>
-        <Image
-          style={styles.front1}
-          source={require('../../assets/1x/front.png')}
-        />
-        <Image
-          style={styles.front2}
-          source={require('../../assets/1x/front.png')}
-        />
+          <Animated.Image
+              style={[styles.front1,rotateYAnimatedStyle,{transform:[{translateX:animation.interpolate({
+                inputRange:[0,1],
+                outputRange:[0,120]
+              })}]}]}
+              // style={[styles.front1,rotateYAnimatedStyle]}
+              //source={require('../../assets/1x/front.png')}
+              source={showImage?require('../../assets/1x/front.png'):require('../../assets/1x/back.png')}
+            />
+       <Animated.Image
+              //style={[styles.front2,rotateYAnimatedStyle]}
+              //source={require('../../assets/1x/front.png')}
+              style={[styles.front2,rotateYAnimatedStyle,{transform:[{translateX:animation.interpolate({
+                inputRange:[0,1],
+                outputRange:[0,-230]
+              })}]}]}
+
+              source={showImage?require('../../assets/1x/front.png'):require('../../assets/1x/back.png')}
+            />
+
       </View>
-      <TouchableOpacity onPress={() => startAnimations()}>
+      <TouchableOpacity onPress={() =>{ 
+        
+        setStartAnimation(true)
+        startAnimations()
+      flipAnimation() 
+      startCardAnition()
+      }}>
         <Image
           style={styles.button}
           source={require('../../assets/1x/button.png')}
