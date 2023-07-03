@@ -23,6 +23,7 @@ import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/Action';
 import {clearWishList} from '../../../redux/AllAction';
 import {removeFavProduct} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 const Fav = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const Fav = () => {
     dispatch(removeFavProduct(product));
   };
 
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -88,7 +89,7 @@ const Fav = () => {
         </View>
       </View>
     );
-  };
+  },[WishList])
   return (
     <View style={styles.container}>
       <StatusBar backgroundColor={'#0B223F'} />
@@ -134,7 +135,7 @@ const Fav = () => {
   );
 };
 
-export default Fav;
+export default React.memo(Fav);
 
 const styles = StyleSheet.create({
   container: {

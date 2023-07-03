@@ -155,7 +155,7 @@ const ChildCategories = ({route}) => {
   );
 };
 
-export default ChildCategories;
+export default React.memo(ChildCategories);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

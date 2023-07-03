@@ -29,6 +29,7 @@ import {useNavigation} from '@react-navigation/native';
 import {fetchPerticularProduct} from '../../../redux/AllAction';
 import search from '../../assets/Search.png';
 import axios from 'axios';
+import { useCallback } from 'react';
 const SearchProducts = ({route}) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -50,7 +51,7 @@ const SearchProducts = ({route}) => {
     searchData();
   }, []);
   console.log(Data.length);
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const handleAddToCart = item => {
       const productDetails = {
         imageUrl: item.imageUrl,
@@ -107,7 +108,7 @@ const SearchProducts = ({route}) => {
         </View>
       </>
     );
-  };
+  },[Data])
   const searchScreen = () => {
     return (
       <View style={{flex: 1}}>
@@ -182,7 +183,7 @@ const SearchProducts = ({route}) => {
     </View>
   );
 };
-export default SearchProducts;
+export default React.memo(SearchProducts);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

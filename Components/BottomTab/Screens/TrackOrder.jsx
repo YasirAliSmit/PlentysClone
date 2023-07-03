@@ -69,7 +69,7 @@ const TrackOrder = () => {
   );
 };
 
-export default TrackOrder;
+export default React.memo(TrackOrder);
 
 const styles = StyleSheet.create({
   container: {

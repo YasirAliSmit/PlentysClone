@@ -27,6 +27,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {fetchRamdanDeals} from '../../../redux/Action';
 
 import {addToCart} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 const Product = () => {
   const [isAddedToCart, setIsAddedToCart] = useState(false);
   const [uiData, setUiData] = useState([]);
@@ -37,7 +38,7 @@ const Product = () => {
   const navigation = useNavigation();
   //console.log(cartProducts);
 
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -160,7 +161,7 @@ const Product = () => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -172,7 +173,7 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   Product: {

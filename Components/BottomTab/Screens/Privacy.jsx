@@ -79,7 +79,7 @@ const Privacy = () => {
   );
 };
 
-export default Privacy;
+export default React.memo(Privacy);
 
 const styles = StyleSheet.create({
   head: {

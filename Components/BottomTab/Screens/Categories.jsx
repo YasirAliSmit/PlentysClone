@@ -7,7 +7,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useDispatch, useSelector} from 'react-redux';
 import {
@@ -72,7 +72,75 @@ const Categories = () => {
     setMinNumSeq(minimum.sequence);
   }, []);
 
-  const renderItem = ({item, index}) => {
+  // const renderItem = ({item, index}) => {
+  //   const handleNamePress = name => {
+  //     setSelectedName(name);
+  //   };
+  //   function navigateToOther(item, name, childId) {
+  //     handleNamePress(item);
+  //     setSelectColor(false);
+  //     if (!products[item.childId]) {
+  //       navigation.navigate('ProductOfCategories', {item, name, childId});
+  //       dispatch(fetchPerticularProduct(childId));
+  //       console.log('i run');
+  //     } else {
+  //       console.log('Hello');
+  //       setSelectedKey(item.childId);
+  //     }
+  //   }
+
+  //   return (
+  //     <View
+  //       style={[
+  //         {
+  //           width: responsiveScreenWidth(30),
+  //           height: responsiveScreenHeight(10),
+  //           borderWidth: 1,
+  //           borderColor: '#CBD5E1',
+  //           alignItems: 'center',
+  //           justifyContent: 'center',
+
+  //           backgroundColor:
+  //             selectColor && item.name === key1Value[0].name
+  //               ? '#F9C21A'
+  //               : null || item === selectedName
+  //               ? '#F9C21A'
+  //               : '#E2E8F0',
+  //           // backgroundColor:  item === selectedName ? '#F9C21A' : '#E2E8F0',
+  //         },
+  //       ]}>
+  //       <TouchableOpacity onPress={() => setSelectColor(false)}>
+  //         <Text
+  //           onPress={() => navigateToOther(item, item.name, item.childId)}
+  //           style={{
+  //             fontSize: responsiveScreenFontSize(1.5),
+  //             fontFamily: 'Poppins-Bold',
+  //             color: '#0B223F',
+  //             textAlign: 'center',
+  //             width: responsiveScreenWidth(25),
+  //           }}>
+  //           {item.name}
+  //         </Text>
+  //       </TouchableOpacity>
+  //     </View>
+  //     ///This is one Rendered Item
+  //   );
+  // };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const renderItem = useCallback(({item, index}) => {
     const handleNamePress = name => {
       setSelectedName(name);
     };
@@ -125,7 +193,37 @@ const Categories = () => {
       </View>
       ///This is one Rendered Item
     );
-  };
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const renderItemOne = ({item}) => {
     const categoriesOfProduct = products[item.childId];
 
@@ -209,7 +307,7 @@ const Categories = () => {
         )}
       </>
     );
-  };
+  }
   function Header() {
     return (
       <View
@@ -273,7 +371,7 @@ const Categories = () => {
   );
 };
 
-export default Categories;
+export default React.memo(Categories);
 
 const styles = StyleSheet.create({
   firstItem: {

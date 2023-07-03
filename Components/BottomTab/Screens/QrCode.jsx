@@ -40,7 +40,7 @@ const QrCode = () => {
   );
 };
 
-export default QrCode;
+export default React.memo(QrCode);
 
 const styles = StyleSheet.create({
   input: {

@@ -163,7 +163,7 @@ const UserMenu = () => {
   );
 };
 
-export default UserMenu;
+export default React.memo(UserMenu);
 
 const styles = StyleSheet.create({
   container: {

@@ -48,4 +48,4 @@ const App = ({item}) => {
     </View>
   );
 };
-export default App;
+export default React.memo( App);

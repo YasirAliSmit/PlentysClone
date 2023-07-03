@@ -26,6 +26,7 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
+import { useCallback } from 'react';
 const ProductOfCategories = ({route}) => {
   const particularCategories = useSelector(state => state.main.categories);
   const cartProducts = useSelector(state => state.main.cartItems);
@@ -36,7 +37,7 @@ const ProductOfCategories = ({route}) => {
   }, [dispatch]);
   const navigation = useNavigation();
   const {name} = route.params;
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const handleAddToCart = item => {
@@ -105,7 +106,7 @@ const ProductOfCategories = ({route}) => {
         </View>
       </View>
     );
-  };
+  },[particularCategories])
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -155,7 +156,7 @@ const ProductOfCategories = ({route}) => {
   );
 };
 
-export default ProductOfCategories;
+export default React.memo(ProductOfCategories);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

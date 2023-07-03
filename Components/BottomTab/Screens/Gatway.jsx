@@ -146,7 +146,7 @@ const Gatway = () => {
   );
 };
 
-export default Gatway;
+export default React.memo(Gatway);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

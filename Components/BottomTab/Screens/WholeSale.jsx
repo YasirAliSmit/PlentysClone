@@ -27,6 +27,7 @@ import {useNavigation} from '@react-navigation/native';
 //import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 const WholeSale = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -63,7 +64,7 @@ const WholeSale = () => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     return (
       <View style={{flex: 1}}>
         <View style={styles.Product}>
@@ -105,7 +106,7 @@ const WholeSale = () => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -156,7 +157,7 @@ const WholeSale = () => {
   );
 };
 
-export default WholeSale;
+export default React.memo(WholeSale);
 
 const styles = StyleSheet.create({
   //header styles starts

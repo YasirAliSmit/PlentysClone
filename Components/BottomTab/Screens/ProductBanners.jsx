@@ -86,7 +86,7 @@ const ProductBanners = ({resultOneImage, resultTwoImage, resultThreeImage}) => {
   );
 };
 
-export default ProductBanners;
+export default React.memo(ProductBanners);
 
 const styles = StyleSheet.create({
   container: {

@@ -32,6 +32,7 @@ import {fetchairpordsProducts} from '../../../redux/AllAction';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
+import { useCallback } from 'react';
 const LipDontLie = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const LipDontLie = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -150,7 +151,7 @@ const LipDontLie = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -162,7 +163,7 @@ const LipDontLie = ({title, id}) => {
   );
 };
 
-export default LipDontLie;
+export default React.memo(LipDontLie);
 
 const styles = StyleSheet.create({
   Product: {

@@ -27,6 +27,7 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {find} from 'lodash';
 import {useEffect} from 'react';
+import { useCallback } from 'react';
 const Details = () => {
   const [showView, setShowView] = useState(true);
   const [showDes, setShowDes] = useState(false);
@@ -231,7 +232,7 @@ const Details = () => {
       </View>
     );
   };
-  const renderItem = ({item}) => {
+  const renderItem =useCallback( ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     return (
@@ -272,7 +273,7 @@ const Details = () => {
         </View>
       </View>
     );
-  };
+  },[particularCategories])
 
   return (
     <View style={styles.container}>
@@ -325,7 +326,7 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default React.memo(Details);
 
 const styles = StyleSheet.create({
   container: {

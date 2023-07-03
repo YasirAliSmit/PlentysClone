@@ -27,6 +27,7 @@ import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {groupBy} from 'lodash';
 import {fetchPerticularProduct} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 //import {find} from 'lodash';
 const ParticularCategories = ({route}) => {
   const particularCategories = useSelector(state => state.main.categories);
@@ -47,7 +48,7 @@ const ParticularCategories = ({route}) => {
   useEffect(() => {
     dispatch(fetchPerticularProduct(childId));
   }, []);
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const handleAddToCart = item => {
@@ -110,7 +111,7 @@ const ParticularCategories = ({route}) => {
         </View>
       </View>
     );
-  };
+  },[particularCategories])
   function topProductList(item) {
     dispatch(fetchPerticularProduct(item.childId));
   }
@@ -174,7 +175,7 @@ const ParticularCategories = ({route}) => {
   );
 };
 
-export default ParticularCategories;
+export default React.memo(ParticularCategories);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

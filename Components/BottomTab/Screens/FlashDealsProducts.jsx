@@ -27,6 +27,7 @@ import {fetchRamdanDeals} from '../../../redux/Action';
 //import {useDispatch} from 'react-redux';
 import {addToCart} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
+import { useCallback } from 'react';
 
 const FlashDealsProduct = () => {
   const [uiData, setUiData] = useState([]);
@@ -66,7 +67,7 @@ const FlashDealsProduct = () => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     //console.log(item.promotionProductValue);
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
@@ -126,7 +127,7 @@ const FlashDealsProduct = () => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -138,7 +139,7 @@ const FlashDealsProduct = () => {
   );
 };
 
-export default FlashDealsProduct;
+export default React.memo(FlashDealsProduct);
 
 const styles = StyleSheet.create({
   Product: {

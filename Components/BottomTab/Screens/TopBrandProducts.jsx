@@ -26,6 +26,7 @@ import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {getShampoProducts} from '../../../redux/AllAction';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const ChildCategories = () => {
   const particularCategories = useSelector(state => state.main.shampo);
   const cartProducts = useSelector(state => state.main.cartItems);
@@ -38,7 +39,7 @@ const ChildCategories = () => {
   // }, [dispatch]);
   const navigation = useNavigation();
 
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const handleAddToCart = item => {
@@ -105,7 +106,7 @@ const ChildCategories = () => {
         </View>
       </View>
     );
-  };
+  },[particularCategories])
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -155,7 +156,7 @@ const ChildCategories = () => {
   );
 };
 
-export default ChildCategories;
+export default React.memo(ChildCategories);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

@@ -15,7 +15,7 @@ const FlashDealBanner = ({flashDeals}) => {
   );
 };
 
-export default FlashDealBanner;
+export default React.memo(FlashDealBanner);
 
 const styles = StyleSheet.create({
   flashDeals: {

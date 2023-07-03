@@ -23,6 +23,7 @@ import {addToCart} from '../../../redux/Action';
 import {useNavigation} from '@react-navigation/native';
 import {addToFav} from '../../../redux/AllAction';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const TopTrending = () => {
   const cartProducts = useSelector(state => state.main.cartItems);
   const navigation = useNavigation();
@@ -43,7 +44,7 @@ const TopTrending = () => {
   const WishList = useSelector(state => state.main.WishList);
   const numColumns = 2;
 
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
@@ -121,12 +122,12 @@ const TopTrending = () => {
         </View>
       </View>
     );
-  };
+  },[topProduct])
 
   return <FlatList data={topProduct} renderItem={renderItem} numColumns={2} />;
 };
 
-export default TopTrending;
+export default React.memo(TopTrending);
 
 const styles = StyleSheet.create({
   Product: {

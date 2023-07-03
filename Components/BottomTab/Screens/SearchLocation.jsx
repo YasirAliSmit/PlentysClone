@@ -33,6 +33,6 @@ const SearchLocation = () => {
   );
 };
 
-export default SearchLocation;
+export default React.memo(SearchLocation);
 
 const styles = StyleSheet.create({});

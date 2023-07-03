@@ -25,6 +25,7 @@ import {fetchProducts} from '../../../redux/Action';
 import {fetchNewArrivals} from '../../../redux/Action';
 import {useNavigation} from '@react-navigation/native';
 import {addToFav} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 const Product = () => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const Product = () => {
       }),
     );
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const searchWishListProducts = element =>
@@ -112,7 +113,7 @@ const Product = () => {
         </View>
       </View>
     );
-  };
+  },[newArrivals])
   return (
     <FlatList
       data={newArrivals}
@@ -124,7 +125,7 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   Product: {

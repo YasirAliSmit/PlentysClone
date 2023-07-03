@@ -29,6 +29,7 @@ import {fetchRamdanDeals} from '../../../redux/Action';
 import {addToCart} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const Product = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -51,7 +52,7 @@ const Product = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -144,7 +145,7 @@ const Product = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -156,7 +157,7 @@ const Product = ({title, id}) => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   Product: {

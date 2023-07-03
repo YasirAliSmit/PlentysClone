@@ -56,7 +56,7 @@ const RamdanDeals = ({navigation}) => {
   );
 };
 
-export default RamdanDeals;
+export default React.memo(RamdanDeals);
 
 const styles = StyleSheet.create({
   container: {

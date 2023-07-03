@@ -60,7 +60,7 @@ const TopBrands = () => {
   );
 };
 
-export default TopBrands;
+export default React.memo(TopBrands);
 
 const styles = StyleSheet.create({
   topbrand: {

@@ -69,7 +69,7 @@ const Return = () => {
   );
 };
 
-export default Return;
+export default React.memo(Return);
 
 const styles = StyleSheet.create({
   head: {

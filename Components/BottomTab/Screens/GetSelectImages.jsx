@@ -64,7 +64,7 @@ const GetSelectImages = () => {
   )
 }
 
-export default GetSelectImages
+export default React.memo(GetSelectImages)
 
 const styles = StyleSheet.create({
     conatiner:{

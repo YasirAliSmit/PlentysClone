@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import image from '../../assets/PlentysMartMob(1).png';
-import React from 'react';
+import React, { useCallback } from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
@@ -42,7 +42,7 @@ const Product = () => {
     };
     dispatch(addToCart(productDetails))
   };
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     return (
       <View style={styles.Product}>
         <View style={styles.ProdContainer}>
@@ -86,7 +86,7 @@ const Product = () => {
         </View>
       </View>
     );
-  };
+  },[newArrivals])
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -135,7 +135,7 @@ const Product = () => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

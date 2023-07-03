@@ -30,6 +30,7 @@ import {fetchBeaverages} from '../../../redux/AllAction';
 import {addToCart} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const Product = ({title, id}) => {
   const cartProducts = useSelector(state => state.main.cartItems);
   const [uiData, setUiData] = useState([]);
@@ -52,7 +53,7 @@ const Product = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct =useCallback( ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
@@ -135,7 +136,7 @@ const Product = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -147,7 +148,7 @@ const Product = ({title, id}) => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   Product: {

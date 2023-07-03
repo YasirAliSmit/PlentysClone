@@ -212,7 +212,7 @@ const BottomNavigation = () => {
   );
 };
 
-export default BottomNavigation;
+export default React.memo(BottomNavigation);
 
 const styles = StyleSheet.create({
   cart: {

@@ -84,7 +84,7 @@ const Search = ({navigation}) => {
   );
 };
 
-export default Search;
+export default React.memo(Search);
 
 const styles = StyleSheet.create({
   container: {

@@ -31,6 +31,7 @@ import {fetchairpordsProducts} from '../../../redux/AllAction';
 import {addToCart} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const Airpods = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -50,26 +51,18 @@ const Airpods = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
-    // console.log(
-    //   `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
-    // );
-    // console
-    //   .log
-    //   //'this console for the Products',
-    //   //`this consoole for ${item.title} and ${item.promotionProductValue}`,
-    //   ();
-    // console.log(
-    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
-    // );
+ 
     return (
       <View>
-        <View style={styles.Product}>
+        <View style={styles.Product}> 
+        {/* </View>
+        {/* <View style={{backgroundColor:'red'}}> */}
           <View style={styles.ProdContainer}>
             <TouchableOpacity
               onPress={() => navigation.navigate('Details', {item})}>
@@ -143,7 +136,7 @@ const Airpods = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -155,7 +148,7 @@ const Airpods = ({title, id}) => {
   );
 };
 
-export default Airpods;
+export default React.memo(Airpods);
 
 const styles = StyleSheet.create({
   Product: {

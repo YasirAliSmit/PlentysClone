@@ -24,6 +24,7 @@ import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {getPerticularProduct} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {fetchPerticularProduct} from '../../../redux/AllAction';
+import { useCallback } from 'react';
 const ViewRamdan = ({route}) => {
   const {title, id} = route.params;
   //   useEffect(() => {
@@ -37,7 +38,7 @@ const ViewRamdan = ({route}) => {
     console.log('this is child id from categoris of Mart Hello =>', id);
   }, [dispatch]);
   const navigation = useNavigation();
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const handleAddToCart = item => {
       const productDetails = {
         imageUrl: item.imageUrl,
@@ -97,7 +98,7 @@ const ViewRamdan = ({route}) => {
         </View>
       </View>
     );
-  };
+  },[particularCategories])
   return (
     <View style={{flex: 1}}>
       <View style={styles.headerOfShoppingCart}>
@@ -147,7 +148,7 @@ const ViewRamdan = ({route}) => {
   );
 };
 
-export default ViewRamdan;
+export default React.memo(ViewRamdan);
 
 const styles = StyleSheet.create({
   //header styles starts

@@ -166,7 +166,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default React.memo(Login);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

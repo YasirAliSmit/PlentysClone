@@ -96,7 +96,7 @@ const Contect = () => {
   );
 };
 
-export default Contect;
+export default React.memo(Contect);
 
 const styles = StyleSheet.create({
   container: {

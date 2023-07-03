@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import image from '../../assets/PlentysMartMob(1).png';
-import React from 'react';
+import React, { useCallback } from 'react';
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import Entypo from 'react-native-vector-icons/dist/Entypo';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
@@ -55,7 +55,7 @@ const Product = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -148,7 +148,7 @@ const Product = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -160,7 +160,7 @@ const Product = ({title, id}) => {
   );
 };
 
-export default Product;
+export default React.memo(Product);
 
 const styles = StyleSheet.create({
   Product: {

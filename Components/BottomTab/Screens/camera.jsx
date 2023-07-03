@@ -66,7 +66,7 @@ const TestCamera = () => {
   );
 };
 
-export default TestCamera;
+export default React.memo(TestCamera);
 
 const styles = StyleSheet.create({
   btn: {

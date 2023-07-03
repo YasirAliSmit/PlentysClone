@@ -23,6 +23,7 @@ import {
 import {addToCart} from '../../../redux/Action';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const SearchTopBrand = () => {
   const cartProducts = useSelector(state => state.main.cartItems);
   const navigation = useNavigation();
@@ -43,7 +44,7 @@ const SearchTopBrand = () => {
 
   const numColumns = 2;
 
-  const renderItem = ({item}) => {
+  const renderItem =useCallback( ({item}) => {
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
@@ -107,7 +108,7 @@ const SearchTopBrand = () => {
         </View>
       </View>
     );
-  };
+  },[topProduct])
   const renderHeader = () => {
     return (
       <View style={styles.headerContainer}>
@@ -125,7 +126,7 @@ const SearchTopBrand = () => {
   );
 };
 
-export default SearchTopBrand;
+export default React.memo(SearchTopBrand);
 
 const styles = StyleSheet.create({
   Product: {

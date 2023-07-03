@@ -229,7 +229,7 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default React.memo(Signup);
 
 const styles = StyleSheet.create({
   headerOfShoppingCart: {

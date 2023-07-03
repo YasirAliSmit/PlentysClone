@@ -33,6 +33,7 @@ import {fetchkitchenCarousel} from '../../../redux/AllAction';
 import {fetchbeautyBrandProducts} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 // import {fetchBadBreathProducts} from '../../../redux/AllAction';
 const BeautyBrand = ({title, id}) => {
   const cartProducts = useSelector(state => state.main.cartItems);
@@ -57,21 +58,11 @@ const BeautyBrand = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
-    // console.log(
-    //   `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
-    // );
-    // console
-    //   .log
-    //   //'this console for the Products',
-    //   //`this consoole for ${item.title} and ${item.promotionProductValue}`,
-    //   ();
-    // console.log(
-    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
-    // );
+ 
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
     return (
@@ -150,7 +141,7 @@ const BeautyBrand = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -162,7 +153,7 @@ const BeautyBrand = ({title, id}) => {
   );
 };
 
-export default BeautyBrand;
+export default React.memo(BeautyBrand);
 
 const styles = StyleSheet.create({
   Product: {

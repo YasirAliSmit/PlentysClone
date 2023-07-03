@@ -30,6 +30,7 @@ import {addToCart} from '../../../redux/AllAction';
 import {fetchkitchenCarousel} from '../../../redux/AllAction';
 import {fetchbeautyBrandProducts} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
+import { useCallback } from 'react';
 const BeautyBrand = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const BeautyBrand = ({title, id}) => {
     dispatch(addToCart(productDetails));
   };
   const cartProducts = useSelector(state => state.main.cartItems);
-  const renderProduct = ({item}) => {
+  const renderProduct = useCallback(({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
@@ -145,7 +146,7 @@ const BeautyBrand = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -157,7 +158,7 @@ const BeautyBrand = ({title, id}) => {
   );
 };
 
-export default BeautyBrand;
+export default React.memo(BeautyBrand);
 
 const styles = StyleSheet.create({
   Product: {

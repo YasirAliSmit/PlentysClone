@@ -24,9 +24,10 @@ const AnimatedModal = ({closeModal}) => {
   const animationValue = useRef(new Animated.Value(0)).current;
   const isFlipped = useRef(false);
   const animatedValue = new Animated.Value(0);
-
+  const imageScale = new Animated.Value(1);
   const [isVisible, setIsVisible] = useState(false);
   const opacityAnimation = useRef(new Animated.Value(0)).current;
+
   let currentValue = 0;
   const animationCounter = useRef(0);
   const images = [
@@ -138,27 +139,32 @@ const AnimatedModal = ({closeModal}) => {
       setShowImage(false);
     }, 50);
 
-    setTimeout(()=>{    setShowImage(true);},3000)
-    setTimeout(()=>{    setShowDesImage(true);},4000)
+    setTimeout(()=>{    setShowImage(true);},3400)
+    setTimeout(()=>{    setShowDesImage(true);},3500)
   };
 
   const startCardAnition = () => {
-    Animated.sequence([
-      Animated.timing(animation, {
-        toValue: 1,
-        duration: 1500,
-        useNativeDriver: true,
-      }),
-      Animated.timing(animation, {
-        toValue: 0,
-        duration: 1500,
-        useNativeDriver: true,
-      }),
-    ]).start();
+
+    Animated.loop(
+      Animated.sequence([
+        // Move the image to the right
+        Animated.timing(animation, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+        // Move the image back to its original position
+        Animated.timing(animation, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }),
+      ]),
+      { iterations: 3 } // Number of times the animation should loop
+    ).start();
+    
   };
-  function toggleFunction(){
-    console.log('Hello form  togglefunction ')
-  }
+  
   return (
     <View style={styles.modalContainer}>
       <Image
@@ -200,7 +206,7 @@ const AnimatedModal = ({closeModal}) => {
         <View>
           <TouchableOpacity>
             <Animated.Image
-              onPress={()=>console.log('New')}
+              
               style={[
                 styles.front,
                 rotateYAnimatedStyle,
@@ -211,6 +217,8 @@ const AnimatedModal = ({closeModal}) => {
                         inputRange: [0, 1],
                         outputRange: [0, 120],
                       }),
+                    },  {
+                      scale: imageScale,
                     },
                   ],
                 },
@@ -223,7 +231,7 @@ const AnimatedModal = ({closeModal}) => {
             />
           </TouchableOpacity>
         </View>
-                    <TouchableOpacity onPress={() => toggleFunction()}>
+                    <TouchableOpacity>
 
          <Animated.Image
             style={[
@@ -272,16 +280,21 @@ const AnimatedModal = ({closeModal}) => {
       <TouchableOpacity
         onPress={() => {
           setStartAnimation(true);
-          startAnimations();
+         // startAnimations();
           flipAnimation();
-          startCardAnition();
+         startCardAnition();
           startAnimation();
         }}>
         <Image
           style={styles.button}
           source={require('../../assets/1x/button.png')}
           />
-          {showDesImage?(<><Image style={styles.imagebackSprize} source={ require('../../assets/1x/front.png')}/><ConfettiCannon style={{zIndex:20}} count={150} origin={{x: 10, y: 10}} /></>):(null)} 
+          {showDesImage?(<><Image style={styles.imagebackSprize} source={ require('../../assets/1x/front.png')}/>
+          <ConfettiCannon fadeOut={true}  count={150}
+           //origin={{x: 10, y: 10}}
+           origin={{x: 120, y: 30}}
+           particleSize={40}
+            /></>):(null)} 
       </TouchableOpacity>
       <Entypo
         style={styles.cross}
@@ -306,11 +319,11 @@ const styles = StyleSheet.create({
   },
   imagebackSprize:{
     position:"absolute",
-    width:responsiveScreenWidth(50),
+    width:responsiveScreenWidth(40),
    // height:responsiveScreenHeight(50),
     resizeMode:'contain',
     top:responsiveScreenHeight(-30),
-    left:responsiveScreenWidth(20),
+    left:responsiveScreenWidth(25),
     zIndex:10
   },
   lines: {
@@ -331,6 +344,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: responsiveScreenHeight(2),
     right: responsiveScreenWidth(6),
+    zIndex:30
   },
   front: {
     position: 'absolute',

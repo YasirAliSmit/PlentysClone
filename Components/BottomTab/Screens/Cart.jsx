@@ -7,7 +7,7 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useEffect, useState, useCallback, useMemo} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {
   responsiveFontSize,
@@ -46,7 +46,7 @@ const Cart = () => {
     }
     //dispatch(updateProductQuantity(productId, quantity - 1));
   };
-  const renderItem = ({item}) => {
+  const renderItem = useCallback(({item}) => {
     const handleDelete = id => {
       dispatch(removeFromCart(id));
     };
@@ -144,14 +144,32 @@ const Cart = () => {
         </View>
       </Swipeable>
     );
-  };
-  useEffect(() => {
-    const totalCostOfCart = product.reduce((total, product) => {
-      return total + product.minPrice * product.quantity;
-    }, 0);
-    ///console.log(totalCostOfCart, 'totalCostOfCart');
-    setPrice(totalCostOfCart);
-  });
+  },[product])
+  // useEffect(() => {
+  //   const totalCostOfCart = product.reduce((total, product) => {
+  //     return total + product.minPrice * product.quantity;
+  //   }, 0);
+
+  //   setPrice(totalCostOfCart);
+  // });
+ 
+  // const totalPrice = useMemo(() => {
+  //   return product.reduce((total, product) => {
+  //     return total + product.minPrice * product.quantity;
+  //   }, 0);
+  // }, [product]);
+  
+  // useEffect(() => {
+  //   setPrice(totalPrice);
+  // }, [totalPrice]);
+  const totalPrice = useMemo(()=>{
+return product.reduce((total,product)=>{
+  return total +product.minPrice * product.quantity
+},0)
+  },[product])
+  useEffect(()=>{
+    setPrice(totalPrice)
+  },[totalPrice])
   const numberOfProducts = product.length;
   //console.log(numberOfProducts);
   return (
@@ -225,7 +243,7 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+export default React.memo(Cart);
 
 const styles = StyleSheet.create({
   container: {

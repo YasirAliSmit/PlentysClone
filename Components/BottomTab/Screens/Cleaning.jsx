@@ -31,6 +31,7 @@ import {addToCart} from '../../../redux/AllAction';
 import {fetchCleanProducts} from '../../../redux/AllAction';
 import {useNavigation} from '@react-navigation/native';
 import {find} from 'lodash';
+import { useCallback } from 'react';
 const Clean = ({title, id}) => {
   const [uiData, setUiData] = useState([]);
   const dispatch = useDispatch();
@@ -53,24 +54,14 @@ const Clean = ({title, id}) => {
     };
     dispatch(addToCart(productDetails));
   };
-  // console.log('clearning ', id);
-  const renderProduct = ({item}) => {
+  
+  const renderProduct =useCallback( ({item}) => {
     const beforeDiscout = (item.minPrice * item.promotionProductValue) / 100;
     const afterDiscount = item.minPrice - beforeDiscout;
     const ProductafterDiscountPrice = Math.ceil(afterDiscount);
     const searchCriteria = element => element.productId == item.productId;
     const foundElement = find(cartProducts, searchCriteria);
-    // console.log(
-    //   `Product name is ${item.title} before discount price ${item.minPrice} afterDiscountPrice ${afterDiscount}`,
-    // );
-    // console
-    //   .log
-    //   //'this console for the Products',
-    //   //`this consoole for ${item.title} and ${item.promotionProductValue}`,
-    //   ();
-    // console.log(
-    //   `this product title ${item.title} this is product price ${item.minPrice} promotion value ${item.promotionProductValue}`,
-    // );
+
     return (
       <View>
         <View style={styles.Product}>
@@ -147,7 +138,7 @@ const Clean = ({title, id}) => {
         </View>
       </View>
     );
-  };
+  },[products])
   return (
     <FlatList
       data={products}
@@ -159,7 +150,7 @@ const Clean = ({title, id}) => {
   );
 };
 
-export default Clean;
+export default React.memo(Clean);
 
 const styles = StyleSheet.create({
   Product: {
