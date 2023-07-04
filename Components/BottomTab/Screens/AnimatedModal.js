@@ -20,33 +20,19 @@ const AnimatedModal = ({closeModal}) => {
   const [showImage, setShowImage] = useState(true);
   const [startAmination, setStartAnimation] = useState(false);
   const [showDesImage,setShowDesImage] = useState(false)
-  const animation = useRef(new Animated.Value(0)).current; /// this is reference of animation in side animation.value we need to pass intialValue
+  const animation = useRef(new Animated.Value(0)).current;
   const animationValue = useRef(new Animated.Value(0)).current;
   const isFlipped = useRef(false);
   const animatedValue = new Animated.Value(0);
   const imageScale = new Animated.Value(1);
   const [isVisible, setIsVisible] = useState(false);
+  const [isFirstTime,setIsFirstTime] = useState(true)
   const opacityAnimation = useRef(new Animated.Value(0)).current;
+
 
   let currentValue = 0;
   const animationCounter = useRef(0);
-  const images = [
-    {
-      id: 1,
-      front: '../../assets/1x/front.png',
-      back: '../../assets/1x/back.png',
-    },
-    {
-      id: 2,
-      front: '../../assets/1x/front.png',
-      back: '../../assets/1x/back.png',
-    },
-    {
-      id: 3,
-      front: '../../assets/1x/front.png',
-      back: '../../assets/1x/back.png',
-    },
-  ];
+  
   animatedValue.addListener(({value}) => {
     currentValue = value;
   });
@@ -118,6 +104,8 @@ const AnimatedModal = ({closeModal}) => {
       useNativeDriver: true,
     }).start(); // its is animation spring or start  spring take two parameter first reference and object in side object u can pass from and two like toValue
   };
+  //const isFirstTime = true; // Set this to false for the second time animation
+
   const flipAnimation = () => {
     if (currentValue >= 90) {
       Animated.spring(animatedValue, {
@@ -139,10 +127,21 @@ const AnimatedModal = ({closeModal}) => {
       setShowImage(false);
     }, 50);
 
-    setTimeout(()=>{    setShowImage(true);},3400)
-    setTimeout(()=>{    setShowDesImage(true);},3500)
+    setTimeout(()=>{    setShowImage(true);},5200)
+    setTimeout(()=>{    setShowDesImage(true);},5500)
+    setTimeout(()=>{   setIsFirstTime(!isFirstTime);},500)
   };
 
+  // Create two separate interpolate functions
+  const firstInterpolation = animation.interpolate({
+    inputRange: [0,1],
+    outputRange: [0, 120],
+  });
+  
+  const secondInterpolation = animation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [120, 220],
+  });
   const startCardAnition = () => {
 
     Animated.loop(
@@ -154,17 +153,18 @@ const AnimatedModal = ({closeModal}) => {
           useNativeDriver: true,
         }),
         // Move the image back to its original position
-        Animated.timing(animation, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }),
+        // Animated.timing(animation, {
+        //   toValue: 0,
+        //   duration: 500,
+        //   useNativeDriver: true,
+        // }),
       ]),
-      { iterations: 3 } // Number of times the animation should loop
+      { iterations: 10 } // Number of times the animation should loop
     ).start();
     
   };
-  
+
+
   return (
     <View style={styles.modalContainer}>
       <Image
@@ -189,7 +189,7 @@ const AnimatedModal = ({closeModal}) => {
         source={require('../../assets/1x/lines.png')}
       />
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={() => console.log('Hello')}>
+        <TouchableOpacity onPress={()=>console.log('newHello')}>
           <View>
             {isVisible && (
               <Animated.Image
@@ -203,9 +203,11 @@ const AnimatedModal = ({closeModal}) => {
             />
           </View>
         </TouchableOpacity>
-        <View>
-          <TouchableOpacity>
-            <Animated.Image
+        <View  onPress={()=>console.log('Hello new')}>
+          <TouchableOpacity
+       
+          onPress={()=>console.log('Hello new')}>
+          <Animated.Image
               
               style={[
                 styles.front,
@@ -215,11 +217,10 @@ const AnimatedModal = ({closeModal}) => {
                     {
                       translateX: animation.interpolate({
                         inputRange: [0, 1],
-                        outputRange: [0, 120],
+                        outputRange: [0, 130],
                       }),
-                    },  {
-                      scale: imageScale,
                     },
+                 
                   ],
                 },
               ]}
@@ -229,9 +230,10 @@ const AnimatedModal = ({closeModal}) => {
                 : require('../../assets/1x/back.png')
               }
             />
+
           </TouchableOpacity>
         </View>
-                    <TouchableOpacity>
+                     <TouchableOpacity>
 
          <Animated.Image
             style={[
@@ -255,7 +257,7 @@ const AnimatedModal = ({closeModal}) => {
             }
           />
         </TouchableOpacity>
-        <Animated.Image
+       <Animated.Image
           style={[
             styles.front2,
             rotateYAnimatedStyle,
@@ -279,8 +281,8 @@ const AnimatedModal = ({closeModal}) => {
       </View>
       <TouchableOpacity
         onPress={() => {
-          setStartAnimation(true);
-         // startAnimations();
+         setStartAnimation(true);
+         // startAnimations(); not recomded
           flipAnimation();
          startCardAnition();
           startAnimation();
@@ -290,7 +292,7 @@ const AnimatedModal = ({closeModal}) => {
           source={require('../../assets/1x/button.png')}
           />
           {showDesImage?(<><Image style={styles.imagebackSprize} source={ require('../../assets/1x/front.png')}/>
-          <ConfettiCannon fadeOut={true}  count={150}
+          <ConfettiCannon fadeOut={true}  count={200} autoStart={true}
            //origin={{x: 10, y: 10}}
            origin={{x: 120, y: 30}}
            particleSize={40}
@@ -307,7 +309,7 @@ const AnimatedModal = ({closeModal}) => {
   );
 };
 
-export default React.memo(AnimatedModal);
+export default AnimatedModal
 
 const styles = StyleSheet.create({
   screenImage: {
@@ -324,7 +326,7 @@ const styles = StyleSheet.create({
     resizeMode:'contain',
     top:responsiveScreenHeight(-30),
     left:responsiveScreenWidth(25),
-    zIndex:10
+    zIndex:999
   },
   lines: {
     position: 'absolute',
@@ -347,7 +349,7 @@ const styles = StyleSheet.create({
     zIndex:30
   },
   front: {
-    position: 'absolute',
+   position: 'absolute',
     width: responsiveScreenWidth(22),
     height: responsiveScreenHeight(20),
     resizeMode: 'contain',
