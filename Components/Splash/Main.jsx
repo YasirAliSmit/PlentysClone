@@ -31,6 +31,7 @@ import About from '../BottomTab/Screens/About';
 import UserMenu from '../BottomTab/Screens/UserMenu';
 import TestCamera from '../BottomTab/Screens/camera';
 import QrCode from '../BottomTab/Screens/QrCode';
+import PaymentScreen from '../BottomTab/Screens/PaymentScreen';
 const Stack = createNativeStackNavigator();
 const Main = () => {
   return (
@@ -178,6 +179,11 @@ const Main = () => {
           options={{headerShown: false}}
           name="QrCode"
           component={QrCode}
+        />
+             <Stack.Screen
+          options={{headerShown: false}}
+          name="PaymentScreen"
+          component={PaymentScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

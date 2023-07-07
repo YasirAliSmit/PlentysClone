@@ -189,7 +189,7 @@ const AnimatedModal = ({closeModal}) => {
         source={require('../../assets/1x/lines.png')}
       />
       <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity onPress={()=>console.log('newHello')}>
+       
           <View>
             {isVisible && (
               <Animated.Image
@@ -202,11 +202,11 @@ const AnimatedModal = ({closeModal}) => {
               source={require('../../assets/1x/heading.png')}
             />
           </View>
-        </TouchableOpacity>
-        <View  onPress={()=>console.log('Hello new')}>
+      
+   
           <TouchableOpacity
-       
-          onPress={()=>console.log('Hello new')}>
+   
+          onPress={()=>console.log('Hello new')}> 
           <Animated.Image
               
               style={[
@@ -232,7 +232,7 @@ const AnimatedModal = ({closeModal}) => {
             />
 
           </TouchableOpacity>
-        </View>
+        
                      <TouchableOpacity>
 
          <Animated.Image

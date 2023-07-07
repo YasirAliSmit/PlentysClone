@@ -8,6 +8,7 @@ import {
   FlatList,
 } from 'react-native';
 import React, {useEffect, useState, useCallback} from 'react';
+import {SP_KEY} from '@env'
 import {useSelector, useDispatch} from 'react-redux';
 import {
   responsiveFontSize,
@@ -26,7 +27,9 @@ import {updateProductQuantity} from '../../../redux/AllAction';
 import {useRoute} from '@react-navigation/native';
 import {RadioButton} from 'react-native-paper';
 import image from '../../assets/easyPaisa.png';
+import { StripeProvider } from '@stripe/stripe-react-native';
 const Gatway = () => {
+  //alert(SP_KEY)
   const route = useRoute();
   const {price, numberOfProducts} = route.params;
   const navigation = useNavigation();
@@ -137,7 +140,7 @@ const Gatway = () => {
       </View>
       <View style={styles.footer}>
         <View>
-          <TouchableOpacity style={styles.nextBtn}>
+          <TouchableOpacity onPress={()=>navigation.navigate('PaymentScreen')} style={styles.nextBtn}>
             <Text style={styles.nextBtnTxt}>Confirm Order</Text>
           </TouchableOpacity>
         </View>
